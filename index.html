@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="ja" dir="ltr">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no"/>
+  <link rel="icon" type="image/svg+xml" href="reference/images/favicon-poker.svg"/>
+  <title>POKER JAPAN | 海外ポーカーキャッシュゲーム情報メディア</title>
+  <meta name="description" content="海外ポーカーキャッシュゲームの最新情報、戦略、トーナメント速報をお届け。"/>
+  <meta name="keywords" content="poker, cash game, Texas Holdem, WSOP, ポーカー, キャッシュゲーム, 海外ポーカー"/>
+  <link rel="stylesheet" href="reference/css/global-common.css"/>
+  <link rel="preload" as="font" type="font/woff2" href="reference/fonts/Inter-latin-e2cd30fdbc318a1d7777d73399f88ba1.woff2" crossorigin="anonymous"/>
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg-page: #fff;
+      --bg-alt: #f7f8fa;
+      --text-1: #121214;
+      --text-2: #595d61;
+      --text-3: #81858c;
+      --accent: #1a6b3c;
+      --accent-light: #e8f5ee;
+      --gold: #f7a600;
+      --red: #ef454a;
+      --green: #20b26c;
+      --border: #e5e7eb;
+      --border-light: #f0f1f3;
+    }
+    body { font-family:"Inter","Noto Sans JP",system-ui,-apple-system,sans-serif; background:var(--bg-page); color:var(--text-1); -webkit-font-smoothing:antialiased; }
+    a { color:inherit; text-decoration:none; }
+    img { max-width:100%; display:block; }
+
+    /* ===== Header ===== */
+    .pj-header { position:sticky; top:0; z-index:1000; height:64px; background:rgba(18,18,20,.97); backdrop-filter:blur(12px); display:flex; align-items:center; }
+    .pj-header-inner { max-width:1200px; width:100%; margin:0 auto; padding:0 24px; display:flex; align-items:center; justify-content:space-between; }
+    .pj-logo img { height:30px; }
+    .pj-nav { display:flex; gap:28px; }
+    .pj-nav a { font-size:14px; font-weight:500; color:#adb1b8; transition:color .15s; }
+    .pj-nav a:hover { color:#fff; }
+    .pj-header-btns { display:flex; gap:10px; }
+    .pj-header-btns a { font-size:14px; font-weight:600; padding:7px 18px; border-radius:8px; }
+    .btn-ghost { color:#fff; }
+    .btn-gold { background:var(--gold); color:#121214; }
+
+    .pj-width { max-width:1200px; margin:0 auto; padding:0 24px; width:100%; }
+
+    /* ===== SECTION 1: HERO (dark, Bybit style) ===== */
+    .hero {
+      background: #0b0e11;
+      color: #fff;
+      padding: 56px 0 0;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content:''; position:absolute; top:-20%; right:-10%;
+      width:700px; height:700px;
+      background:radial-gradient(circle, rgba(32,178,108,.08) 0%, transparent 60%);
+      pointer-events:none;
+    }
+    .hero-inner { display:flex; gap:48px; align-items:flex-start; position:relative; z-index:1; }
+    .hero-left { flex:1; padding-top:8px; }
+    .hero-right { flex:0 0 420px; display:flex; justify-content:center; align-items:flex-end; }
+    .hero-right img { height:440px; object-fit:contain; }
+
+    .hero h1 { font-size:48px; font-weight:700; line-height:1.15; margin-bottom:12px; }
+    .hero .sub { font-size:16px; color:#adb1b8; margin-bottom:28px; line-height:1.5; }
+    .hero .sub .gold { color:var(--gold); font-weight:600; }
+
+    /* Register input row */
+    .register-row {
+      display:flex; gap:0; margin-bottom:16px;
+      background:#18191c; border:1px solid #404347; border-radius:8px;
+      overflow:hidden; max-width:510px;
+    }
+    .register-row input {
+      flex:1; background:transparent; border:none; color:#fff;
+      font-size:14px; padding:14px 16px; outline:none;
+      font-family:inherit;
+    }
+    .register-row input::placeholder { color:#595d61; }
+    .register-row button {
+      background:var(--gold); color:#121214; border:none;
+      font-size:14px; font-weight:600; padding:0 28px;
+      cursor:pointer; font-family:inherit; white-space:nowrap;
+    }
+    .register-row button:hover { background:#ffc35c; }
+
+    .or-divider { font-size:13px; color:#595d61; margin-bottom:12px; }
+    .social-row { display:flex; gap:16px; margin-bottom:32px; }
+    .social-icon {
+      width:40px; height:40px; border-radius:50%;
+      background:#1e2023; border:1px solid #333537;
+      display:flex; align-items:center; justify-content:center;
+      font-size:18px; color:#adb1b8; cursor:pointer;
+      transition:border-color .15s;
+    }
+    .social-icon:hover { border-color:#595d61; }
+
+    /* Ticker bar */
+    .ticker-bar {
+      background:#121214; border-top:1px solid #1e2023;
+      padding:14px 0; overflow:hidden;
+    }
+    .ticker-track {
+      display:flex; gap:0;
+      animation:tickerScroll 30s linear infinite;
+    }
+    @keyframes tickerScroll {
+      0% { transform:translateX(0); }
+      100% { transform:translateX(-50%); }
+    }
+    .ticker-item {
+      display:flex; align-items:center; gap:12px;
+      padding:0 24px; flex-shrink:0;
+      border-right:1px solid #1e2023;
+    }
+    .ticker-icon {
+      width:24px; height:24px; border-radius:50%;
+      background:#1e2023; display:flex; align-items:center; justify-content:center;
+      font-size:11px; font-weight:700; color:#fff;
+    }
+    .ticker-name { font-size:13px; font-weight:600; color:#fff; white-space:nowrap; }
+    .ticker-price { font-size:13px; color:#adb1b8; font-weight:500; }
+    .ticker-change { font-size:13px; font-weight:600; }
+    .ticker-up { color:var(--green); }
+    .ticker-down { color:var(--red); }
+
+    /* ===== SECTION 2: CARD PROMO (Bybit style) ===== */
+    .card-promo {
+      padding:80px 0;
+      background:var(--bg-page);
+    }
+    .card-promo-inner {
+      display:flex; align-items:center; gap:64px;
+      background:linear-gradient(135deg, #f0faf4 0%, #fff 40%, #fef8f0 100%);
+      border-radius:24px; padding:56px 64px;
+      border:1px solid var(--border-light);
+      overflow:hidden; position:relative;
+    }
+    .card-promo-inner::before {
+      content:''; position:absolute; top:-50%; right:-20%;
+      width:500px; height:500px;
+      background:radial-gradient(circle, rgba(26,107,60,.06) 0%, transparent 60%);
+      pointer-events:none;
+    }
+    .card-promo-text { flex:1; position:relative; z-index:1; }
+    .card-promo-text h2 { font-size:36px; font-weight:700; line-height:1.2; margin-bottom:40px; }
+    .card-promo-text h2 .accent { color:var(--accent); }
+    .card-promo-stats { display:flex; gap:48px; }
+    .card-stat {}
+    .card-stat-val { font-size:28px; font-weight:700; color:var(--text-1); }
+    .card-stat-label { font-size:14px; color:var(--text-3); margin-top:4px; }
+    .card-promo-visual { flex:0 0 380px; position:relative; z-index:1; text-align:center; }
+    .card-promo-visual img { width:100%; max-width:360px; border-radius:16px; }
+
+    /* ===== Shared sections ===== */
+    .pj-section { padding:64px 0; }
+    .pj-section-alt { background:var(--bg-alt); }
+    .pj-section-title { font-size:28px; font-weight:700; margin:0 0 32px; }
+    .pj-section-header { display:flex; justify-content:space-between; align-items:center; margin-bottom:32px; }
+    .pj-section-header a { font-size:14px; color:var(--accent); font-weight:500; }
+    .pj-btn { display:inline-flex; align-items:center; justify-content:center; gap:6px; font-family:inherit; font-size:14px; font-weight:600; border-radius:8px; border:none; cursor:pointer; padding:8px 20px; transition:background .15s; }
+    .pj-btn-primary { background:var(--accent); color:#fff; }
+    .pj-btn-primary:hover { background:#155a32; }
+    .pj-btn-outline { background:transparent; color:var(--text-1); border:1px solid var(--border); }
+
+    /* Product cards */
+    .pj-product-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:20px; }
+    .pj-product-card { background:#fff; border-radius:16px; padding:28px 24px; border:1px solid var(--border-light); transition:box-shadow .2s,border-color .2s; }
+    .pj-product-card:hover { box-shadow:0 4px 20px rgba(0,0,0,.06); border-color:var(--border); }
+    .pj-product-card img { width:64px; height:64px; margin-bottom:16px; border-radius:8px; mix-blend-mode: multiply; }
+    .pj-product-card h3 { font-size:16px; font-weight:600; margin:0 0 8px; }
+    .pj-product-card p { font-size:13px; color:var(--text-3); line-height:1.5; margin:0; }
+
+    /* Table */
+    .pj-table { width:100%; border-collapse:collapse; }
+    .pj-table thead th { text-align:left; font-size:12px; font-weight:500; color:var(--text-3); padding:10px 16px; border-bottom:1px solid var(--border); text-transform:uppercase; letter-spacing:.5px; }
+    .pj-table tbody tr { border-bottom:1px solid var(--border-light); transition:background .15s; }
+    .pj-table tbody tr:hover { background:var(--bg-alt); }
+    .pj-table td { padding:14px 16px; font-size:14px; }
+    .pj-table .room-name { font-weight:600; display:flex; align-items:center; gap:10px; transition:color .15s; }
+    .pj-table .room-name:hover { color:var(--accent); }
+    .pj-table .room-flag { font-size:20px; }
+    .pj-table .stakes { color:var(--accent); font-weight:500; }
+
+    /* News */
+    .pj-news-grid { display:grid; grid-template-columns:1fr 1fr; gap:20px; }
+    .pj-news-card { background:#fff; border-radius:16px; overflow:hidden; border:1px solid var(--border-light); transition:box-shadow .2s,transform .2s; }
+    .pj-news-card:hover { box-shadow:0 4px 20px rgba(0,0,0,.06); transform:translateY(-2px); }
+    .pj-news-card.featured { grid-column:1/-1; display:grid; grid-template-columns:1.2fr 1fr; }
+    .pj-news-thumb { width:100%; aspect-ratio:16/9; background:linear-gradient(135deg,#e8f5ee,#f7f8fa); display:flex; align-items:center; justify-content:center; font-size:56px; color:var(--accent); }
+    .pj-news-card.featured .pj-news-thumb { aspect-ratio:auto; height:100%; min-height:240px; }
+    .pj-news-body { padding:20px 24px; display:flex; flex-direction:column; }
+    .pj-news-tag { display:inline-block; font-size:11px; font-weight:600; text-transform:uppercase; letter-spacing:.5px; padding:3px 10px; border-radius:100px; margin-bottom:10px; width:fit-content; }
+    .pj-news-tag.tournament { background:#fef3e2; color:#b8750c; }
+    .pj-news-tag.cash { background:var(--accent-light); color:var(--accent); }
+    .pj-news-tag.strategy { background:#eef0ff; color:#4a5eb8; }
+    .pj-news-tag.beginner { background:#ffeaeb; color:#c0392b; }
+    .pj-news-body h3 { font-size:16px; font-weight:600; line-height:1.4; margin:0 0 8px; }
+    .pj-news-body p { font-size:13px; color:var(--text-3); line-height:1.55; margin:0; flex:1; }
+    .pj-news-meta { display:flex; gap:12px; margin-top:12px; font-size:12px; color:var(--text-3); }
+
+    /* CTA */
+    .pj-cta { background:linear-gradient(135deg,var(--accent),#0f4025); border-radius:20px; padding:56px 48px; display:flex; align-items:center; justify-content:space-between; gap:40px; color:#fff; }
+    .pj-cta h2 { font-size:28px; font-weight:700; margin:0 0 12px; }
+    .pj-cta p { font-size:16px; color:rgba(255,255,255,.75); margin:0; }
+
+    /* Footer */
+    .pj-footer { border-top:1px solid var(--border); padding:48px 0 24px; background:#fafbfc; }
+    .pj-footer-grid { display:grid; grid-template-columns:1.5fr 1fr 1fr 1fr; gap:40px; margin-bottom:40px; }
+    .pj-footer-brand p { font-size:13px; color:var(--text-3); margin-top:12px; line-height:1.6; }
+    .pj-footer-col h4 { font-size:14px; font-weight:600; margin:0 0 16px; }
+    .pj-footer-col a { display:block; font-size:13px; color:var(--text-3); margin-bottom:10px; }
+    .pj-footer-col a:hover { color:var(--text-1); }
+    .pj-footer-bottom { border-top:1px solid var(--border); padding-top:20px; font-size:12px; color:var(--text-3); text-align:center; }
+
+    /* Partners */
+    .pj-partners { display:flex; align-items:center; justify-content:center; gap:48px; flex-wrap:wrap; opacity:.35; }
+    .pj-partners img { height:22px; }
+
+    /* Responsive */
+    @media (max-width:1024px) {
+      .pj-product-grid { grid-template-columns:repeat(2,1fr); }
+      .card-promo-inner { flex-direction:column; padding:40px 32px; }
+      .card-promo-visual { flex:none; }
+      .pj-footer-grid { grid-template-columns:repeat(3,1fr); }
+    }
+    @media (max-width:768px) {
+      .hero-inner { flex-direction:column; gap:32px; }
+      .hero h1 { font-size:32px; }
+      .hero-right { flex:none; width:100%; justify-content:center; }
+      .hero-right img { height:300px; }
+      .register-row { max-width:100%; }
+      .card-promo-stats { flex-direction:column; gap:24px; }
+      .pj-news-grid { grid-template-columns:1fr; }
+      .pj-news-card.featured { grid-template-columns:1fr; }
+      .pj-product-grid { grid-template-columns:1fr; }
+      .pj-cta { flex-direction:column; text-align:center; padding:32px 24px; }
+      .pj-nav { display:none; }
+      .pj-footer-grid { grid-template-columns:1fr 1fr; }
+      .pj-table-wrap { overflow-x:auto; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER (dark, Bybit style) -->
+  <header class="pj-header">
+    <div class="pj-header-inner">
+      <a href="/" class="pj-logo"><img src="reference/images/logo-poker.svg" alt="POKER JAPAN" style="filter:brightness(0) invert(1);"/></a>
+      <nav class="pj-nav">
+        <a href="#news">ニュース</a>
+        <a href="#venues">海外カジノ</a>
+        <a href="#strategy">戦略ガイド</a>
+        <a href="#tournaments">トーナメント</a>
+        <a href="#beginners">初心者向け</a>
+      </nav>
+      <div class="pj-header-btns">
+        <a href="#" class="btn-ghost">ログイン</a>
+        <a href="#" class="btn-gold">無料登録</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- ============================================================
+       SECTION 1: HERO (Bybit style — dark bg, signup form, ticker)
+       ============================================================ -->
+  <section class="hero">
+    <div class="pj-width">
+      <div class="hero-inner">
+        <div class="hero-left">
+          <h1>あなたのポーカーの旅を、<br/>もっとシンプルに。</h1>
+          <p class="sub">今すぐ登録して、<span class="gold">最大 $5,000 相当のウェルカムボーナス</span>を獲得しよう</p>
+
+          <!-- Register input (Bybit style) -->
+          <div class="register-row">
+            <input type="text" placeholder="メールアドレス / 電話番号"/>
+            <button>無料登録</button>
+          </div>
+
+          <div class="or-divider">または</div>
+
+          <!-- Social icons row -->
+          <div class="social-row">
+            <div class="social-icon" title="Google">G</div>
+            <div class="social-icon" title="Apple">&#63743;</div>
+            <div class="social-icon" title="Telegram">&#9993;</div>
+            <div class="social-icon" title="X">&#120143;</div>
+            <div class="social-icon" title="LINE">L</div>
+          </div>
+        </div>
+
+        <div class="hero-right">
+          <img src="reference/images/spotlight/foreground-app-v5-nl-dd4aef79674cf5ae70979e6a9253fec3.png" alt="POKER JAPAN App"/>
+        </div>
+      </div>
+    </div>
+
+    <!-- Ticker bar (Bybit crypto ticker style → poker rooms) -->
+    <div class="ticker-bar">
+      <div class="ticker-track">
+        <!-- Set 1 -->
+        <div class="ticker-item">
+          <div class="ticker-icon" style="background:#f7931a;">B</div>
+          <span class="ticker-name">ベラージオ</span>
+          <span class="ticker-price">$1/3 NLH</span>
+          <span class="ticker-change ticker-up">稼働中</span>
+        </div>
+        <div class="ticker-item">
+          <div class="ticker-icon" style="background:#627eea;">M</div>
+          <span class="ticker-name">マニラ COD</span>
+          <span class="ticker-price">₱25/50 NLH</span>
+          <span class="ticker-change ticker-up">稼働中</span>
+        </div>
+        <div class="ticker-item">
+          <div class="ticker-icon" style="background:#d4a017;">W</div>
+          <span class="ticker-name">ウィン マカオ</span>
+          <span class="ticker-price">HK$50/100</span>
+          <span class="ticker-change ticker-up">稼働中</span>
+        </div>
+        <div class="ticker-item">
+          <div class="ticker-icon" style="background:#e84142;">H</div>
+          <span class="ticker-name">ヒポドローム</span>
+          <span class="ticker-price">£1/2 NLH</span>
+          <span class="ticker-change ticker-down">満席</span>
+        </div>
+        <div class="ticker-item">
+          <div class="ticker-icon" style="background:#9945ff;">P</div>
+          <span class="ticker-name">パラダイスシティ</span>
+          <span class="ticker-price">₩20K/40K</span>
+          <span class="ticker-change ticker-up">稼働中</span>
+        </div>
+        <div class="ticker-item">
+          <div class="ticker-icon" style="background:#23292f;">A</div>
+          <span class="ticker-name">アリア</span>
+          <span class="ticker-price">$2/5 NLH</span>
+          <span class="ticker-change ticker-up">稼働中</span>
+        </div>
+        <!-- Set 2 (duplicate for seamless loop) -->
+        <div class="ticker-item">
+          <div class="ticker-icon" style="background:#f7931a;">B</div>
+          <span class="ticker-name">ベラージオ</span>
+          <span class="ticker-price">$1/3 NLH</span>
+          <span class="ticker-change ticker-up">稼働中</span>
+        </div>
+        <div class="ticker-item">
+          <div class="ticker-icon" style="background:#627eea;">M</div>
+          <span class="ticker-name">マニラ COD</span>
+          <span class="ticker-price">₱25/50 NLH</span>
+          <span class="ticker-change ticker-up">稼働中</span>
+        </div>
+        <div class="ticker-item">
+          <div class="ticker-icon" style="background:#d4a017;">W</div>
+          <span class="ticker-name">ウィン マカオ</span>
+          <span class="ticker-price">HK$50/100</span>
+          <span class="ticker-change ticker-up">稼働中</span>
+        </div>
+        <div class="ticker-item">
+          <div class="ticker-icon" style="background:#e84142;">H</div>
+          <span class="ticker-name">ヒポドローム</span>
+          <span class="ticker-price">£1/2 NLH</span>
+          <span class="ticker-change ticker-down">満席</span>
+        </div>
+        <div class="ticker-item">
+          <div class="ticker-icon" style="background:#9945ff;">P</div>
+          <span class="ticker-name">パラダイスシティ</span>
+          <span class="ticker-price">₩20K/40K</span>
+          <span class="ticker-change ticker-up">稼働中</span>
+        </div>
+        <div class="ticker-item">
+          <div class="ticker-icon" style="background:#23292f;">A</div>
+          <span class="ticker-name">アリア</span>
+          <span class="ticker-price">$2/5 NLH</span>
+          <span class="ticker-change ticker-up">稼働中</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       SECTION 2: CARD PROMO (Bybit "Live crypto. Pay anywhere." style)
+       ============================================================ -->
+  <section class="card-promo">
+    <div class="pj-width">
+      <div class="card-promo-inner">
+        <div class="card-promo-text">
+          <h2>ライブポーカー。<br/>世界中で<span class="accent">プレイ</span>しよう。<br/>最大10%キャッシュバック。</h2>
+          <div class="card-promo-stats">
+            <div class="card-stat">
+              <div class="card-stat-val">50+</div>
+              <div class="card-stat-label">対応国・地域</div>
+            </div>
+            <div class="card-stat">
+              <div class="card-stat-val">25,000+</div>
+              <div class="card-stat-label">コミュニティメンバー</div>
+            </div>
+            <div class="card-stat">
+              <div class="card-stat-val">業界最高</div>
+              <div class="card-stat-label">特典・リワード</div>
+            </div>
+          </div>
+        </div>
+        <div class="card-promo-visual">
+          <img src="reference/images/spotlight/Card-1745f92e4ce488e1ecb5fa8f418091f1.png" alt="POKER JAPAN Card" style="width:280px;border-radius:16px;mix-blend-mode:multiply;"/>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== 特長カード ===== -->
+  <section class="pj-section pj-section-alt">
+    <div class="pj-width">
+      <h2 class="pj-section-title" style="text-align:center;">POKER JAPANの特長</h2>
+      <div class="pj-product-grid">
+        <a href="#" class="pj-product-card">
+          <img src="reference/images/spotlight/Card-1745f92e4ce488e1ecb5fa8f418091f1.png" alt=""/>
+          <h3>キャッシュゲーム情報</h3>
+          <p>世界各地のカジノポーカールームのステークス、待ち時間、雰囲気をリアルタイムでレポート。</p>
+        </a>
+        <a href="#" class="pj-product-card">
+          <img src="reference/images/spotlight/CopyTrading-c72906b70fc3fc3591db77c7169f95fd.png" alt=""/>
+          <h3>トーナメント速報</h3>
+          <p>WSOP、WPT、EPT、APPTなど主要トーナメントのライブアップデートと日本人プレイヤーの成績。</p>
+        </a>
+        <a href="#" class="pj-product-card">
+          <img src="reference/images/spotlight/MoneyBag-0501fee3f116e2ffdcd0620f4d5fd8be.png" alt=""/>
+          <h3>GTO戦略ガイド</h3>
+          <p>プリフロップレンジからポストフロップ戦略まで、数学的に最適なプレイを解説。</p>
+        </a>
+        <a href="#" class="pj-product-card">
+          <img src="reference/images/spotlight/Bot-1-e6ff8273a7d2c539c7474e7b10f785ea.png" alt=""/>
+          <h3>渡航サポート</h3>
+          <p>ビザ、フライト、宿泊、バンクロール管理など、海外遠征に必要な実践情報。</p>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== 最新ニュース ===== -->
+  <section class="pj-section" id="news">
+    <div class="pj-width">
+      <div class="pj-section-header">
+        <h2 class="pj-section-title" style="margin:0;">最新ニュース</h2>
+        <a href="#">すべてのニュースを見る &rarr;</a>
+      </div>
+      <div class="pj-news-grid">
+        <div class="pj-news-card featured">
+          <img class="pj-news-thumb" src="reference/images/news/featured-wsop.png" alt="WSOP" style="object-fit:cover; padding:0; background:none;" />
+          <div class="pj-news-body">
+            <span class="pj-news-tag tournament">トーナメント</span>
+            <h3>WSOP 2026 スケジュール発表 &#8212; 全95イベント、メインイベントは7月開催</h3>
+            <p>ワールドシリーズ・オブ・ポーカーの2026年度スケジュールが正式に発表。今年は全95イベントが予定されており、メインイベント（$10,000 NLH）は7月6日から14日間にわたって開催されます。</p>
+            <div class="pj-news-meta"><span>2026.03.19</span><span>&middot;</span><span>読了 5分</span></div>
+          </div>
+        </div>
+        <div class="pj-news-card">
+          <img class="pj-news-thumb" src="reference/images/news/cashgame-manila.png" alt="Cash Game" style="object-fit:cover; padding:0; background:none;" />
+          <div class="pj-news-body">
+            <span class="pj-news-tag cash">キャッシュゲーム</span>
+            <h3>マニラ・シティオブドリームズが $2/$5 NLHテーブルを増設</h3>
+            <p>フィリピン・マニラのシティオブドリームズが、需要増加に対応して$2/$5テーブルを4台から8台に拡大。</p>
+            <div class="pj-news-meta"><span>2026.03.18</span><span>&middot;</span><span>読了 3分</span></div>
+          </div>
+        </div>
+        <div class="pj-news-card">
+          <img class="pj-news-thumb" src="reference/images/news/strategy-3bet.png" alt="Strategy" style="object-fit:cover; padding:0; background:none;" />
+          <div class="pj-news-body">
+            <span class="pj-news-tag strategy">戦略</span>
+            <h3>3-Bet Potのフロップ戦略 &#8212; CBetサイジングの新アプローチ</h3>
+            <p>ソルバー分析に基づいた3Betポットにおけるフロップ戦略。テクスチャ別の最適なベットサイズを解説。</p>
+            <div class="pj-news-meta"><span>2026.03.17</span><span>&middot;</span><span>読了 8分</span></div>
+          </div>
+        </div>
+        <div class="pj-news-card">
+          <img class="pj-news-thumb" src="reference/images/news/beginner-vegas.png" alt="Beginner" style="object-fit:cover; padding:0; background:none;" />
+          <div class="pj-news-body">
+            <span class="pj-news-tag beginner">初心者</span>
+            <h3>はじめての海外ポーカー &#8212; ラスベガス編：おすすめルーム5選</h3>
+            <p>ベラージオ、アリア、ウィン、ヴェネチアン、リゾーツワールド。各ルームの特徴と初心者に優しいポイント。</p>
+            <div class="pj-news-meta"><span>2026.03.16</span><span>&middot;</span><span>読了 6分</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== 人気のポーカールーム ===== -->
+  <section class="pj-section pj-section-alt" id="venues">
+    <div class="pj-width">
+      <div class="pj-section-header">
+        <h2 class="pj-section-title" style="margin:0;">人気のポーカールーム</h2>
+        <a href="#">全カジノ一覧 &rarr;</a>
+      </div>
+      <div class="pj-table-wrap">
+        <table class="pj-table">
+          <thead><tr><th>ポーカールーム</th><th>ロケーション</th><th>ステークス</th><th>ゲームタイプ</th><th>ステータス</th></tr></thead>
+          <tbody>
+            <tr><td><a href="junkets/bellagio.html" class="room-name"><span class="room-flag">🇺🇸</span>Bellagio Poker Room</a></td><td>ラスベガス, USA</td><td class="stakes">$1/3 〜 $400/800</td><td>NLH / PLO / Mixed</td><td>24時間営業</td></tr>
+            <tr><td><a href="junkets/manila-cod.html" class="room-name"><span class="room-flag">🇵🇭</span>PokerStars LIVE Manila</a></td><td>マニラ, フィリピン</td><td class="stakes">₱25/50 〜 ₱500/1000</td><td>NLH / PLO</td><td>24時間営業</td></tr>
+            <tr><td><a href="junkets/hippodrome.html" class="room-name"><span class="room-flag">🇬🇧</span>Hippodrome Casino</a></td><td>ロンドン, UK</td><td class="stakes">£1/2 〜 £25/50</td><td>NLH / PLO / Hi-Lo</td><td>営業中</td></tr>
+            <tr><td><a href="junkets/wynn-macau.html" class="room-name"><span class="room-flag">🇲🇴</span>Wynn Macau</a></td><td>マカオ, 中国</td><td class="stakes">HK$25/50 〜 HK$500/1000</td><td>NLH / Short Deck</td><td>営業中</td></tr>
+            <tr><td><a href="junkets/paradise-city.html" class="room-name"><span class="room-flag">🇰🇷</span>Paradise City Poker</a></td><td>仁川, 韓国</td><td class="stakes">₩10K/20K 〜 ₩100K/200K</td><td>NLH</td><td>営業中</td></tr>
+            <tr><td><a href="junkets/star-sydney.html" class="room-name"><span class="room-flag">🇦🇺</span>The Star Sydney</a></td><td>シドニー, オーストラリア</td><td class="stakes">A$2/5 〜 A$50/100</td><td>NLH / PLO</td><td>営業中</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== CTA ===== -->
+  <section class="pj-section">
+    <div class="pj-width">
+      <div class="pj-cta">
+        <div><h2>ポーカーの旅を始めよう</h2><p>メールマガジンに登録して、最新のキャッシュゲーム情報、トーナメント速報、限定戦略記事を受け取りましょう。</p></div>
+        <a href="#" class="pj-btn" style="background:#fff;color:var(--accent);padding:14px 36px;font-size:16px;flex-shrink:0;">無料で登録する</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== 提携メディア ===== -->
+  <section style="padding:32px 0 48px;">
+    <div class="pj-width">
+      <div style="text-align:center;font-size:12px;color:var(--text-3);text-transform:uppercase;letter-spacing:1px;margin-bottom:20px;">提携・掲載メディア</div>
+      <div class="pj-partners">
+        <img src="reference/images/focus/Coindesk.svg" alt=""/><img src="reference/images/focus/BusinessInsider.svg" alt=""/>
+        <img src="reference/images/focus/FinanceMagnates.svg" alt=""/><img src="reference/images/focus/Investing.svg" alt=""/>
+        <img src="reference/images/focus/CryptoDaily.svg" alt=""/><img src="reference/images/focus/SCMP.svg" alt=""/>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="pj-footer">
+    <div class="pj-width">
+      <div class="pj-footer-grid">
+        <div class="pj-footer-brand">
+          <img src="reference/images/logo-poker.svg" alt="POKER JAPAN" style="height:30px;"/>
+          <p>POKER JAPANは、海外ポーカーキャッシュゲームに特化した日本語メディアです。世界各地のポーカールーム情報、戦略記事、トーナメント速報をお届けします。</p>
+        </div>
+        <div class="pj-footer-col"><h4>コンテンツ</h4><a href="#">ニュース</a><a href="#">キャッシュゲーム情報</a><a href="#">トーナメント速報</a><a href="#">戦略記事</a><a href="#">初心者ガイド</a></div>
+        <div class="pj-footer-col"><h4>海外カジノ</h4><a href="junkets/bellagio.html">ラスベガス</a><a href="junkets/wynn-macau.html">マカオ</a><a href="junkets/manila-cod.html">マニラ</a><a href="junkets/hippodrome.html">ロンドン</a><a href="junkets/paradise-city.html">韓国</a></div>
+        <div class="pj-footer-col"><h4>トーナメント</h4><a href="#">WSOP</a><a href="#">WPT</a><a href="#">EPT</a><a href="#">APPT</a><a href="#">日本人の成績</a></div>
+      </div>
+      <div class="pj-footer-bottom">&copy; 2026 POKER JAPAN. All rights reserved.</div>
+    </div>
+  </footer>
+
+</body>
+</html>

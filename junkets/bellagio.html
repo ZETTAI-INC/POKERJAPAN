@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="ja" dir="ltr">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no"/>
+  <link rel="icon" type="image/svg+xml" href="../reference/images/favicon-poker.svg"/>
+  <title>Bellagio Poker Room ジャンケット紹介 | POKER JAPAN</title>
+  <meta name="description" content="ベラージオ・ポーカールームのジャンケット情報。ステークス、ホテル特典、部屋タイプ、レストラン情報を詳しく紹介。"/>
+  <link rel="stylesheet" href="../reference/css/global-common.css"/>
+  <link rel="preload" as="font" type="font/woff2" href="../reference/fonts/Inter-latin-e2cd30fdbc318a1d7777d73399f88ba1.woff2" crossorigin="anonymous"/>
+
+  <style>
+    *, *::before, *::after { box-sizing:border-box; margin:0; padding:0; }
+    :root {
+      --bg-page:#fff; --bg-alt:#f7f8fa;
+      --text-1:#121214; --text-2:#595d61; --text-3:#81858c;
+      --accent:#1a6b3c; --accent-light:#e8f5ee;
+      --gold:#f7a600; --red:#ef454a; --green:#20b26c;
+      --border:#e5e7eb; --border-light:#f0f1f3;
+    }
+    body { font-family:"Inter","Noto Sans JP",system-ui,-apple-system,sans-serif; background:var(--bg-page); color:var(--text-1); -webkit-font-smoothing:antialiased; }
+    a { color:inherit; text-decoration:none; }
+    img { max-width:100%; display:block; }
+
+    /* Header */
+    .pj-header { position:sticky; top:0; z-index:1000; height:64px; background:rgba(18,18,20,.97); backdrop-filter:blur(12px); display:flex; align-items:center; }
+    .pj-header-inner { max-width:1200px; width:100%; margin:0 auto; padding:0 24px; display:flex; align-items:center; justify-content:space-between; }
+    .pj-logo img { height:30px; }
+    .pj-nav { display:flex; gap:28px; }
+    .pj-nav a { font-size:14px; font-weight:500; color:#adb1b8; transition:color .15s; }
+    .pj-nav a:hover, .pj-nav a.active { color:#fff; }
+    .pj-header-btns { display:flex; gap:10px; }
+    .pj-header-btns a { font-size:14px; font-weight:600; padding:7px 18px; border-radius:8px; }
+    .btn-ghost { color:#fff; }
+    .btn-gold { background:var(--gold); color:#121214; }
+    .pj-width { max-width:1200px; margin:0 auto; padding:0 24px; width:100%; }
+
+    /* Junket Hero */
+    .junket-hero {
+      background:#0b0e11; color:#fff; padding:40px 0 48px;
+      position:relative; overflow:hidden;
+    }
+    .junket-hero::before {
+      content:''; position:absolute; top:-40%; right:-15%;
+      width:600px; height:600px;
+      background:radial-gradient(circle, rgba(32,178,108,.08) 0%, transparent 60%);
+      pointer-events:none;
+    }
+    .junket-breadcrumb { font-size:13px; color:#595d61; margin-bottom:24px; position:relative; z-index:1; }
+    .junket-breadcrumb a { color:#81858c; transition:color .15s; }
+    .junket-breadcrumb a:hover { color:#fff; }
+    .junket-hero-inner { display:flex; align-items:center; gap:48px; position:relative; z-index:1; }
+    .junket-hero-text { flex:1; }
+    .junket-hero-text .flag { font-size:48px; margin-bottom:12px; }
+    .junket-hero-text h1 { font-size:40px; font-weight:700; line-height:1.2; margin-bottom:8px; }
+    .junket-hero-text .location { font-size:16px; color:#adb1b8; margin-bottom:16px; }
+    .junket-hero-text .desc { font-size:15px; color:#81858c; line-height:1.6; max-width:560px; }
+    .junket-hero-badge {
+      display:inline-flex; align-items:center; gap:6px;
+      background:rgba(32,178,108,.15); color:var(--green); font-size:13px; font-weight:600;
+      padding:6px 14px; border-radius:100px; margin-top:16px;
+    }
+    .junket-hero-visual { flex:0 0 300px; text-align:center; }
+    .junket-hero-visual .casino-icon {
+      width:200px; height:200px; margin:0 auto;
+      background:linear-gradient(135deg,#1e2023,#16171a);
+      border-radius:24px; display:flex; align-items:center; justify-content:center;
+      font-size:80px; border:1px solid #333537;
+    }
+
+    /* Sections */
+    .pj-section { padding:64px 0; }
+    .pj-section-alt { background:var(--bg-alt); }
+    .pj-section-title { font-size:28px; font-weight:700; margin:0 0 12px; }
+    .pj-section-sub { font-size:15px; color:var(--text-3); margin-bottom:32px; line-height:1.5; }
+
+    /* Info cards grid */
+    .info-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:20px; }
+    .info-card {
+      background:#fff; border-radius:16px; padding:28px 24px;
+      border:1px solid var(--border-light); transition:box-shadow .2s;
+    }
+    .info-card:hover { box-shadow:0 4px 20px rgba(0,0,0,.06); }
+    .info-card .icon { font-size:32px; margin-bottom:14px; }
+    .info-card h3 { font-size:16px; font-weight:600; margin:0 0 8px; }
+    .info-card p { font-size:13px; color:var(--text-3); line-height:1.5; margin:0; }
+
+    /* Table */
+    .pj-table { width:100%; border-collapse:collapse; }
+    .pj-table thead th { text-align:left; font-size:12px; font-weight:500; color:var(--text-3); padding:10px 16px; border-bottom:1px solid var(--border); text-transform:uppercase; letter-spacing:.5px; }
+    .pj-table tbody tr { border-bottom:1px solid var(--border-light); transition:background .15s; }
+    .pj-table tbody tr:hover { background:var(--bg-alt); }
+    .pj-table td { padding:14px 16px; font-size:14px; }
+    .pj-table .stakes { color:var(--accent); font-weight:600; }
+    .pj-table-wrap { overflow-x:auto; }
+
+    /* Room cards */
+    .room-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:20px; }
+    .room-card {
+      background:#fff; border-radius:16px; padding:0;
+      border:1px solid var(--border-light); overflow:hidden; transition:box-shadow .2s;
+    }
+    .room-card:hover { box-shadow:0 4px 20px rgba(0,0,0,.06); }
+    .room-card-thumb {
+      height:160px; background:linear-gradient(135deg,var(--accent-light),#f7f8fa);
+      display:flex; align-items:center; justify-content:center; font-size:48px;
+    }
+    .room-card-body { padding:20px 24px; }
+    .room-card-body h3 { font-size:16px; font-weight:600; margin:0 0 8px; }
+    .room-card-body .room-meta { font-size:13px; color:var(--text-3); line-height:1.6; margin:0 0 12px; }
+    .room-card-price {
+      display:inline-block; font-size:14px; font-weight:600; color:var(--accent);
+      background:var(--accent-light); padding:4px 12px; border-radius:100px;
+    }
+    .room-card-comp {
+      display:inline-block; font-size:11px; font-weight:600; color:var(--gold);
+      background:rgba(247,166,0,.1); padding:3px 10px; border-radius:100px; margin-left:8px;
+    }
+
+    /* Dining grid */
+    .dining-grid { display:grid; grid-template-columns:1fr 1fr; gap:20px; }
+    .dining-card {
+      background:#fff; border-radius:16px; padding:24px;
+      border:1px solid var(--border-light); transition:box-shadow .2s;
+    }
+    .dining-card:hover { box-shadow:0 4px 20px rgba(0,0,0,.06); }
+    .dining-card h3 { font-size:16px; font-weight:600; margin:0 0 6px; }
+    .dining-tag {
+      display:inline-block; font-size:11px; font-weight:600; text-transform:uppercase;
+      letter-spacing:.5px; padding:3px 10px; border-radius:100px; margin-bottom:10px;
+    }
+    .dining-tag.japanese { background:#ffeaeb; color:#c0392b; }
+    .dining-tag.chinese { background:#fff3e0; color:#e65100; }
+    .dining-tag.western { background:var(--accent-light); color:var(--accent); }
+    .dining-tag.italian { background:#eef0ff; color:#4a5eb8; }
+    .dining-tag.buffet { background:#f3e8ff; color:#7c3aed; }
+    .dining-tag.seafood { background:#e0f7fa; color:#00838f; }
+    .dining-card p { font-size:13px; color:var(--text-3); line-height:1.5; margin:0 0 8px; }
+    .dining-info { font-size:12px; color:var(--text-3); display:flex; gap:16px; }
+
+    /* CTA */
+    .pj-cta { background:linear-gradient(135deg,var(--accent),#0f4025); border-radius:20px; padding:56px 48px; display:flex; align-items:center; justify-content:space-between; gap:40px; color:#fff; }
+    .pj-cta h2 { font-size:28px; font-weight:700; margin:0 0 12px; }
+    .pj-cta p { font-size:16px; color:rgba(255,255,255,.75); margin:0; }
+    .pj-btn { display:inline-flex; align-items:center; justify-content:center; gap:6px; font-family:inherit; font-size:14px; font-weight:600; border-radius:8px; border:none; cursor:pointer; padding:8px 20px; transition:background .15s; }
+
+    /* Footer */
+    .pj-footer { border-top:1px solid var(--border); padding:48px 0 24px; background:#fafbfc; }
+    .pj-footer-grid { display:grid; grid-template-columns:1.5fr 1fr 1fr 1fr; gap:40px; margin-bottom:40px; }
+    .pj-footer-brand p { font-size:13px; color:var(--text-3); margin-top:12px; line-height:1.6; }
+    .pj-footer-col h4 { font-size:14px; font-weight:600; margin:0 0 16px; }
+    .pj-footer-col a { display:block; font-size:13px; color:var(--text-3); margin-bottom:10px; }
+    .pj-footer-col a:hover { color:var(--text-1); }
+    .pj-footer-bottom { border-top:1px solid var(--border); padding-top:20px; font-size:12px; color:var(--text-3); text-align:center; }
+
+    /* Responsive */
+    @media (max-width:1024px) {
+      .info-grid { grid-template-columns:repeat(2,1fr); }
+      .room-grid { grid-template-columns:repeat(2,1fr); }
+      .pj-footer-grid { grid-template-columns:repeat(2,1fr); }
+    }
+    @media (max-width:768px) {
+      .junket-hero-inner { flex-direction:column; gap:24px; }
+      .junket-hero-text h1 { font-size:28px; }
+      .junket-hero-visual { flex:none; }
+      .info-grid, .room-grid { grid-template-columns:1fr; }
+      .dining-grid { grid-template-columns:1fr; }
+      .pj-cta { flex-direction:column; text-align:center; padding:32px 24px; }
+      .pj-nav { display:none; }
+      .pj-footer-grid { grid-template-columns:1fr 1fr; }
+      .pj-table-wrap { overflow-x:auto; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header class="pj-header">
+    <div class="pj-header-inner">
+      <a href="../index.html" class="pj-logo"><img src="../reference/images/logo-poker.svg" alt="POKER JAPAN" style="filter:brightness(0) invert(1);"/></a>
+      <nav class="pj-nav">
+        <a href="../index.html#news">ニュース</a>
+        <a href="../index.html#venues" class="active">海外カジノ</a>
+        <a href="../index.html#strategy">戦略ガイド</a>
+        <a href="../index.html#tournaments">トーナメント</a>
+        <a href="../index.html#beginners">初心者向け</a>
+      </nav>
+      <div class="pj-header-btns">
+        <a href="#" class="btn-ghost">ログイン</a>
+        <a href="#" class="btn-gold">無料登録</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section class="junket-hero">
+    <div class="pj-width">
+      <div class="junket-breadcrumb">
+        <a href="../index.html">ホーム</a> &gt; <a href="../index.html#venues">海外カジノ</a> &gt; <span>Bellagio</span>
+      </div>
+      <div class="junket-hero-inner">
+        <div class="junket-hero-text">
+          <div class="flag">🇺🇸</div>
+          <h1>Bellagio Poker Room</h1>
+          <div class="location">ラスベガス, ネバダ州, USA</div>
+          <p class="desc">世界最高峰のポーカールーム。ハイステークスからローステークスまで幅広いゲームが24時間稼働。WSOPやスーパーハイローラー級のプロが集うラスベガスの聖地。</p>
+          <div class="junket-hero-badge">&#9679; 24時間営業</div>
+        </div>
+        <div class="junket-hero-visual">
+          <div class="casino-icon">&#9824;</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ジャンケット紹介 -->
+  <section class="pj-section">
+    <div class="pj-width">
+      <h2 class="pj-section-title">ジャンケット紹介</h2>
+      <p class="pj-section-sub">ベラージオでは、VIPプレイヤー向けのジャンケットプログラムを提供しています。一定のプレイ時間を満たすことで、宿泊、食事、エンターテイメントなどの特典を受けることができます。</p>
+      <div class="info-grid">
+        <div class="info-card">
+          <div class="icon">&#127183;</div>
+          <h3>40+ テーブル</h3>
+          <p>常時40台以上のテーブルが稼働。NLH、PLO、ミックスゲームまで幅広く対応。</p>
+        </div>
+        <div class="info-card">
+          <div class="icon">&#128337;</div>
+          <h3>24時間営業</h3>
+          <p>年中無休・24時間営業。深夜帯もハイステークスのアクションが途切れません。</p>
+        </div>
+        <div class="info-card">
+          <div class="icon">&#127760;</div>
+          <h3>多言語対応</h3>
+          <p>英語・中国語・スペイン語に対応したスタッフが常駐。日本語対応はリクエストベース。</p>
+        </div>
+        <div class="info-card">
+          <div class="icon">&#11088;</div>
+          <h3>AAA Five Diamond</h3>
+          <p>AAA 5ダイヤモンド認定の最高級リゾート。ポーカールームもそのクオリティを継承。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ステークス/レート -->
+  <section class="pj-section pj-section-alt">
+    <div class="pj-width">
+      <h2 class="pj-section-title">ステークス・レート</h2>
+      <p class="pj-section-sub">ベラージオで打てるゲームタイプとステークスの一覧です。ジャンケット特典のコンプ対象となるミニマムプレイ時間も記載しています。</p>
+      <div class="pj-table-wrap">
+        <table class="pj-table">
+          <thead>
+            <tr><th>ゲームタイプ</th><th>ステークス</th><th>バイイン (Min / Max)</th><th>レーキ</th><th>備考</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>No-Limit Hold'em</td><td class="stakes">$1/$3</td><td>$100 / $500</td><td>10% (max $5)</td><td>初心者に最適</td></tr>
+            <tr><td>No-Limit Hold'em</td><td class="stakes">$2/$5</td><td>$200 / $1,000</td><td>10% (max $5)</td><td>最も人気のレート</td></tr>
+            <tr><td>No-Limit Hold'em</td><td class="stakes">$5/$10</td><td>$500 / $3,000</td><td>10% (max $5)</td><td>レギュラー多数</td></tr>
+            <tr><td>No-Limit Hold'em</td><td class="stakes">$10/$20</td><td>$1,000 / 制限なし</td><td>タイムチャージ</td><td>ハイステークス</td></tr>
+            <tr><td>No-Limit Hold'em</td><td class="stakes">$25/$50+</td><td>応相談</td><td>タイムチャージ</td><td>Bobby's Room級</td></tr>
+            <tr><td>Pot-Limit Omaha</td><td class="stakes">$5/$10</td><td>$500 / $3,000</td><td>10% (max $5)</td><td>PLOレギュラー卓</td></tr>
+            <tr><td>Mixed Games</td><td class="stakes">$20/$40+</td><td>応相談</td><td>タイムチャージ</td><td>8-Game, HORSE等</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- ホテル特典 -->
+  <section class="pj-section">
+    <div class="pj-width">
+      <h2 class="pj-section-title">ホテル特典</h2>
+      <p class="pj-section-sub">ベラージオのジャンケットを通じて提供される特典の一覧です。プレイ時間やステークスに応じて特典レベルが変動します。</p>
+      <div class="info-grid">
+        <div class="info-card">
+          <div class="icon">&#127968;</div>
+          <h3>宿泊コンプ</h3>
+          <p>$5/$10以上で4時間/日のプレイで宿泊費が全額コンプ。$2/$5は割引対象。</p>
+        </div>
+        <div class="info-card">
+          <div class="icon">&#127860;</div>
+          <h3>飲食クレジット</h3>
+          <p>プレイ時間に応じてレストランクレジットを付与。一部レストランはコンプ対象外。</p>
+        </div>
+        <div class="info-card">
+          <div class="icon">&#127917;</div>
+          <h3>ショー・スパ</h3>
+          <p>シルク・ドゥ・ソレイユ「O」のチケットやスパ利用がVIPプレイヤーに提供されることも。</p>
+        </div>
+        <div class="info-card">
+          <div class="icon">&#128663;</div>
+          <h3>空港送迎</h3>
+          <p>ハイステークスプレイヤーにはマッカラン国際空港からのリムジン送迎を手配可能。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 部屋タイプ -->
+  <section class="pj-section pj-section-alt">
+    <div class="pj-width">
+      <h2 class="pj-section-title">部屋タイプ</h2>
+      <p class="pj-section-sub">ベラージオの客室カテゴリーです。ジャンケット経由のコンプ対象かどうかも記載しています。</p>
+      <div class="room-grid">
+        <div class="room-card">
+          <div class="room-card-thumb">&#127961;</div>
+          <div class="room-card-body">
+            <h3>Resort Room</h3>
+            <p class="room-meta">約46㎡ / キング or ダブルクイーン<br/>噴水ビューまたはシティビュー</p>
+            <span class="room-card-price">$199〜/泊</span>
+            <span class="room-card-comp">コンプ対象</span>
+          </div>
+        </div>
+        <div class="room-card">
+          <div class="room-card-thumb" style="background:linear-gradient(135deg,#fef3e2,#f7f8fa);">&#127775;</div>
+          <div class="room-card-body">
+            <h3>Salone Suite</h3>
+            <p class="room-meta">約93㎡ / リビング+ベッドルーム<br/>噴水ビュー確約 / バトラーサービス</p>
+            <span class="room-card-price">$599〜/泊</span>
+            <span class="room-card-comp">コンプ対象</span>
+          </div>
+        </div>
+        <div class="room-card">
+          <div class="room-card-thumb" style="background:linear-gradient(135deg,#fff3e0,#fef3e2);">&#128081;</div>
+          <div class="room-card-body">
+            <h3>Penthouse Suite</h3>
+            <p class="room-meta">約186㎡ / 2ベッドルーム<br/>専用ラウンジ / プライベートチェックイン</p>
+            <span class="room-card-price">$1,500〜/泊</span>
+            <span class="room-card-comp">VIPコンプ</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 食事・レストラン -->
+  <section class="pj-section">
+    <div class="pj-width">
+      <h2 class="pj-section-title">食事・レストラン</h2>
+      <p class="pj-section-sub">ベラージオ内のおすすめレストラン。ポーカープレイヤー向けのコンプ利用可否も記載しています。</p>
+      <div class="dining-grid">
+        <div class="dining-card">
+          <span class="dining-tag western">ステーキ</span>
+          <h3>Prime Steakhouse</h3>
+          <p>ジャン・ジョルジュ監修の最高級ステーキハウス。ドライエイジドビーフと噴水ビューが自慢。</p>
+          <div class="dining-info"><span>💰 $$$$ (一人$150〜)</span><span>🕐 17:00-22:00</span></div>
+        </div>
+        <div class="dining-card">
+          <span class="dining-tag italian">イタリアン</span>
+          <h3>Lago by Julian Serrano</h3>
+          <p>噴水を目の前に楽しめるイタリアン。タパススタイルの小皿料理が人気。</p>
+          <div class="dining-info"><span>💰 $$$ (一人$60〜)</span><span>🕐 11:30-22:00</span></div>
+        </div>
+        <div class="dining-card">
+          <span class="dining-tag chinese">中華</span>
+          <h3>Jasmine</h3>
+          <p>本格広東料理。飲茶ランチから高級コースまで。ポーカールームから徒歩2分。</p>
+          <div class="dining-info"><span>💰 $$$ (一人$50〜)</span><span>🕐 17:30-22:00</span></div>
+        </div>
+        <div class="dining-card">
+          <span class="dining-tag japanese">日本食</span>
+          <h3>Noodles</h3>
+          <p>アジア各国の麺料理が楽しめるカジュアルダイニング。深夜営業でセッション後に最適。</p>
+          <div class="dining-info"><span>💰 $$ (一人$25〜)</span><span>🕐 11:00-翌3:00</span></div>
+        </div>
+        <div class="dining-card">
+          <span class="dining-tag western">アメリカン</span>
+          <h3>Sadelle's</h3>
+          <p>NYスタイルのベーカリー＆カフェ。朝食やブランチに最適。ベーグルとスモークサーモンが名物。</p>
+          <div class="dining-info"><span>💰 $$ (一人$30〜)</span><span>🕐 7:00-15:00</span></div>
+        </div>
+        <div class="dining-card">
+          <span class="dining-tag buffet">ビュッフェ</span>
+          <h3>The Buffet</h3>
+          <p>ラスベガス最高級ビュッフェの一つ。日本食セクションも充実。コンプ利用しやすい。</p>
+          <div class="dining-info"><span>💰 $$ (一人$45〜)</span><span>🕐 7:00-22:00</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="pj-section pj-section-alt">
+    <div class="pj-width">
+      <div class="pj-cta">
+        <div>
+          <h2>ベラージオでプレイしよう</h2>
+          <p>ジャンケットの申し込みや詳細情報のお問い合わせはこちらから。POKER JAPANが渡航サポートいたします。</p>
+        </div>
+        <a href="#" class="pj-btn" style="background:#fff;color:var(--accent);padding:14px 36px;font-size:16px;flex-shrink:0;">お問い合わせ</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="pj-footer">
+    <div class="pj-width">
+      <div class="pj-footer-grid">
+        <div class="pj-footer-brand">
+          <img src="../reference/images/logo-poker.svg" alt="POKER JAPAN" style="height:30px;"/>
+          <p>POKER JAPANは、海外ポーカーキャッシュゲームに特化した日本語メディアです。世界各地のポーカールーム情報、戦略記事、トーナメント速報をお届けします。</p>
+        </div>
+        <div class="pj-footer-col"><h4>コンテンツ</h4><a href="../index.html#news">ニュース</a><a href="#">キャッシュゲーム情報</a><a href="#">トーナメント速報</a><a href="#">戦略記事</a><a href="#">初心者ガイド</a></div>
+        <div class="pj-footer-col"><h4>海外カジノ</h4><a href="bellagio.html">ラスベガス</a><a href="wynn-macau.html">マカオ</a><a href="manila-cod.html">マニラ</a><a href="hippodrome.html">ロンドン</a><a href="paradise-city.html">韓国</a></div>
+        <div class="pj-footer-col"><h4>トーナメント</h4><a href="#">WSOP</a><a href="#">WPT</a><a href="#">EPT</a><a href="#">APPT</a><a href="#">日本人の成績</a></div>
+      </div>
+      <div class="pj-footer-bottom">&copy; 2026 POKER JAPAN. All rights reserved.</div>
+    </div>
+  </footer>
+
+</body>
+</html>
