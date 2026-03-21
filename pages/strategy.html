@@ -30,15 +30,17 @@
     .pj-nav a { font-size:14px; font-weight:500; color:#adb1b8; transition:color .15s; }
     .pj-nav a:hover, .pj-nav a.active { color:#fff; }
     .pj-header-btns { display:flex; gap:10px; }
-    .pj-header-btns a { font-size:14px; font-weight:600; padding:7px 18px; border-radius:8px; }
+    .pj-header-btns a { font-size:14px; font-weight:600; padding:7px 18px; border-radius:8px; transition:background .15s; }
     .btn-ghost { color:#fff; }
+    .btn-ghost:hover { background:rgba(255,255,255,.08); }
     .btn-gold { background:var(--gold); color:#121214; }
+    .btn-gold:hover { background:#ffc35c; }
     .pj-width { max-width:1200px; margin:0 auto; padding:0 24px; width:100%; }
 
     /* Page Hero - compact */
     .page-hero {
       background:#0b0e11; color:#fff;
-      padding:32px 0; position:relative; overflow:hidden;
+      padding:40px 0; position:relative; overflow:hidden;
     }
     .page-hero::before {
       content:''; position:absolute; top:-40%; right:-15%;
@@ -50,11 +52,39 @@
     .page-breadcrumb { font-size:13px; color:#595d61; margin-bottom:16px; }
     .page-breadcrumb a { color:#81858c; transition:color .15s; }
     .page-breadcrumb a:hover { color:#fff; }
-    .page-hero h1 { font-size:32px; font-weight:700; line-height:1.2; margin-bottom:6px; }
-    .page-hero .page-sub { font-size:14px; color:#adb1b8; line-height:1.5; }
+    .page-hero h1 { font-size:36px; font-weight:700; line-height:1.2; margin-bottom:8px; }
+    .page-hero .page-sub { font-size:15px; color:#adb1b8; line-height:1.5; }
+
+    /* Learning path progress bar */
+    .learning-path {
+      background:#18191c; border:1px solid #333537; border-radius:12px;
+      padding:24px 32px; margin-top:24px;
+    }
+    .learning-path-title { font-size:13px; color:#81858c; margin-bottom:16px; text-transform:uppercase; letter-spacing:.5px; font-weight:600; }
+    .learning-path-bar { display:flex; align-items:center; gap:0; }
+    .learning-step {
+      flex:1; display:flex; flex-direction:column; align-items:center;
+      position:relative; text-align:center;
+    }
+    .learning-step-dot {
+      width:36px; height:36px; border-radius:50%; display:flex;
+      align-items:center; justify-content:center; font-size:13px;
+      font-weight:700; color:#fff; position:relative; z-index:2;
+    }
+    .learning-step.beginner .learning-step-dot { background:var(--accent); }
+    .learning-step.intermediate .learning-step-dot { background:var(--gold); }
+    .learning-step.advanced .learning-step-dot { background:var(--red); }
+    .learning-step-label { font-size:12px; color:#adb1b8; margin-top:8px; font-weight:500; }
+    .learning-step-count { font-size:11px; color:#595d61; margin-top:2px; }
+    .learning-connector {
+      flex:0 0 auto; width:80px; height:2px; background:#333537;
+      position:relative; top:-10px;
+    }
+    .learning-connector-fill { height:100%; background:linear-gradient(90deg,var(--accent),var(--gold)); width:100%; }
+    .learning-connector:last-of-type .learning-connector-fill { background:linear-gradient(90deg,var(--gold),var(--red)); }
 
     /* Underline Tabs */
-    .tab-bar { border-bottom:1px solid var(--border); }
+    .tab-bar { border-bottom:1px solid var(--border); background:#fff; }
     .tab-bar-inner { display:flex; gap:0; }
     .tab-item {
       font-size:14px; font-weight:500; color:var(--text-3);
@@ -75,10 +105,19 @@
     /* Category section */
     .cat-section { margin-bottom:40px; }
     .cat-section:last-child { margin-bottom:0; }
-    .cat-header { font-size:11px; font-weight:600; text-transform:uppercase; letter-spacing:1px; color:var(--text-3); padding-bottom:12px; border-bottom:1px solid var(--border); margin-bottom:0; }
+    .cat-header {
+      font-size:11px; font-weight:600; text-transform:uppercase;
+      letter-spacing:1px; color:var(--text-3); padding-bottom:12px;
+      border-bottom:1px solid var(--border); margin-bottom:0;
+      border-left:3px solid var(--accent); padding-left:12px;
+    }
 
     /* Article item */
-    .article-item { display:flex; align-items:flex-start; gap:16px; padding:16px 0; border-bottom:1px solid var(--border-light); transition:background .1s; }
+    .article-item {
+      display:flex; align-items:flex-start; gap:16px; padding:16px 0;
+      border-bottom:1px solid var(--border-light); transition:background .1s;
+    }
+    .article-item:hover { background:rgba(247,248,250,.5); }
     .article-item:hover .article-title { color:var(--accent); }
     .article-level {
       font-size:11px; font-weight:600; padding:2px 8px; border-radius:3px;
@@ -88,16 +127,48 @@
     .article-level.intermediate { background:#fef3e2; color:#b8750c; }
     .article-level.advanced { background:#ffeaeb; color:#c0392b; }
     .article-body { flex:1; min-width:0; }
-    .article-title { font-size:15px; font-weight:600; line-height:1.4; margin:0 0 4px; transition:color .15s; }
-    .article-desc { font-size:13px; color:var(--text-3); line-height:1.4; margin:0 0 4px; }
-    .article-meta { font-size:12px; color:var(--text-3); }
+    .article-title { font-size:16px; font-weight:600; line-height:1.4; margin:0 0 4px; transition:color .15s; }
+    .article-desc { font-size:13px; color:var(--text-3); line-height:1.4; margin:0 0 6px; }
+    .article-meta { font-size:12px; color:var(--text-3); display:flex; gap:12px; align-items:center; flex-wrap:wrap; }
+    .article-difficulty { font-size:12px; letter-spacing:1px; }
+    .article-prereq { font-size:11px; color:var(--text-3); background:var(--bg-alt); padding:2px 8px; border-radius:3px; }
+
+    /* Related articles */
+    .related-links { padding:12px 0 0; margin-top:4px; }
+    .related-links-title { font-size:11px; font-weight:600; color:var(--text-3); text-transform:uppercase; letter-spacing:.5px; margin-bottom:8px; }
+    .related-link {
+      display:inline-block; font-size:12px; color:var(--accent); font-weight:500;
+      margin-right:16px; transition:color .15s;
+    }
+    .related-link:hover { color:#155a32; }
+
+    /* Last updated */
+    .last-updated { font-size:12px; color:var(--text-3); margin-bottom:24px; }
+
+    /* Newsletter bar */
+    .newsletter-bar { background:#0b0e11; padding:40px 0; }
+    .newsletter-inner { display:flex; align-items:center; justify-content:space-between; gap:24px; }
+    .newsletter-text h3 { font-size:18px; font-weight:700; color:#fff; }
+    .newsletter-text p { font-size:13px; color:#81858c; margin-top:4px; }
+    .newsletter-form { display:flex; gap:0; background:#18191c; border:1px solid #404347; border-radius:8px; overflow:hidden; }
+    .newsletter-form input {
+      background:transparent; border:none; color:#fff; font-size:14px;
+      padding:12px 16px; outline:none; width:280px; font-family:inherit;
+    }
+    .newsletter-form input::placeholder { color:#595d61; }
+    .newsletter-form button {
+      background:var(--gold); color:#121214; border:none; font-size:14px;
+      font-weight:600; padding:12px 24px; cursor:pointer; font-family:inherit;
+      white-space:nowrap; transition:background .15s;
+    }
+    .newsletter-form button:hover { background:#ffc35c; }
 
     /* Footer */
     .pj-footer { border-top:1px solid var(--border); padding:48px 0 24px; background:#fafbfc; }
     .pj-footer-grid { display:grid; grid-template-columns:1.5fr 1fr 1fr 1fr; gap:40px; margin-bottom:40px; }
     .pj-footer-brand p { font-size:13px; color:var(--text-3); margin-top:12px; line-height:1.6; }
     .pj-footer-col h4 { font-size:14px; font-weight:600; margin:0 0 16px; }
-    .pj-footer-col a { display:block; font-size:13px; color:var(--text-3); margin-bottom:10px; }
+    .pj-footer-col a { display:block; font-size:13px; color:var(--text-3); margin-bottom:10px; transition:color .15s; }
     .pj-footer-col a:hover { color:var(--text-1); }
     .pj-footer-bottom { border-top:1px solid var(--border); padding-top:20px; font-size:12px; color:var(--text-3); text-align:center; }
 
@@ -129,6 +200,10 @@
     /* Responsive */
     @media (max-width:1024px) {
       .pj-footer-grid { grid-template-columns:repeat(2,1fr); }
+      .newsletter-inner { flex-direction:column; text-align:center; }
+      .newsletter-form input { width:240px; }
+      .learning-path { padding:20px 24px; }
+      .learning-connector { width:40px; }
     }
 
     @media (max-width:768px) {
@@ -136,8 +211,8 @@
       .pj-header-btns { display:none; }
       .pj-hamburger { display:flex; }
 
-      .page-hero { padding:20px 0 24px; }
-      .page-hero h1 { font-size:24px; }
+      .page-hero { padding:24px 0 28px; }
+      .page-hero h1 { font-size:26px; }
       .page-breadcrumb { font-size:12px; margin-bottom:12px; }
 
       .tab-item { font-size:13px; padding:12px 14px; }
@@ -147,6 +222,16 @@
       .article-item { gap:12px; }
       .article-title { font-size:14px; }
       .article-desc { font-size:12px; }
+
+      .learning-path { padding:16px; }
+      .learning-path-bar { flex-direction:column; gap:12px; }
+      .learning-connector { width:2px; height:20px; top:0; }
+      .learning-step { flex-direction:row; gap:12px; }
+      .learning-step-label { margin-top:0; }
+
+      .newsletter-inner { flex-direction:column; text-align:center; }
+      .newsletter-form { flex-direction:column; }
+      .newsletter-form input { width:100%; }
 
       .pj-footer { padding:32px 0 16px; }
       .pj-footer-grid { grid-template-columns:1fr; gap:24px; margin-bottom:24px; }
@@ -202,6 +287,30 @@
       </div>
       <h1>戦略ガイド</h1>
       <p class="page-sub">初心者からプロまで、レベル別の戦略記事を厳選</p>
+
+      <!-- Learning Path -->
+      <div class="learning-path">
+        <div class="learning-path-title">学習パス</div>
+        <div class="learning-path-bar">
+          <div class="learning-step beginner">
+            <div class="learning-step-dot">1</div>
+            <div class="learning-step-label">初級</div>
+            <div class="learning-step-count">4記事</div>
+          </div>
+          <div class="learning-connector"><div class="learning-connector-fill"></div></div>
+          <div class="learning-step intermediate">
+            <div class="learning-step-dot">2</div>
+            <div class="learning-step-label">中級</div>
+            <div class="learning-step-count">4記事</div>
+          </div>
+          <div class="learning-connector"><div class="learning-connector-fill"></div></div>
+          <div class="learning-step advanced">
+            <div class="learning-step-dot">3</div>
+            <div class="learning-step-label">上級</div>
+            <div class="learning-step-count">4記事</div>
+          </div>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -209,10 +318,10 @@
   <div class="tab-bar">
     <div class="pj-width">
       <div class="tab-bar-inner">
-        <button class="tab-item active" data-level="all" onclick="filterByLevel('all', this)">すべて</button>
-        <button class="tab-item" data-level="beginner" onclick="filterByLevel('beginner', this)">初級</button>
-        <button class="tab-item" data-level="intermediate" onclick="filterByLevel('intermediate', this)">中級</button>
-        <button class="tab-item" data-level="advanced" onclick="filterByLevel('advanced', this)">上級</button>
+        <button class="tab-item active" data-level="all">すべて</button>
+        <button class="tab-item" data-level="beginner">初級 &#9733;&#9734;&#9734;</button>
+        <button class="tab-item" data-level="intermediate">中級 &#9733;&#9733;&#9734;</button>
+        <button class="tab-item" data-level="advanced">上級 &#9733;&#9733;&#9733;</button>
       </div>
     </div>
   </div>
@@ -220,6 +329,8 @@
   <!-- STRATEGY CONTENT -->
   <div class="pj-width">
     <div class="strategy-content">
+
+      <div class="last-updated">最終更新: 2026年3月21日 14:30</div>
 
       <!-- プリフロップ -->
       <div class="cat-section" data-category="preflop">
@@ -229,7 +340,11 @@
           <div class="article-body">
             <h4 class="article-title">ポジション別ハンドレンジ</h4>
             <p class="article-desc">UTGからBTNまでの基本レンジ表。まずはこれを暗記しよう。</p>
-            <span class="article-meta">8分で読める</span>
+            <div class="article-meta">
+              <span class="article-difficulty">&#9733;&#9734;&#9734;</span>
+              <span>学習時間: 約8分</span>
+              <span>前提知識: なし</span>
+            </div>
           </div>
         </a>
         <a href="#" class="article-item" data-level="intermediate">
@@ -237,7 +352,11 @@
           <div class="article-body">
             <h4 class="article-title">3-Betレンジの構築方法</h4>
             <p class="article-desc">バリューとブラフのバランスを数学的に解説。</p>
-            <span class="article-meta">10分で読める</span>
+            <div class="article-meta">
+              <span class="article-difficulty">&#9733;&#9733;&#9734;</span>
+              <span>学習時間: 約10分</span>
+              <span class="article-prereq">前提: ハンドレンジ基礎</span>
+            </div>
           </div>
         </a>
         <a href="#" class="article-item" data-level="advanced">
@@ -245,9 +364,18 @@
           <div class="article-body">
             <h4 class="article-title">スクイーズ戦略の応用</h4>
             <p class="article-desc">マルチウェイポットでのスクイーズ判断基準。</p>
-            <span class="article-meta">12分で読める</span>
+            <div class="article-meta">
+              <span class="article-difficulty">&#9733;&#9733;&#9733;</span>
+              <span>学習時間: 約12分</span>
+              <span class="article-prereq">前提: 3-Betレンジ構築</span>
+            </div>
           </div>
         </a>
+        <div class="related-links">
+          <div class="related-links-title">関連記事</div>
+          <a href="#" class="related-link">ポジションの重要性 &rarr;</a>
+          <a href="#" class="related-link">オープンレイズサイジング &rarr;</a>
+        </div>
       </div>
 
       <!-- ポストフロップ -->
@@ -258,7 +386,11 @@
           <div class="article-body">
             <h4 class="article-title">フロップでのCBet基礎</h4>
             <p class="article-desc">いつ打つべきか、サイズはいくらか。基本原則を解説。</p>
-            <span class="article-meta">7分で読める</span>
+            <div class="article-meta">
+              <span class="article-difficulty">&#9733;&#9734;&#9734;</span>
+              <span>学習時間: 約7分</span>
+              <span>前提知識: なし</span>
+            </div>
           </div>
         </a>
         <a href="#" class="article-item" data-level="intermediate">
@@ -266,7 +398,11 @@
           <div class="article-body">
             <h4 class="article-title">ターンのダブルバレル判断</h4>
             <p class="article-desc">ボードテクスチャとレンジ分析に基づく判断法。</p>
-            <span class="article-meta">9分で読める</span>
+            <div class="article-meta">
+              <span class="article-difficulty">&#9733;&#9733;&#9734;</span>
+              <span>学習時間: 約9分</span>
+              <span class="article-prereq">前提: CBet基礎</span>
+            </div>
           </div>
         </a>
         <a href="#" class="article-item" data-level="advanced">
@@ -274,9 +410,18 @@
           <div class="article-body">
             <h4 class="article-title">リバーのポーラライズドベッティング</h4>
             <p class="article-desc">バリューとブラフを極端に分けるテクニック。</p>
-            <span class="article-meta">11分で読める</span>
+            <div class="article-meta">
+              <span class="article-difficulty">&#9733;&#9733;&#9733;</span>
+              <span>学習時間: 約11分</span>
+              <span class="article-prereq">前提: ダブルバレル判断</span>
+            </div>
           </div>
         </a>
+        <div class="related-links">
+          <div class="related-links-title">関連記事</div>
+          <a href="#" class="related-link">ポットオッズの計算 &rarr;</a>
+          <a href="#" class="related-link">ボードテクスチャ分析 &rarr;</a>
+        </div>
       </div>
 
       <!-- メンタル・バンクロール -->
@@ -287,7 +432,11 @@
           <div class="article-body">
             <h4 class="article-title">バンクロール管理の基本</h4>
             <p class="article-desc">キャッシュゲームに必要な適切な資金量とは。</p>
-            <span class="article-meta">6分で読める</span>
+            <div class="article-meta">
+              <span class="article-difficulty">&#9733;&#9734;&#9734;</span>
+              <span>学習時間: 約6分</span>
+              <span>前提知識: なし</span>
+            </div>
           </div>
         </a>
         <a href="#" class="article-item" data-level="intermediate">
@@ -295,7 +444,11 @@
           <div class="article-body">
             <h4 class="article-title">ティルト対策</h4>
             <p class="article-desc">負けが続いた時のメンタルコントロール法。</p>
-            <span class="article-meta">8分で読める</span>
+            <div class="article-meta">
+              <span class="article-difficulty">&#9733;&#9733;&#9734;</span>
+              <span>学習時間: 約8分</span>
+              <span class="article-prereq">前提: バンクロール管理基礎</span>
+            </div>
           </div>
         </a>
         <a href="#" class="article-item" data-level="advanced">
@@ -303,20 +456,45 @@
           <div class="article-body">
             <h4 class="article-title">ステークス移行の判断基準</h4>
             <p class="article-desc">レートを上げるタイミングと下げる勇気。</p>
-            <span class="article-meta">7分で読める</span>
+            <div class="article-meta">
+              <span class="article-difficulty">&#9733;&#9733;&#9733;</span>
+              <span>学習時間: 約7分</span>
+              <span class="article-prereq">前提: ティルト対策</span>
+            </div>
           </div>
         </a>
+        <div class="related-links">
+          <div class="related-links-title">関連記事</div>
+          <a href="#" class="related-link">セッション管理のコツ &rarr;</a>
+          <a href="#" class="related-link">ポーカー日記のつけ方 &rarr;</a>
+        </div>
       </div>
 
       <!-- GTO理論 -->
       <div class="cat-section" data-category="gto">
         <h3 class="cat-header">GTO理論</h3>
+        <a href="#" class="article-item" data-level="beginner">
+          <span class="article-level beginner">初級</span>
+          <div class="article-body">
+            <h4 class="article-title">GTOとエクスプロイトの違い</h4>
+            <p class="article-desc">ゲーム理論最適戦略と搾取戦略、それぞれの長所と使い分け。</p>
+            <div class="article-meta">
+              <span class="article-difficulty">&#9733;&#9734;&#9734;</span>
+              <span>学習時間: 約8分</span>
+              <span>前提知識: なし</span>
+            </div>
+          </div>
+        </a>
         <a href="#" class="article-item" data-level="intermediate">
           <span class="article-level intermediate">中級</span>
           <div class="article-body">
             <h4 class="article-title">GTOとは何か</h4>
             <p class="article-desc">ゲーム理論最適戦略の基本概念をわかりやすく解説。</p>
-            <span class="article-meta">10分で読める</span>
+            <div class="article-meta">
+              <span class="article-difficulty">&#9733;&#9733;&#9734;</span>
+              <span>学習時間: 約10分</span>
+              <span class="article-prereq">前提: GTOとエクスプロイトの違い</span>
+            </div>
           </div>
         </a>
         <a href="#" class="article-item" data-level="advanced">
@@ -324,7 +502,11 @@
           <div class="article-body">
             <h4 class="article-title">ソルバーの使い方入門</h4>
             <p class="article-desc">PioSOLVER/GTO+の基本操作と分析手順。</p>
-            <span class="article-meta">15分で読める</span>
+            <div class="article-meta">
+              <span class="article-difficulty">&#9733;&#9733;&#9733;</span>
+              <span>学習時間: 約15分</span>
+              <span class="article-prereq">前提: GTO基本概念</span>
+            </div>
           </div>
         </a>
         <a href="#" class="article-item" data-level="advanced">
@@ -332,11 +514,36 @@
           <div class="article-body">
             <h4 class="article-title">ノードロック分析</h4>
             <p class="article-desc">対戦相手の傾向に合わせたエクスプロイト構築。</p>
-            <span class="article-meta">12分で読める</span>
+            <div class="article-meta">
+              <span class="article-difficulty">&#9733;&#9733;&#9733;</span>
+              <span>学習時間: 約12分</span>
+              <span class="article-prereq">前提: ソルバー使用経験</span>
+            </div>
           </div>
         </a>
+        <div class="related-links">
+          <div class="related-links-title">関連記事</div>
+          <a href="#" class="related-link">MDF(最小防御頻度)とは &rarr;</a>
+          <a href="#" class="related-link">EV計算の基礎 &rarr;</a>
+        </div>
       </div>
 
+    </div>
+  </div>
+
+  <!-- NEWSLETTER -->
+  <div class="newsletter-bar">
+    <div class="pj-width">
+      <div class="newsletter-inner">
+        <div class="newsletter-text">
+          <h3>最新情報をお届け</h3>
+          <p>トーナメント速報、キャッシュゲーム情報を毎週配信</p>
+        </div>
+        <div class="newsletter-form">
+          <input type="email" placeholder="メールアドレス"/>
+          <button>登録する</button>
+        </div>
+      </div>
     </div>
   </div>
 
@@ -358,26 +565,33 @@
 
   <!-- Filter Script -->
   <script>
-    function filterByLevel(level, btn) {
-      document.querySelectorAll('.tab-item').forEach(function(t) { t.classList.remove('active'); });
-      btn.classList.add('active');
-
+    (function() {
+      var tabs = document.querySelectorAll('.tab-item[data-level]');
       var items = document.querySelectorAll('.article-item[data-level]');
       var sections = document.querySelectorAll('.cat-section[data-category]');
 
-      if (level === 'all') {
-        items.forEach(function(c) { c.style.display = ''; });
-        sections.forEach(function(s) { s.style.display = ''; });
-      } else {
-        items.forEach(function(c) {
-          c.style.display = c.getAttribute('data-level') === level ? '' : 'none';
+      tabs.forEach(function(tab) {
+        tab.addEventListener('click', function() {
+          var level = this.getAttribute('data-level');
+
+          tabs.forEach(function(t) { t.classList.remove('active'); });
+          this.classList.add('active');
+
+          if (level === 'all') {
+            items.forEach(function(c) { c.style.display = ''; });
+            sections.forEach(function(s) { s.style.display = ''; });
+          } else {
+            items.forEach(function(c) {
+              c.style.display = c.getAttribute('data-level') === level ? '' : 'none';
+            });
+            sections.forEach(function(s) {
+              var visible = s.querySelectorAll('.article-item[data-level="' + level + '"]');
+              s.style.display = visible.length === 0 ? 'none' : '';
+            });
+          }
         });
-        sections.forEach(function(s) {
-          var visible = s.querySelectorAll('.article-item[data-level]:not([style*="display: none"])');
-          s.style.display = visible.length === 0 ? 'none' : '';
-        });
-      }
-    }
+      });
+    })();
   </script>
 
 </body>

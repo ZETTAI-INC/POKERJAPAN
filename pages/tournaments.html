@@ -30,15 +30,17 @@
     .pj-nav a { font-size:14px; font-weight:500; color:#adb1b8; transition:color .15s; }
     .pj-nav a:hover, .pj-nav a.active { color:#fff; }
     .pj-header-btns { display:flex; gap:10px; }
-    .pj-header-btns a { font-size:14px; font-weight:600; padding:7px 18px; border-radius:8px; }
+    .pj-header-btns a { font-size:14px; font-weight:600; padding:7px 18px; border-radius:8px; transition:background .15s; }
     .btn-ghost { color:#fff; }
+    .btn-ghost:hover { background:rgba(255,255,255,.08); }
     .btn-gold { background:var(--gold); color:#121214; }
+    .btn-gold:hover { background:#ffc35c; }
     .pj-width { max-width:1200px; margin:0 auto; padding:0 24px; width:100%; }
 
     /* Page Hero - compact */
     .page-hero {
       background:#0b0e11; color:#fff;
-      padding:32px 0; position:relative; overflow:hidden;
+      padding:40px 0; position:relative; overflow:hidden;
     }
     .page-hero::before {
       content:''; position:absolute; top:-40%; right:-15%;
@@ -50,14 +52,55 @@
     .page-breadcrumb { font-size:13px; color:#595d61; margin-bottom:16px; }
     .page-breadcrumb a { color:#81858c; transition:color .15s; }
     .page-breadcrumb a:hover { color:#fff; }
-    .page-hero h1 { font-size:32px; font-weight:700; line-height:1.2; margin-bottom:6px; }
-    .page-hero .page-sub { font-size:14px; color:#adb1b8; line-height:1.5; }
+    .page-hero h1 { font-size:36px; font-weight:700; line-height:1.2; margin-bottom:8px; }
+    .page-hero .page-sub { font-size:15px; color:#adb1b8; line-height:1.5; margin-bottom:20px; }
+    .hero-stats { display:flex; gap:40px; }
+    .hero-stat-val { font-size:28px; font-weight:700; color:var(--gold); line-height:1.2; }
+    .hero-stat-label { font-size:12px; color:#81858c; margin-top:2px; }
+
+    /* Countdown timer */
+    .countdown-bar {
+      background:#18191c; border:1px solid #333537; border-radius:12px;
+      padding:20px 32px; margin-top:24px; display:flex;
+      align-items:center; justify-content:space-between; gap:24px;
+    }
+    .countdown-event { display:flex; align-items:center; gap:12px; }
+    .countdown-live-dot {
+      width:8px; height:8px; border-radius:50%; background:var(--gold);
+      animation:countdownPulse 2s ease-in-out infinite;
+    }
+    @keyframes countdownPulse {
+      0%,100% { opacity:1; box-shadow:0 0 0 0 rgba(247,166,0,.4); }
+      50% { opacity:.6; box-shadow:0 0 0 6px rgba(247,166,0,0); }
+    }
+    .countdown-event-name { font-size:16px; font-weight:600; color:#fff; }
+    .countdown-timer { display:flex; gap:16px; }
+    .countdown-unit { text-align:center; }
+    .countdown-num {
+      font-size:28px; font-weight:700; color:var(--gold);
+      background:#0b0e11; border:1px solid #404347; border-radius:8px;
+      padding:8px 16px; min-width:56px; display:block;
+    }
+    .countdown-label { font-size:10px; color:#81858c; margin-top:4px; text-transform:uppercase; letter-spacing:.5px; }
 
     /* Sections */
     .pj-section { padding:48px 0; }
     .pj-section + .pj-section { border-top:1px solid var(--border); }
-    .pj-section-title { font-size:20px; font-weight:700; margin:0 0 8px; }
-    .pj-section-sub { font-size:13px; color:var(--text-3); margin-bottom:24px; line-height:1.5; }
+    .pj-section-title {
+      font-size:24px; font-weight:700; margin:0 0 8px;
+      border-left:3px solid var(--accent); padding-left:12px;
+    }
+    .pj-section-sub { font-size:13px; color:var(--text-3); margin-bottom:24px; line-height:1.5; padding-left:15px; }
+
+    /* Aggregate stats bar */
+    .aggregate-bar {
+      background:var(--accent-light); border:1px solid #c8e6d4; border-radius:8px;
+      padding:16px 24px; margin-bottom:24px; display:flex;
+      align-items:center; justify-content:space-between; gap:24px;
+      flex-wrap:wrap;
+    }
+    .aggregate-item { font-size:14px; }
+    .aggregate-item strong { font-weight:700; color:var(--accent); }
 
     /* Table */
     .pj-table { width:100%; border-collapse:collapse; }
@@ -67,6 +110,8 @@
     .pj-table td { padding:14px 16px; font-size:14px; }
     .pj-table .stakes { color:var(--accent); font-weight:500; }
     .pj-table-wrap { overflow-x:auto; }
+
+    /* Status badges */
     .status-badge {
       display:inline-block; font-size:11px; font-weight:600;
       padding:2px 8px; border-radius:3px;
@@ -74,20 +119,73 @@
     .status-badge.upcoming { background:rgba(247,166,0,.12); color:#b8750c; }
     .status-badge.ended { background:#f0f1f3; color:#81858c; }
     .status-badge.live { background:var(--green); color:#fff; }
+    .status-badge.pulse { position:relative; }
+    .status-badge.pulse::before {
+      content:''; position:absolute; left:-4px; top:50%; transform:translateY(-50%);
+      width:6px; height:6px; border-radius:50%; background:#b8750c;
+      animation:badgePulse 2s ease-in-out infinite;
+    }
+    .status-badge.pulse { padding-left:14px; }
+    @keyframes badgePulse {
+      0%,100% { opacity:1; }
+      50% { opacity:.3; }
+    }
+
+    /* Trend arrows */
+    .trend-up { color:var(--green); font-weight:700; }
+    .trend-down { color:var(--red); font-weight:700; }
+    .trend-flat { color:var(--text-3); font-weight:700; }
+
+    /* Location with flags */
+    .location-flag { display:flex; align-items:center; gap:6px; }
+    .location-flag-emoji { font-size:16px; }
+
+    /* Last updated */
+    .last-updated {
+      font-size:12px; color:var(--text-3); margin-bottom:16px;
+      display:flex; align-items:center; gap:6px;
+    }
+    .live-dot {
+      width:6px; height:6px; border-radius:50%; background:var(--green);
+      display:inline-block; animation:pulseDot 2s ease-in-out infinite;
+    }
+    @keyframes pulseDot {
+      0%,100% { opacity:1; }
+      50% { opacity:.4; }
+    }
 
     /* Series links */
     .series-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:0; border:1px solid var(--border); border-radius:8px; overflow:hidden; }
-    .series-item { padding:24px; border-right:1px solid var(--border); }
+    .series-item { padding:24px; border-right:1px solid var(--border); transition:background .15s; }
     .series-item:last-child { border-right:none; }
-    .series-item h3 { font-size:15px; font-weight:700; margin:0 0 6px; }
+    .series-item:hover { background:var(--bg-alt); }
+    .series-item h3 { font-size:16px; font-weight:700; margin:0 0 6px; }
     .series-item p { font-size:13px; color:var(--text-3); line-height:1.5; margin:0; }
+
+    /* Newsletter bar */
+    .newsletter-bar { background:#0b0e11; padding:40px 0; }
+    .newsletter-inner { display:flex; align-items:center; justify-content:space-between; gap:24px; }
+    .newsletter-text h3 { font-size:18px; font-weight:700; color:#fff; }
+    .newsletter-text p { font-size:13px; color:#81858c; margin-top:4px; }
+    .newsletter-form { display:flex; gap:0; background:#18191c; border:1px solid #404347; border-radius:8px; overflow:hidden; }
+    .newsletter-form input {
+      background:transparent; border:none; color:#fff; font-size:14px;
+      padding:12px 16px; outline:none; width:280px; font-family:inherit;
+    }
+    .newsletter-form input::placeholder { color:#595d61; }
+    .newsletter-form button {
+      background:var(--gold); color:#121214; border:none; font-size:14px;
+      font-weight:600; padding:12px 24px; cursor:pointer; font-family:inherit;
+      white-space:nowrap; transition:background .15s;
+    }
+    .newsletter-form button:hover { background:#ffc35c; }
 
     /* Footer */
     .pj-footer { border-top:1px solid var(--border); padding:48px 0 24px; background:#fafbfc; }
     .pj-footer-grid { display:grid; grid-template-columns:1.5fr 1fr 1fr 1fr; gap:40px; margin-bottom:40px; }
     .pj-footer-brand p { font-size:13px; color:var(--text-3); margin-top:12px; line-height:1.6; }
     .pj-footer-col h4 { font-size:14px; font-weight:600; margin:0 0 16px; }
-    .pj-footer-col a { display:block; font-size:13px; color:var(--text-3); margin-bottom:10px; }
+    .pj-footer-col a { display:block; font-size:13px; color:var(--text-3); margin-bottom:10px; transition:color .15s; }
     .pj-footer-col a:hover { color:var(--text-1); }
     .pj-footer-bottom { border-top:1px solid var(--border); padding-top:20px; font-size:12px; color:var(--text-3); text-align:center; }
 
@@ -122,6 +220,9 @@
       .series-item:nth-child(2) { border-right:none; }
       .series-item:nth-child(1), .series-item:nth-child(2) { border-bottom:1px solid var(--border); }
       .pj-footer-grid { grid-template-columns:repeat(2,1fr); }
+      .newsletter-inner { flex-direction:column; text-align:center; }
+      .newsletter-form input { width:240px; }
+      .countdown-bar { flex-direction:column; text-align:center; }
     }
 
     /* Responsive: Mobile */
@@ -130,12 +231,18 @@
       .pj-header-btns { display:none; }
       .pj-hamburger { display:flex; }
 
-      .page-hero { padding:20px 0 24px; }
-      .page-hero h1 { font-size:24px; }
+      .page-hero { padding:24px 0 28px; }
+      .page-hero h1 { font-size:26px; }
       .page-breadcrumb { font-size:12px; margin-bottom:12px; }
+      .hero-stats { gap:20px; flex-wrap:wrap; }
+      .hero-stat-val { font-size:22px; }
+
+      .countdown-bar { padding:16px; flex-direction:column; gap:16px; }
+      .countdown-num { font-size:22px; padding:6px 12px; min-width:44px; }
+      .countdown-timer { gap:10px; }
 
       .pj-section { padding:32px 0; }
-      .pj-section-title { font-size:18px; }
+      .pj-section-title { font-size:20px; }
 
       .pj-table-wrap { overflow-x:auto; margin:0 -24px; padding:0 24px; }
       .pj-table { min-width:700px; }
@@ -145,6 +252,12 @@
       .series-item { border-right:none; border-bottom:1px solid var(--border); }
       .series-item:last-child { border-bottom:none; }
 
+      .aggregate-bar { flex-direction:column; gap:8px; text-align:center; }
+
+      .newsletter-inner { flex-direction:column; text-align:center; }
+      .newsletter-form { flex-direction:column; }
+      .newsletter-form input { width:100%; }
+
       .pj-footer { padding:32px 0 16px; }
       .pj-footer-grid { grid-template-columns:1fr; gap:24px; margin-bottom:24px; }
     }
@@ -152,6 +265,7 @@
     @media (max-width:400px) {
       .pj-width { padding:0 16px; }
       .page-hero h1 { font-size:22px; }
+      .hero-stats { flex-direction:column; gap:12px; }
     }
   </style>
 </head>
@@ -197,6 +311,46 @@
       </div>
       <h1>トーナメント速報</h1>
       <p class="page-sub">世界の主要ポーカートーナメントをリアルタイムで追う</p>
+      <div class="hero-stats">
+        <div>
+          <div class="hero-stat-val">8+</div>
+          <div class="hero-stat-label">主要シリーズ</div>
+        </div>
+        <div>
+          <div class="hero-stat-val">95</div>
+          <div class="hero-stat-label">2026年イベント数</div>
+        </div>
+        <div>
+          <div class="hero-stat-val">$500M+</div>
+          <div class="hero-stat-label">賞金総額</div>
+        </div>
+      </div>
+
+      <!-- Countdown -->
+      <div class="countdown-bar">
+        <div class="countdown-event">
+          <div class="countdown-live-dot"></div>
+          <span class="countdown-event-name">WSOP 2026 開幕まで</span>
+        </div>
+        <div class="countdown-timer">
+          <div class="countdown-unit">
+            <span class="countdown-num">72</span>
+            <div class="countdown-label">日</div>
+          </div>
+          <div class="countdown-unit">
+            <span class="countdown-num">14</span>
+            <div class="countdown-label">時間</div>
+          </div>
+          <div class="countdown-unit">
+            <span class="countdown-num">32</span>
+            <div class="countdown-label">分</div>
+          </div>
+          <div class="countdown-unit">
+            <span class="countdown-num">08</span>
+            <div class="countdown-label">秒</div>
+          </div>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -204,7 +358,9 @@
   <section class="pj-section">
     <div class="pj-width">
       <h2 class="pj-section-title">注目のトーナメント</h2>
-      <p class="pj-section-sub">開催中・近日開催の主要ポーカートーナメント情報</p>
+      <div class="pj-section-sub">
+        <span class="last-updated"><span class="live-dot"></span>最終更新: 2026年3月21日 14:30</span>
+      </div>
       <div class="pj-table-wrap">
         <table class="pj-table">
           <thead>
@@ -220,39 +376,39 @@
           <tbody>
             <tr>
               <td style="font-weight:600;">WSOP 2026</td>
-              <td>ラスベガス</td>
+              <td><span class="location-flag"><span class="location-flag-emoji">&#127482;&#127480;</span>ラスベガス</span></td>
               <td>2026.06.01 - 07.14</td>
               <td>$500&#12316;$250,000</td>
               <td class="stakes">$300M+</td>
-              <td><span class="status-badge upcoming">近日開催</span></td>
+              <td><span class="status-badge upcoming pulse">近日開催</span></td>
             </tr>
             <tr>
               <td style="font-weight:600;">WPT World Championship</td>
-              <td>ラスベガス</td>
+              <td><span class="location-flag"><span class="location-flag-emoji">&#127482;&#127480;</span>ラスベガス</span></td>
               <td>2026.04.15 - 04.28</td>
               <td>$10,000</td>
               <td class="stakes">$40M</td>
-              <td><span class="status-badge upcoming">近日開催</span></td>
+              <td><span class="status-badge upcoming pulse">近日開催</span></td>
             </tr>
             <tr>
               <td style="font-weight:600;">EPT Monte Carlo</td>
-              <td>モンテカルロ</td>
+              <td><span class="location-flag"><span class="location-flag-emoji">&#127474;&#127464;</span>モンテカルロ</span></td>
               <td>2026.04.22 - 05.03</td>
               <td>&euro;1,000&#12316;&euro;100,000</td>
               <td class="stakes">&euro;30M</td>
-              <td><span class="status-badge upcoming">近日開催</span></td>
+              <td><span class="status-badge upcoming pulse">近日開催</span></td>
             </tr>
             <tr>
               <td style="font-weight:600;">APPT Manila</td>
-              <td>マニラ</td>
+              <td><span class="location-flag"><span class="location-flag-emoji">&#127477;&#127469;</span>マニラ</span></td>
               <td>2026.05.10 - 05.20</td>
               <td>&#8369;10,000&#12316;&#8369;200,000</td>
               <td class="stakes">&#8369;100M</td>
-              <td><span class="status-badge upcoming">近日開催</span></td>
+              <td><span class="status-badge upcoming pulse">近日開催</span></td>
             </tr>
             <tr>
               <td style="font-weight:600;">Aussie Millions</td>
-              <td>メルボルン</td>
+              <td><span class="location-flag"><span class="location-flag-emoji">&#127462;&#127482;</span>メルボルン</span></td>
               <td>2026.01.13 - 02.03</td>
               <td>A$1,000&#12316;A$100,000</td>
               <td class="stakes">A$30M</td>
@@ -260,7 +416,7 @@
             </tr>
             <tr>
               <td style="font-weight:600;">WSOP Europe</td>
-              <td>ロスヴァドーツ</td>
+              <td><span class="location-flag"><span class="location-flag-emoji">&#127473;&#127470;</span>ロスヴァドーツ</span></td>
               <td>2025.10.01 - 10.25</td>
               <td>&euro;350&#12316;&euro;250,000</td>
               <td class="stakes">&euro;20M</td>
@@ -291,56 +447,56 @@
           <tbody>
             <tr>
               <td>Aussie Millions</td>
-              <td>メルボルン</td>
+              <td><span class="location-flag"><span class="location-flag-emoji">&#127462;&#127482;</span>メルボルン</span></td>
               <td>1月13日 - 2月3日</td>
               <td class="stakes">A$1,000&#12316;A$100,000</td>
               <td>南半球最大のシリーズ</td>
             </tr>
             <tr>
               <td>WPT World Championship</td>
-              <td>ラスベガス</td>
+              <td><span class="location-flag"><span class="location-flag-emoji">&#127482;&#127480;</span>ラスベガス</span></td>
               <td>4月15日 - 4月28日</td>
               <td class="stakes">$10,000</td>
               <td>WPTフラッグシップイベント</td>
             </tr>
             <tr>
               <td>EPT Monte Carlo</td>
-              <td>モンテカルロ</td>
+              <td><span class="location-flag"><span class="location-flag-emoji">&#127474;&#127464;</span>モンテカルロ</span></td>
               <td>4月22日 - 5月3日</td>
               <td class="stakes">&euro;1,000&#12316;&euro;100,000</td>
               <td>欧州最大級のシリーズ</td>
             </tr>
             <tr>
               <td>APPT Manila</td>
-              <td>マニラ</td>
+              <td><span class="location-flag"><span class="location-flag-emoji">&#127477;&#127469;</span>マニラ</span></td>
               <td>5月10日 - 5月20日</td>
               <td class="stakes">&#8369;10,000&#12316;&#8369;200,000</td>
               <td>アジア最大のAPPTストップ</td>
             </tr>
             <tr>
               <td>WSOP 2026</td>
-              <td>ラスベガス</td>
+              <td><span class="location-flag"><span class="location-flag-emoji">&#127482;&#127480;</span>ラスベガス</span></td>
               <td>6月1日 - 7月14日</td>
               <td class="stakes">$500&#12316;$250,000</td>
               <td>世界最大のポーカーフェスティバル</td>
             </tr>
             <tr>
               <td>EPT Barcelona</td>
-              <td>バルセロナ</td>
+              <td><span class="location-flag"><span class="location-flag-emoji">&#127466;&#127480;</span>バルセロナ</span></td>
               <td>8月10日 - 8月24日</td>
               <td class="stakes">&euro;1,000&#12316;&euro;100,000</td>
               <td>参加者数で世界最大級</td>
             </tr>
             <tr>
               <td>WSOP Europe</td>
-              <td>ロスヴァドーツ</td>
+              <td><span class="location-flag"><span class="location-flag-emoji">&#127473;&#127470;</span>ロスヴァドーツ</span></td>
               <td>10月1日 - 10月25日</td>
               <td class="stakes">&euro;350&#12316;&euro;250,000</td>
               <td>WSOP欧州シリーズ</td>
             </tr>
             <tr>
               <td>WPT Five Diamond</td>
-              <td>ラスベガス</td>
+              <td><span class="location-flag"><span class="location-flag-emoji">&#127482;&#127480;</span>ラスベガス</span></td>
               <td>12月5日 - 12月18日</td>
               <td class="stakes">$5,000&#12316;$25,000</td>
               <td>年末の人気クラシック</td>
@@ -356,6 +512,14 @@
     <div class="pj-width">
       <h2 class="pj-section-title">日本人プレイヤーの活躍</h2>
       <p class="pj-section-sub">世界のトーナメントで結果を残す日本人プレイヤーたちの最新成績</p>
+
+      <!-- Aggregate stats -->
+      <div class="aggregate-bar">
+        <div class="aggregate-item">2026年 日本人入賞者数: <strong>23名</strong></div>
+        <div class="aggregate-item">獲得賞金総額: <strong>$1.2M</strong></div>
+        <div class="aggregate-item">最高順位: <strong>優勝 (佐藤 健一)</strong></div>
+      </div>
+
       <div class="pj-table-wrap">
         <table class="pj-table">
           <thead>
@@ -364,6 +528,7 @@
               <th>トーナメント</th>
               <th>順位</th>
               <th>賞金</th>
+              <th>トレンド</th>
             </tr>
           </thead>
           <tbody>
@@ -372,36 +537,42 @@
               <td>Aussie Millions Main Event 2026</td>
               <td>3位 / 812名</td>
               <td class="stakes">A$1,250,000</td>
+              <td><span class="trend-up" title="前回より上昇">&uarr;</span></td>
             </tr>
             <tr>
               <td style="font-weight:600;">佐藤 健一</td>
               <td>WSOP 2025 #45 NLH $1,500</td>
               <td>優勝 / 2,341名</td>
               <td class="stakes">$523,890</td>
+              <td><span class="trend-up" title="前回より上昇">&uarr;</span></td>
             </tr>
             <tr>
               <td style="font-weight:600;">山本 美咲</td>
               <td>EPT Monte Carlo High Roller 2025</td>
               <td>5位 / 156名</td>
               <td class="stakes">&euro;385,000</td>
+              <td><span class="trend-flat" title="前回と同等">&rarr;</span></td>
             </tr>
             <tr>
               <td style="font-weight:600;">鈴木 大輔</td>
               <td>APPT Manila Main Event 2025</td>
               <td>2位 / 1,024名</td>
               <td class="stakes">&#8369;12,500,000</td>
+              <td><span class="trend-up" title="前回より上昇">&uarr;</span></td>
             </tr>
             <tr>
               <td style="font-weight:600;">小林 裕介</td>
               <td>WPT World Championship 2025</td>
               <td>18位 / 2,960名</td>
               <td class="stakes">$185,400</td>
+              <td><span class="trend-down" title="前回より下降">&darr;</span></td>
             </tr>
             <tr>
               <td style="font-weight:600;">渡辺 彩花</td>
               <td>WSOP Europe 2025 #8 NLH &euro;1,500</td>
               <td>8位 / 689名</td>
               <td class="stakes">&euro;72,000</td>
+              <td><span class="trend-up" title="前回より上昇">&uarr;</span></td>
             </tr>
           </tbody>
         </table>
@@ -434,6 +605,22 @@
       </div>
     </div>
   </section>
+
+  <!-- NEWSLETTER -->
+  <div class="newsletter-bar">
+    <div class="pj-width">
+      <div class="newsletter-inner">
+        <div class="newsletter-text">
+          <h3>最新情報をお届け</h3>
+          <p>トーナメント速報、キャッシュゲーム情報を毎週配信</p>
+        </div>
+        <div class="newsletter-form">
+          <input type="email" placeholder="メールアドレス"/>
+          <button>登録する</button>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <!-- FOOTER -->
   <footer class="pj-footer">

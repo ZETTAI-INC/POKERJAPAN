@@ -30,15 +30,17 @@
     .pj-nav a { font-size:14px; font-weight:500; color:#adb1b8; transition:color .15s; }
     .pj-nav a:hover, .pj-nav a.active { color:#fff; }
     .pj-header-btns { display:flex; gap:10px; }
-    .pj-header-btns a { font-size:14px; font-weight:600; padding:7px 18px; border-radius:8px; }
+    .pj-header-btns a { font-size:14px; font-weight:600; padding:7px 18px; border-radius:8px; transition:background .15s; }
     .btn-ghost { color:#fff; }
+    .btn-ghost:hover { background:rgba(255,255,255,.08); }
     .btn-gold { background:var(--gold); color:#121214; }
+    .btn-gold:hover { background:#ffc35c; }
     .pj-width { max-width:1200px; margin:0 auto; padding:0 24px; width:100%; }
 
     /* Page Hero - compact with stats */
     .page-hero {
       background:#0b0e11; color:#fff;
-      padding:32px 0; position:relative; overflow:hidden;
+      padding:40px 0; position:relative; overflow:hidden;
     }
     .page-hero::before {
       content:''; position:absolute; top:-40%; right:-15%;
@@ -50,16 +52,36 @@
     .page-breadcrumb { font-size:13px; color:#595d61; margin-bottom:16px; }
     .page-breadcrumb a { color:#81858c; transition:color .15s; }
     .page-breadcrumb a:hover { color:#fff; }
-    .page-hero h1 { font-size:32px; font-weight:700; line-height:1.2; margin-bottom:6px; }
-    .page-hero .page-sub { font-size:14px; color:#adb1b8; line-height:1.5; margin-bottom:24px; }
+    .page-hero h1 { font-size:36px; font-weight:700; line-height:1.2; margin-bottom:8px; }
+    .page-hero .page-sub { font-size:15px; color:#adb1b8; line-height:1.5; margin-bottom:24px; }
     .hero-stats { display:flex; gap:40px; }
     .hero-stat { text-align:left; }
     .hero-stat-val { font-size:28px; font-weight:700; color:var(--gold); line-height:1.2; }
     .hero-stat-label { font-size:12px; color:#81858c; margin-top:2px; }
 
+    /* Tabs */
+    .tab-bar { border-bottom:1px solid var(--border); background:#fff; }
+    .tab-bar-inner { display:flex; gap:0; }
+    .tab-item {
+      font-size:14px; font-weight:500; color:var(--text-3);
+      padding:14px 20px; cursor:pointer; position:relative;
+      transition:color .15s; border:none; background:none; font-family:inherit;
+    }
+    .tab-item:first-child { padding-left:0; }
+    .tab-item:hover { color:var(--text-1); }
+    .tab-item.active { color:var(--text-1); font-weight:600; }
+    .tab-item.active::after {
+      content:''; position:absolute; bottom:-1px; left:0; right:0;
+      height:2px; background:var(--accent);
+    }
+
     /* Sections */
     .pj-section { padding:48px 0; }
-    .pj-section-title { font-size:20px; font-weight:700; margin:0 0 24px; }
+    .pj-section-title {
+      font-size:24px; font-weight:700; margin:0 0 8px;
+      border-left:3px solid var(--accent); padding-left:12px;
+    }
+    .pj-section-sub { font-size:13px; color:var(--text-3); margin-bottom:24px; padding-left:15px; }
 
     /* Table */
     .pj-table { width:100%; border-collapse:collapse; }
@@ -72,20 +94,79 @@
     .pj-table .room-flag { font-size:20px; }
     .pj-table .stakes { color:var(--accent); font-weight:500; }
     .pj-table-wrap { overflow-x:auto; }
+
+    /* Status dot with pulse */
     .status-dot { display:inline-flex; align-items:center; gap:6px; font-size:13px; font-weight:500; color:var(--green); }
     .status-dot::before { content:''; width:6px; height:6px; border-radius:50%; background:var(--green); display:inline-block; }
+    .status-dot.pulse::before { animation:pulseDot 2s ease-in-out infinite; }
+    @keyframes pulseDot {
+      0%,100% { opacity:1; box-shadow:0 0 0 0 rgba(32,178,108,.4); }
+      50% { opacity:.7; box-shadow:0 0 0 4px rgba(32,178,108,0); }
+    }
+
+    /* Japanese support indicators */
+    .jp-support { font-size:14px; font-weight:600; cursor:help; }
+    .jp-support.yes { color:var(--green); }
+    .jp-support.partial { color:var(--gold); }
+    .jp-support.no { color:var(--text-3); }
+
+    /* Last updated */
+    .last-updated {
+      font-size:12px; color:var(--text-3); margin-bottom:16px;
+      display:flex; align-items:center; gap:6px;
+    }
+    .live-dot {
+      width:6px; height:6px; border-radius:50%; background:var(--green);
+      display:inline-block; animation:pulseDot 2s ease-in-out infinite;
+    }
+
+    /* Comparison cards */
+    .compare-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:20px; margin-top:32px; }
+    .compare-card {
+      background:#fff; border:1px solid var(--border-light); border-radius:16px;
+      padding:28px 24px; text-align:center; transition:box-shadow .2s, border-color .2s, transform .2s;
+    }
+    .compare-card:hover { box-shadow:0 4px 20px rgba(0,0,0,.06); border-color:var(--border); transform:translateY(-2px); }
+    .compare-card-flag { font-size:36px; margin-bottom:12px; }
+    .compare-card-name { font-size:16px; font-weight:700; margin-bottom:4px; }
+    .compare-card-sub { font-size:13px; color:var(--text-3); margin-bottom:16px; }
+    .compare-card-stats { display:flex; flex-direction:column; gap:8px; }
+    .compare-stat { display:flex; justify-content:space-between; align-items:center; font-size:13px; padding:6px 0; border-bottom:1px solid var(--border-light); }
+    .compare-stat:last-child { border-bottom:none; }
+    .compare-stat-label { color:var(--text-3); }
+    .compare-stat-val { font-weight:600; }
 
     /* Info items */
     .info-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:20px; margin-top:48px; padding-top:48px; border-top:1px solid var(--border); }
+    .info-item { transition:transform .15s; }
+    .info-item:hover { transform:translateY(-2px); }
     .info-item h3 { font-size:14px; font-weight:600; margin:0 0 6px; }
     .info-item p { font-size:13px; color:var(--text-3); line-height:1.5; margin:0; }
+
+    /* Newsletter bar */
+    .newsletter-bar { background:#0b0e11; padding:40px 0; }
+    .newsletter-inner { display:flex; align-items:center; justify-content:space-between; gap:24px; }
+    .newsletter-text h3 { font-size:18px; font-weight:700; color:#fff; }
+    .newsletter-text p { font-size:13px; color:#81858c; margin-top:4px; }
+    .newsletter-form { display:flex; gap:0; background:#18191c; border:1px solid #404347; border-radius:8px; overflow:hidden; }
+    .newsletter-form input {
+      background:transparent; border:none; color:#fff; font-size:14px;
+      padding:12px 16px; outline:none; width:280px; font-family:inherit;
+    }
+    .newsletter-form input::placeholder { color:#595d61; }
+    .newsletter-form button {
+      background:var(--gold); color:#121214; border:none; font-size:14px;
+      font-weight:600; padding:12px 24px; cursor:pointer; font-family:inherit;
+      white-space:nowrap; transition:background .15s;
+    }
+    .newsletter-form button:hover { background:#ffc35c; }
 
     /* Footer */
     .pj-footer { border-top:1px solid var(--border); padding:48px 0 24px; background:#fafbfc; }
     .pj-footer-grid { display:grid; grid-template-columns:1.5fr 1fr 1fr 1fr; gap:40px; margin-bottom:40px; }
     .pj-footer-brand p { font-size:13px; color:var(--text-3); margin-top:12px; line-height:1.6; }
     .pj-footer-col h4 { font-size:14px; font-weight:600; margin:0 0 16px; }
-    .pj-footer-col a { display:block; font-size:13px; color:var(--text-3); margin-bottom:10px; }
+    .pj-footer-col a { display:block; font-size:13px; color:var(--text-3); margin-bottom:10px; transition:color .15s; }
     .pj-footer-col a:hover { color:var(--text-1); }
     .pj-footer-bottom { border-top:1px solid var(--border); padding-top:20px; font-size:12px; color:var(--text-3); text-align:center; }
 
@@ -117,7 +198,10 @@
     /* Responsive: Tablet */
     @media (max-width:1024px) {
       .info-grid { grid-template-columns:repeat(2,1fr); }
+      .compare-grid { grid-template-columns:repeat(2,1fr); }
       .pj-footer-grid { grid-template-columns:repeat(2,1fr); }
+      .newsletter-inner { flex-direction:column; text-align:center; }
+      .newsletter-form input { width:240px; }
     }
 
     /* Responsive: Mobile */
@@ -126,20 +210,28 @@
       .pj-header-btns { display:none; }
       .pj-hamburger { display:flex; }
 
-      .page-hero { padding:20px 0 24px; }
-      .page-hero h1 { font-size:24px; }
+      .page-hero { padding:24px 0 28px; }
+      .page-hero h1 { font-size:26px; }
       .page-breadcrumb { font-size:12px; margin-bottom:12px; }
       .hero-stats { gap:24px; }
       .hero-stat-val { font-size:22px; }
 
+      .tab-item { font-size:13px; padding:12px 14px; }
+      .tab-item:first-child { padding-left:0; }
+
       .pj-section { padding:32px 0; }
-      .pj-section-title { font-size:18px; margin-bottom:16px; }
+      .pj-section-title { font-size:20px; margin-bottom:6px; }
 
       .pj-table-wrap { overflow-x:auto; margin:0 -24px; padding:0 24px; }
-      .pj-table { min-width:700px; }
+      .pj-table { min-width:900px; }
       .pj-table td, .pj-table th { padding:10px 12px; font-size:13px; }
 
       .info-grid { grid-template-columns:1fr 1fr; gap:16px; margin-top:32px; padding-top:32px; }
+      .compare-grid { grid-template-columns:1fr; }
+
+      .newsletter-inner { flex-direction:column; text-align:center; }
+      .newsletter-form { flex-direction:column; }
+      .newsletter-form input { width:100%; }
 
       .pj-footer { padding:32px 0 16px; }
       .pj-footer-grid { grid-template-columns:1fr; gap:24px; margin-bottom:24px; }
@@ -150,6 +242,8 @@
       .page-hero h1 { font-size:22px; }
       .hero-stats { flex-direction:column; gap:12px; }
       .info-grid { grid-template-columns:1fr; }
+      .tab-bar-inner { overflow-x:auto; }
+      .tab-item { white-space:nowrap; font-size:12px; padding:10px 12px; }
     }
   </style>
 </head>
@@ -212,66 +306,185 @@
     </div>
   </section>
 
+  <!-- TABS -->
+  <div class="tab-bar">
+    <div class="pj-width">
+      <div class="tab-bar-inner">
+        <button class="tab-item active" data-region="all">すべて</button>
+        <button class="tab-item" data-region="asia">アジア</button>
+        <button class="tab-item" data-region="americas">アメリカ</button>
+        <button class="tab-item" data-region="europe">ヨーロッパ</button>
+        <button class="tab-item" data-region="oceania">オセアニア</button>
+      </div>
+    </div>
+  </div>
+
   <!-- CASINO TABLE -->
   <section class="pj-section">
     <div class="pj-width">
       <h2 class="pj-section-title">ポーカールーム一覧</h2>
+      <div class="pj-section-sub">
+        <span class="last-updated"><span class="live-dot"></span>最終更新: 2026年3月21日 14:30</span>
+      </div>
       <div class="pj-table-wrap">
-        <table class="pj-table">
+        <table class="pj-table" id="casino-table">
           <thead>
             <tr>
               <th>ポーカールーム</th>
               <th>ロケーション</th>
               <th>ステークス</th>
               <th>ゲームタイプ</th>
+              <th>テーブル数</th>
+              <th>日本語対応</th>
               <th>ステータス</th>
             </tr>
           </thead>
           <tbody>
-            <tr>
+            <tr data-region="americas">
               <td><a href="../junkets/bellagio.html" class="room-name"><span class="room-flag">&#127482;&#127480;</span>Bellagio Poker Room</a></td>
               <td>ラスベガス, USA</td>
               <td class="stakes">$1/3 &#12316; $400/800</td>
               <td>NLH / PLO / Mixed</td>
-              <td><span class="status-dot">24時間営業</span></td>
+              <td>40+</td>
+              <td><span class="jp-support partial" title="日本語スタッフ一部在籍">&#9651;</span></td>
+              <td><span class="status-dot pulse">24時間営業</span></td>
             </tr>
-            <tr>
+            <tr data-region="asia">
               <td><a href="../junkets/manila-cod.html" class="room-name"><span class="room-flag">&#127477;&#127469;</span>PokerStars LIVE Manila</a></td>
               <td>マニラ, フィリピン</td>
               <td class="stakes">&#8369;25/50 &#12316; &#8369;500/1000</td>
               <td>NLH / PLO</td>
-              <td><span class="status-dot">24時間営業</span></td>
+              <td>30+</td>
+              <td><span class="jp-support partial" title="日本語スタッフ一部在籍">&#9651;</span></td>
+              <td><span class="status-dot pulse">24時間営業</span></td>
             </tr>
-            <tr>
+            <tr data-region="europe">
               <td><a href="../junkets/hippodrome.html" class="room-name"><span class="room-flag">&#127468;&#127463;</span>Hippodrome Casino</a></td>
               <td>ロンドン, UK</td>
               <td class="stakes">&pound;1/2 &#12316; &pound;25/50</td>
               <td>NLH / PLO / Hi-Lo</td>
+              <td>15+</td>
+              <td><span class="jp-support no" title="日本語対応なし">&times;</span></td>
               <td><span class="status-dot">営業中</span></td>
             </tr>
-            <tr>
+            <tr data-region="asia">
               <td><a href="../junkets/wynn-macau.html" class="room-name"><span class="room-flag">&#127474;&#127476;</span>Wynn Macau</a></td>
               <td>マカオ, 中国</td>
               <td class="stakes">HK$25/50 &#12316; HK$500/1000</td>
               <td>NLH / Short Deck</td>
+              <td>20+</td>
+              <td><span class="jp-support partial" title="日本語スタッフ一部在籍">&#9651;</span></td>
               <td><span class="status-dot">営業中</span></td>
             </tr>
-            <tr>
+            <tr data-region="asia">
               <td><a href="../junkets/paradise-city.html" class="room-name"><span class="room-flag">&#127472;&#127479;</span>Paradise City Poker</a></td>
               <td>仁川, 韓国</td>
               <td class="stakes">&#8361;10K/20K &#12316; &#8361;100K/200K</td>
               <td>NLH</td>
+              <td>10+</td>
+              <td><span class="jp-support yes" title="日本語対応あり">&#9675;</span></td>
               <td><span class="status-dot">営業中</span></td>
             </tr>
-            <tr>
+            <tr data-region="oceania">
               <td><a href="../junkets/star-sydney.html" class="room-name"><span class="room-flag">&#127462;&#127482;</span>The Star Sydney</a></td>
               <td>シドニー, オーストラリア</td>
               <td class="stakes">A$2/5 &#12316; A$50/100</td>
               <td>NLH / PLO</td>
+              <td>20+</td>
+              <td><span class="jp-support no" title="日本語対応なし">&times;</span></td>
               <td><span class="status-dot">営業中</span></td>
             </tr>
           </tbody>
         </table>
+      </div>
+
+      <!-- Comparison section -->
+      <div style="margin-top:56px;">
+        <h2 class="pj-section-title">日本から近い順 比較表</h2>
+        <p class="pj-section-sub">フライト時間と概算費用で比較</p>
+        <div class="compare-grid">
+          <div class="compare-card">
+            <div class="compare-card-flag">&#127472;&#127479;</div>
+            <div class="compare-card-name">Paradise City</div>
+            <div class="compare-card-sub">仁川, 韓国</div>
+            <div class="compare-card-stats">
+              <div class="compare-stat">
+                <span class="compare-stat-label">フライト時間</span>
+                <span class="compare-stat-val">約2.5時間</span>
+              </div>
+              <div class="compare-stat">
+                <span class="compare-stat-label">航空券(往復)</span>
+                <span class="compare-stat-val">&#165;30,000~</span>
+              </div>
+              <div class="compare-stat">
+                <span class="compare-stat-label">宿泊(1泊)</span>
+                <span class="compare-stat-val">&#165;15,000~</span>
+              </div>
+              <div class="compare-stat">
+                <span class="compare-stat-label">最低ステークス</span>
+                <span class="compare-stat-val">&#8361;10K/20K</span>
+              </div>
+              <div class="compare-stat">
+                <span class="compare-stat-label">日本語対応</span>
+                <span class="compare-stat-val jp-support yes">&#9675;</span>
+              </div>
+            </div>
+          </div>
+          <div class="compare-card">
+            <div class="compare-card-flag">&#127477;&#127469;</div>
+            <div class="compare-card-name">PokerStars LIVE Manila</div>
+            <div class="compare-card-sub">マニラ, フィリピン</div>
+            <div class="compare-card-stats">
+              <div class="compare-stat">
+                <span class="compare-stat-label">フライト時間</span>
+                <span class="compare-stat-val">約4時間</span>
+              </div>
+              <div class="compare-stat">
+                <span class="compare-stat-label">航空券(往復)</span>
+                <span class="compare-stat-val">&#165;40,000~</span>
+              </div>
+              <div class="compare-stat">
+                <span class="compare-stat-label">宿泊(1泊)</span>
+                <span class="compare-stat-val">&#165;8,000~</span>
+              </div>
+              <div class="compare-stat">
+                <span class="compare-stat-label">最低ステークス</span>
+                <span class="compare-stat-val">&#8369;25/50</span>
+              </div>
+              <div class="compare-stat">
+                <span class="compare-stat-label">日本語対応</span>
+                <span class="compare-stat-val jp-support partial">&#9651;</span>
+              </div>
+            </div>
+          </div>
+          <div class="compare-card">
+            <div class="compare-card-flag">&#127474;&#127476;</div>
+            <div class="compare-card-name">Wynn Macau</div>
+            <div class="compare-card-sub">マカオ, 中国</div>
+            <div class="compare-card-stats">
+              <div class="compare-stat">
+                <span class="compare-stat-label">フライト時間</span>
+                <span class="compare-stat-val">約5時間</span>
+              </div>
+              <div class="compare-stat">
+                <span class="compare-stat-label">航空券(往復)</span>
+                <span class="compare-stat-val">&#165;50,000~</span>
+              </div>
+              <div class="compare-stat">
+                <span class="compare-stat-label">宿泊(1泊)</span>
+                <span class="compare-stat-val">&#165;20,000~</span>
+              </div>
+              <div class="compare-stat">
+                <span class="compare-stat-label">最低ステークス</span>
+                <span class="compare-stat-val">HK$25/50</span>
+              </div>
+              <div class="compare-stat">
+                <span class="compare-stat-label">日本語対応</span>
+                <span class="compare-stat-val jp-support partial">&#9651;</span>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
 
       <!-- Info items -->
@@ -296,6 +509,22 @@
     </div>
   </section>
 
+  <!-- NEWSLETTER -->
+  <div class="newsletter-bar">
+    <div class="pj-width">
+      <div class="newsletter-inner">
+        <div class="newsletter-text">
+          <h3>最新情報をお届け</h3>
+          <p>トーナメント速報、キャッシュゲーム情報を毎週配信</p>
+        </div>
+        <div class="newsletter-form">
+          <input type="email" placeholder="メールアドレス"/>
+          <button>登録する</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <!-- FOOTER -->
   <footer class="pj-footer">
     <div class="pj-width">
@@ -304,13 +533,38 @@
           <img src="../reference/images/logo-poker.svg" alt="POKER JAPAN" style="height:30px;"/>
           <p>POKER JAPANは、海外ポーカーキャッシュゲームに特化した日本語メディアです。世界各地のポーカールーム情報、戦略記事、トーナメント速報をお届けします。</p>
         </div>
-        <div class="pj-footer-col"><h4>コンテンツ</h4><a href="news.html">ニュース</a><a href="#">キャッシュゲーム情報</a><a href="#">トーナメント速報</a><a href="strategy.html">戦略記事</a><a href="beginners.html">初心者ガイド</a></div>
+        <div class="pj-footer-col"><h4>コンテンツ</h4><a href="news.html">ニュース</a><a href="casinos.html">キャッシュゲーム情報</a><a href="tournaments.html">トーナメント速報</a><a href="strategy.html">戦略記事</a><a href="beginners.html">初心者ガイド</a></div>
         <div class="pj-footer-col"><h4>海外カジノ</h4><a href="../junkets/bellagio.html">ラスベガス</a><a href="../junkets/wynn-macau.html">マカオ</a><a href="../junkets/manila-cod.html">マニラ</a><a href="../junkets/hippodrome.html">ロンドン</a><a href="../junkets/paradise-city.html">韓国</a></div>
         <div class="pj-footer-col"><h4>トーナメント</h4><a href="#">WSOP</a><a href="#">WPT</a><a href="#">EPT</a><a href="#">APPT</a><a href="#">日本人の成績</a></div>
       </div>
       <div class="pj-footer-bottom">&copy; 2026 POKER JAPAN. All rights reserved.</div>
     </div>
   </footer>
+
+  <!-- Tab Filter JS -->
+  <script>
+    (function() {
+      var tabs = document.querySelectorAll('.tab-item[data-region]');
+      var rows = document.querySelectorAll('#casino-table tbody tr[data-region]');
+
+      tabs.forEach(function(tab) {
+        tab.addEventListener('click', function() {
+          var region = this.getAttribute('data-region');
+
+          tabs.forEach(function(t) { t.classList.remove('active'); });
+          this.classList.add('active');
+
+          rows.forEach(function(row) {
+            if (region === 'all' || row.getAttribute('data-region') === region) {
+              row.style.display = '';
+            } else {
+              row.style.display = 'none';
+            }
+          });
+        });
+      });
+    })();
+  </script>
 
 </body>
 </html>
