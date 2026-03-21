@@ -238,9 +238,13 @@
       .hero-stat-val { font-size:20px; }
 
       .countdown-bar { padding:16px; flex-direction:column; gap:16px; }
-      .countdown-num { font-size:18px; padding:6px 10px; min-width:40px; }
-      .countdown-timer { gap:8px; }
+      .countdown-num { font-size:24px; padding:6px 12px; min-width:44px; }
+      .countdown-timer { gap:10px; }
       .countdown-event-name { font-size:14px; }
+
+      /* Table scroll indicator */
+      .pj-table-wrap { position:relative; }
+      .pj-table-wrap::after { content:''; position:absolute; top:0; right:0; bottom:0; width:32px; background:linear-gradient(to right, transparent, var(--bg-page)); pointer-events:none; }
 
       .pj-section { padding:32px 0; }
       .pj-section-title { font-size:20px; margin-bottom:12px; }

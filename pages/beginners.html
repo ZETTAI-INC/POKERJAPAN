@@ -118,7 +118,7 @@
 
     /* FAQ */
     .faq-list { list-style:none; }
-    .faq-item { border-bottom:1px solid var(--border-light); }
+    .faq-item { border-bottom:1px solid var(--border); }
     .faq-question {
       display:flex; justify-content:space-between; align-items:center;
       padding:18px 0; cursor:pointer; font-weight:600; font-size:14px;
@@ -250,7 +250,8 @@
       .page-breadcrumb { font-size:12px; margin-bottom:8px; }
 
       .progress-bar { flex-direction:column; gap:10px; width:100%; }
-      .progress-fill-wrap { width:100%; }
+      .progress-fill-wrap { width:100%; height:8px; border-radius:4px; }
+      .progress-fill { border-radius:4px; }
 
       .pj-section { padding:32px 0; }
       .pj-section-title { font-size:20px; margin-bottom:12px; }
@@ -269,6 +270,7 @@
       .pj-table { min-width:auto; }
       .pj-table td, .pj-table th { padding:10px 12px; font-size:13px; }
 
+      .faq-question { font-size:14px; padding:16px 0; }
       .faq-answer { max-height:none; }
       .faq-item.open .faq-answer { max-height:400px; }
 

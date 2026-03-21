@@ -229,7 +229,8 @@
       .dining-info { font-size:11px; gap:8px; flex-wrap:wrap; }
 
       /* Table */
-      .pj-table-wrap { overflow-x:auto; margin:0 -24px; padding:0 24px; }
+      .pj-table-wrap { overflow-x:auto; margin:0 -24px; padding:0 24px; position:relative; }
+      .pj-table-wrap::after { content:''; position:absolute; top:0; right:0; bottom:0; width:24px; background:linear-gradient(to right, transparent, var(--bg-page)); pointer-events:none; }
       .pj-table { min-width:auto; }
       .pj-table td, .pj-table th { padding:10px 8px; font-size:12px; white-space:nowrap; }
 
@@ -397,7 +398,7 @@
       <p class="pj-section-sub">パラダイスシティの客室カテゴリーです。ジャンケット経由のコンプ対象かどうかも記載しています。</p>
       <div class="room-grid">
         <div class="room-card">
-          <div class="room-card-thumb">&#127970;</div>
+          <div class="room-card-thumb"></div>
           <div class="room-card-body">
             <h3>Superior Room</h3>
             <p class="room-meta">約35㎡ / キングまたはツイン<br/>空港ビュー / プール・スパ利用可</p>
@@ -406,7 +407,7 @@
           </div>
         </div>
         <div class="room-card">
-          <div class="room-card-thumb" style="background:linear-gradient(135deg,#fef3e2,#f7f8fa);">&#127775;</div>
+          <div class="room-card-thumb" style="background:linear-gradient(135deg,#fef3e2,#f7f8fa);"></div>
           <div class="room-card-body">
             <h3>Art Suite</h3>
             <p class="room-meta">約60㎡ / リビング+ベッドルーム<br/>現代アート作品展示 / クラブラウンジアクセス</p>
@@ -415,7 +416,7 @@
           </div>
         </div>
         <div class="room-card">
-          <div class="room-card-thumb" style="background:linear-gradient(135deg,#fff3e0,#fef3e2);">&#128081;</div>
+          <div class="room-card-thumb" style="background:linear-gradient(135deg,#fff3e0,#fef3e2);"></div>
           <div class="room-card-body">
             <h3>Penthouse Suite</h3>
             <p class="room-meta">約120㎡ / 2ベッドルーム<br/>パノラマビュー / バトラーサービス / 専用チェックイン</p>

@@ -234,6 +234,13 @@
 
       .info-grid { grid-template-columns:1fr 1fr; gap:16px; margin-top:32px; padding-top:32px; }
       .compare-grid { grid-template-columns:1fr; }
+      .compare-card { padding:20px 16px; }
+      .compare-stat { font-size:13px; }
+      .compare-card-sub { font-size:13px; }
+
+      /* Table scroll indicator */
+      .pj-table-wrap { position:relative; }
+      .pj-table-wrap::after { content:''; position:absolute; top:0; right:0; bottom:0; width:32px; background:linear-gradient(to right, transparent, var(--bg-page)); pointer-events:none; }
 
       .nl-bar-inner { flex-direction:column !important; text-align:center; gap:16px !important; }
       .nl-bar-inner > div:last-child { width:100%; flex-direction:column !important; }

@@ -231,11 +231,16 @@
       .article-title { font-size:14px; }
       .article-desc { font-size:12px; }
 
-      .learning-path { padding:16px; overflow-x:auto; }
+      .learning-path { padding:16px; overflow-x:auto; -webkit-overflow-scrolling:touch; }
       .learning-path-bar { flex-direction:column; gap:12px; }
       .learning-connector { width:2px; height:20px; top:0; }
-      .learning-step { flex-direction:row; gap:12px; }
+      .learning-step { flex-direction:row; gap:12px; min-width:80px; }
       .learning-step-label { margin-top:0; }
+      .learning-step .learning-step-dot { width:48px; height:48px; font-size:14px; }
+      .learning-step .learning-step-label { font-size:11px; }
+      .learning-step .learning-step-count { font-size:10px; }
+
+      .cat-header { font-size:13px; padding:12px 0; margin-top:8px; }
 
       .nl-bar-inner { flex-direction:column !important; text-align:center; gap:16px !important; }
       .nl-bar-inner > div:last-child { width:100%; flex-direction:column !important; }

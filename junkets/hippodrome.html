@@ -229,7 +229,8 @@
       .dining-info { font-size:11px; gap:8px; flex-wrap:wrap; }
 
       /* Table */
-      .pj-table-wrap { overflow-x:auto; margin:0 -24px; padding:0 24px; }
+      .pj-table-wrap { overflow-x:auto; margin:0 -24px; padding:0 24px; position:relative; }
+      .pj-table-wrap::after { content:''; position:absolute; top:0; right:0; bottom:0; width:24px; background:linear-gradient(to right, transparent, var(--bg-page)); pointer-events:none; }
       .pj-table { min-width:auto; }
       .pj-table td, .pj-table th { padding:10px 8px; font-size:12px; white-space:nowrap; }
 
@@ -400,7 +401,7 @@
       <p class="pj-section-sub">ヒポドローム提携パートナーホテルの客室カテゴリーです。ジャンケット経由の提携割引が適用されます。</p>
       <div class="room-grid">
         <div class="room-card">
-          <div class="room-card-thumb">&#127970;</div>
+          <div class="room-card-thumb"></div>
           <div class="room-card-body">
             <h3>The Londoner - Superior Room</h3>
             <p class="room-meta">約30㎡ / キング or ツイン<br/>レスタースクエア徒歩1分</p>
@@ -409,7 +410,7 @@
           </div>
         </div>
         <div class="room-card">
-          <div class="room-card-thumb" style="background:linear-gradient(135deg,#fef3e2,#f7f8fa);">&#127775;</div>
+          <div class="room-card-thumb" style="background:linear-gradient(135deg,#fef3e2,#f7f8fa);"></div>
           <div class="room-card-body">
             <h3>St Martins Lane - Deluxe</h3>
             <p class="room-meta">約35㎡ / デザイナーズルーム<br/>カジノ徒歩3分 / ジム・スパ付き</p>
@@ -418,7 +419,7 @@
           </div>
         </div>
         <div class="room-card">
-          <div class="room-card-thumb" style="background:linear-gradient(135deg,#fff3e0,#fef3e2);">&#128081;</div>
+          <div class="room-card-thumb" style="background:linear-gradient(135deg,#fff3e0,#fef3e2);"></div>
           <div class="room-card-body">
             <h3>The Savoy - River Suite</h3>
             <p class="room-meta">約65㎡ / テムズ川ビュー<br/>バトラーサービス / 歴史的ラグジュアリー</p>

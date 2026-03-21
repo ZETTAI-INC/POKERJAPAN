@@ -368,6 +368,13 @@
       /* Countdown */
       .countdown-nums { gap:16px !important; }
       .countdown-nums > div > div:first-child { font-size:32px !important; }
+
+      /* Table scroll indicator */
+      .pj-table-wrap { position:relative; }
+      .pj-table-wrap::after { content:''; position:absolute; top:0; right:0; bottom:0; width:32px; background:linear-gradient(to right, transparent, var(--bg-alt)); pointer-events:none; }
+
+      /* Card promo image */
+      .card-promo-visual img { width:180px !important; margin:0 auto; }
     }
 
     /* ===== Very small screens ===== */
