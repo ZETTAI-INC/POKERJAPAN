@@ -116,9 +116,8 @@
       border-right:1px solid #1e2023;
     }
     .ticker-icon {
-      width:24px; height:24px; border-radius:50%;
-      background:#1e2023; display:flex; align-items:center; justify-content:center;
-      font-size:11px; font-weight:700; color:#fff;
+      width:10px; height:10px; min-width:10px; border-radius:50%;
+      background:#1e2023;
     }
     .ticker-name { font-size:13px; font-weight:600; color:#fff; white-space:nowrap; }
     .ticker-price { font-size:13px; color:#adb1b8; font-weight:500; }
@@ -265,28 +264,28 @@
       .pj-header-btns { display:none; }
       .pj-hamburger { display:flex; }
 
-      /* Hero */
-      .hero { padding:40px 0 0; }
-      .hero-inner { flex-direction:column; gap:24px; }
-      .hero h1 { font-size:28px; line-height:1.25; }
-      .hero .sub { font-size:14px; margin-bottom:20px; }
-      .hero-right { flex:none; width:100%; justify-content:center; }
-      .hero-right img { height:260px; }
+      /* Hero — compact FV: title + form + CTA must fit in viewport */
+      .hero { padding:28px 0 0; }
+      .hero-inner { flex-direction:column; gap:0; }
+      .hero h1 { font-size:24px; line-height:1.3; margin-bottom:8px; }
+      .hero .sub { font-size:13px; margin-bottom:16px; line-height:1.5; }
+      .hero-right { display:none; }
 
-      /* Fix 4: Hero register row — preserve border-radius when stacked */
       .register-row { max-width:100%; flex-direction:column; border-radius:8px; }
       .register-row input { padding:14px 16px; border-radius:8px 8px 0 0; }
       .register-row button { padding:14px 16px; border-radius:0 0 8px 8px; width:100%; }
 
-      /* Fix 6: Social icons — better mobile spacing */
-      .social-row { gap:10px; justify-content:flex-start; flex-wrap:wrap; }
-      .social-icon { width:36px; height:36px; font-size:16px; }
+      .or-divider { font-size:12px; margin-bottom:8px; }
+      .social-row { gap:8px; margin-bottom:16px; }
+      .social-icon { width:34px; height:34px; font-size:14px; }
 
       /* Ticker */
-      .ticker-item { padding:0 16px; }
+      .ticker-bar { padding:10px 0; }
+      .ticker-item { padding:0 14px; gap:8px; }
+      .ticker-icon { width:8px; height:8px; min-width:8px; }
       .ticker-name { font-size:12px; }
-      .ticker-price { font-size:12px; }
-      .ticker-change { font-size:12px; }
+      .ticker-price { font-size:11px; }
+      .ticker-change { font-size:11px; }
 
       /* Card promo */
       .card-promo { padding:48px 0; }
@@ -372,7 +371,9 @@
     /* ===== Very small screens ===== */
     @media (max-width:400px) {
       .pj-width { padding:0 16px; }
-      .hero h1 { font-size:24px; }
+      .hero { padding:20px 0 0; }
+      .hero h1 { font-size:22px; }
+      .hero .sub { font-size:12px; margin-bottom:12px; }
       .card-promo-text h2 { font-size:20px; }
       .pj-product-grid { grid-template-columns:1fr; }
       .card-promo-stats { flex-direction:column; gap:16px; }
@@ -434,11 +435,11 @@
 
           <!-- Social icons row -->
           <div class="social-row">
-            <div class="social-icon" title="Google">G</div>
-            <div class="social-icon" title="Apple">&#63743;</div>
-            <div class="social-icon" title="Telegram">&#9993;</div>
-            <div class="social-icon" title="X">&#120143;</div>
-            <div class="social-icon" title="LINE">L</div>
+            <div class="social-icon" title="Google"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 01-2.2 3.32v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.1z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09A6.97 6.97 0 015.5 12c0-.72.13-1.43.34-2.09V7.07H2.18A11 11 0 001 12c0 1.77.43 3.45 1.18 4.93l3.66-2.84z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg></div>
+            <div class="social-icon" title="Apple"><svg width="16" height="16" viewBox="0 0 24 24" fill="#fff"><path d="M17.05 20.28c-.98.95-2.05.88-3.08.4-1.09-.5-2.08-.48-3.24 0-1.44.62-2.2.44-3.06-.4C3.79 16.17 4.36 9.02 8.7 8.76c1.29.07 2.18.72 2.93.76.98-.2 1.92-.78 2.98-.71 1.26.1 2.22.58 2.84 1.5-2.6 1.55-1.98 4.97.52 5.92-.47 1.28-.94 2.54-1.92 4.05zM12.1 8.67c-.14-2.2 1.62-4.1 3.72-4.27.28 2.46-2.2 4.42-3.72 4.27z"/></svg></div>
+            <div class="social-icon" title="Telegram"><svg width="16" height="16" viewBox="0 0 24 24" fill="#fff"><path d="M9.78 18.65l.28-4.23 7.68-6.92c.34-.31-.07-.46-.52-.19L7.74 13.3 3.64 12c-.88-.25-.89-.86.2-1.3l15.97-6.16c.73-.33 1.43.18 1.15 1.3l-2.72 12.81c-.19.91-.74 1.13-1.5.71L12.6 16.3l-1.99 1.93c-.23.23-.42.42-.83.42z"/></svg></div>
+            <div class="social-icon" title="X"><svg width="14" height="14" viewBox="0 0 24 24" fill="#fff"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></div>
+            <div class="social-icon" title="LINE"><svg width="16" height="16" viewBox="0 0 24 24" fill="#06C755"><path d="M12 2C6.48 2 2 5.82 2 10.5c0 3.27 2.18 6.1 5.4 7.5-.08.28-.5 1.8-.57 2.07-.1.37.14.36.29.26.12-.07 1.84-1.22 2.6-1.72.74.1 1.5.17 2.28.17 5.52 0 10-3.82 10-8.5S17.52 2 12 2z"/></svg></div>
           </div>
         </div>
 
@@ -453,74 +454,74 @@
       <div class="ticker-track">
         <!-- Set 1 -->
         <div class="ticker-item">
-          <div class="ticker-icon" style="background:#f7931a;">B</div>
+          <div class="ticker-icon" style="background:#f7931a;"></div>
           <span class="ticker-name">ベラージオ</span>
           <span class="ticker-price">$1/3 NLH</span>
           <span class="ticker-change ticker-up">稼働中</span>
         </div>
         <div class="ticker-item">
-          <div class="ticker-icon" style="background:#627eea;">M</div>
+          <div class="ticker-icon" style="background:#627eea;"></div>
           <span class="ticker-name">マニラ COD</span>
           <span class="ticker-price">₱25/50 NLH</span>
           <span class="ticker-change ticker-up">稼働中</span>
         </div>
         <div class="ticker-item">
-          <div class="ticker-icon" style="background:#d4a017;">W</div>
+          <div class="ticker-icon" style="background:#d4a017;"></div>
           <span class="ticker-name">ウィン マカオ</span>
           <span class="ticker-price">HK$50/100</span>
           <span class="ticker-change ticker-up">稼働中</span>
         </div>
         <div class="ticker-item">
-          <div class="ticker-icon" style="background:#e84142;">H</div>
+          <div class="ticker-icon" style="background:#e84142;"></div>
           <span class="ticker-name">ヒポドローム</span>
           <span class="ticker-price">£1/2 NLH</span>
           <span class="ticker-change ticker-down">満席</span>
         </div>
         <div class="ticker-item">
-          <div class="ticker-icon" style="background:#9945ff;">P</div>
+          <div class="ticker-icon" style="background:#9945ff;"></div>
           <span class="ticker-name">パラダイスシティ</span>
           <span class="ticker-price">₩20K/40K</span>
           <span class="ticker-change ticker-up">稼働中</span>
         </div>
         <div class="ticker-item">
-          <div class="ticker-icon" style="background:#23292f;">A</div>
+          <div class="ticker-icon" style="background:#23292f;"></div>
           <span class="ticker-name">アリア</span>
           <span class="ticker-price">$2/5 NLH</span>
           <span class="ticker-change ticker-up">稼働中</span>
         </div>
         <!-- Set 2 (duplicate for seamless loop) -->
         <div class="ticker-item">
-          <div class="ticker-icon" style="background:#f7931a;">B</div>
+          <div class="ticker-icon" style="background:#f7931a;"></div>
           <span class="ticker-name">ベラージオ</span>
           <span class="ticker-price">$1/3 NLH</span>
           <span class="ticker-change ticker-up">稼働中</span>
         </div>
         <div class="ticker-item">
-          <div class="ticker-icon" style="background:#627eea;">M</div>
+          <div class="ticker-icon" style="background:#627eea;"></div>
           <span class="ticker-name">マニラ COD</span>
           <span class="ticker-price">₱25/50 NLH</span>
           <span class="ticker-change ticker-up">稼働中</span>
         </div>
         <div class="ticker-item">
-          <div class="ticker-icon" style="background:#d4a017;">W</div>
+          <div class="ticker-icon" style="background:#d4a017;"></div>
           <span class="ticker-name">ウィン マカオ</span>
           <span class="ticker-price">HK$50/100</span>
           <span class="ticker-change ticker-up">稼働中</span>
         </div>
         <div class="ticker-item">
-          <div class="ticker-icon" style="background:#e84142;">H</div>
+          <div class="ticker-icon" style="background:#e84142;"></div>
           <span class="ticker-name">ヒポドローム</span>
           <span class="ticker-price">£1/2 NLH</span>
           <span class="ticker-change ticker-down">満席</span>
         </div>
         <div class="ticker-item">
-          <div class="ticker-icon" style="background:#9945ff;">P</div>
+          <div class="ticker-icon" style="background:#9945ff;"></div>
           <span class="ticker-name">パラダイスシティ</span>
           <span class="ticker-price">₩20K/40K</span>
           <span class="ticker-change ticker-up">稼働中</span>
         </div>
         <div class="ticker-item">
-          <div class="ticker-icon" style="background:#23292f;">A</div>
+          <div class="ticker-icon" style="background:#23292f;"></div>
           <span class="ticker-name">アリア</span>
           <span class="ticker-price">$2/5 NLH</span>
           <span class="ticker-change ticker-up">稼働中</span>
