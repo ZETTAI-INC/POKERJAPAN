@@ -219,27 +219,134 @@
     .pj-partners { display:flex; align-items:center; justify-content:center; gap:48px; flex-wrap:wrap; opacity:.35; }
     .pj-partners img { height:22px; }
 
-    /* Responsive */
+    /* ===== Mobile menu ===== */
+    .pj-hamburger {
+      display:none; background:none; border:none; cursor:pointer; padding:8px;
+      flex-direction:column; gap:5px; z-index:1100;
+    }
+    .pj-hamburger span { display:block; width:22px; height:2px; background:#fff; border-radius:2px; transition:transform .2s,opacity .2s; }
+    .pj-hamburger.open span:nth-child(1) { transform:rotate(45deg) translate(5px,5px); }
+    .pj-hamburger.open span:nth-child(2) { opacity:0; }
+    .pj-hamburger.open span:nth-child(3) { transform:rotate(-45deg) translate(5px,-5px); }
+    .pj-mobile-menu {
+      display:none; position:fixed; top:64px; left:0; right:0; bottom:0;
+      background:rgba(18,18,20,.98); z-index:1050; padding:24px;
+      flex-direction:column; gap:0;
+    }
+    .pj-mobile-menu.open { display:flex; }
+    .pj-mobile-menu a {
+      display:block; padding:16px 0; font-size:16px; font-weight:500;
+      color:#adb1b8; border-bottom:1px solid #333537; transition:color .15s;
+    }
+    .pj-mobile-menu a:hover { color:#fff; }
+    .pj-mobile-menu .pj-mobile-btns { display:flex; gap:12px; margin-top:24px; }
+    .pj-mobile-menu .pj-mobile-btns a { border:none; padding:12px 0; text-align:center; flex:1; border-radius:8px; font-weight:600; }
+    .pj-mobile-menu .pj-mobile-btns .btn-ghost-m { background:#1e2023; color:#fff; }
+    .pj-mobile-menu .pj-mobile-btns .btn-gold-m { background:var(--gold); color:#121214; }
+
+    /* ===== Responsive: Tablet ===== */
     @media (max-width:1024px) {
       .pj-product-grid { grid-template-columns:repeat(2,1fr); }
-      .card-promo-inner { flex-direction:column; padding:40px 32px; }
+      .card-promo-inner { flex-direction:column; padding:40px 32px; gap:32px; }
       .card-promo-visual { flex:none; }
-      .pj-footer-grid { grid-template-columns:repeat(3,1fr); }
+      .card-promo-text h2 { font-size:28px; }
+      .pj-footer-grid { grid-template-columns:repeat(2,1fr); }
+      .pj-news-card.featured { grid-template-columns:1fr 1fr; }
     }
+
+    /* ===== Responsive: Mobile ===== */
     @media (max-width:768px) {
-      .hero-inner { flex-direction:column; gap:32px; }
-      .hero h1 { font-size:32px; }
-      .hero-right { flex:none; width:100%; justify-content:center; }
-      .hero-right img { height:300px; }
-      .register-row { max-width:100%; }
-      .card-promo-stats { flex-direction:column; gap:24px; }
-      .pj-news-grid { grid-template-columns:1fr; }
-      .pj-news-card.featured { grid-template-columns:1fr; }
-      .pj-product-grid { grid-template-columns:1fr; }
-      .pj-cta { flex-direction:column; text-align:center; padding:32px 24px; }
+      /* Header */
       .pj-nav { display:none; }
-      .pj-footer-grid { grid-template-columns:1fr 1fr; }
-      .pj-table-wrap { overflow-x:auto; }
+      .pj-header-btns { display:none; }
+      .pj-hamburger { display:flex; }
+
+      /* Hero */
+      .hero { padding:40px 0 0; }
+      .hero-inner { flex-direction:column; gap:24px; }
+      .hero h1 { font-size:28px; line-height:1.25; }
+      .hero .sub { font-size:14px; margin-bottom:20px; }
+      .hero-right { flex:none; width:100%; justify-content:center; }
+      .hero-right img { height:260px; }
+      .register-row { max-width:100%; flex-direction:column; border-radius:8px; }
+      .register-row input { padding:14px 16px; }
+      .register-row button { padding:14px 16px; border-radius:0 0 8px 8px; }
+      .social-row { gap:12px; }
+      .social-icon { width:36px; height:36px; font-size:16px; }
+
+      /* Ticker */
+      .ticker-item { padding:0 16px; }
+      .ticker-name { font-size:12px; }
+      .ticker-price { font-size:12px; }
+      .ticker-change { font-size:12px; }
+
+      /* Card promo */
+      .card-promo { padding:48px 0; }
+      .card-promo-inner { padding:28px 20px; gap:24px; border-radius:16px; }
+      .card-promo-text h2 { font-size:24px; margin-bottom:24px; }
+      .card-promo-stats { flex-direction:row; gap:0; justify-content:space-between; }
+      .card-stat { text-align:center; flex:1; }
+      .card-stat-val { font-size:20px; }
+      .card-stat-label { font-size:12px; }
+      .card-promo-visual { text-align:center; }
+      .card-promo-visual img { width:200px !important; margin:0 auto; }
+
+      /* Sections */
+      .pj-section { padding:40px 0; }
+      .pj-section-title { font-size:22px; margin-bottom:20px; }
+      .pj-section-header { flex-direction:column; align-items:flex-start; gap:8px; }
+
+      /* Product cards */
+      .pj-product-grid { grid-template-columns:1fr 1fr; gap:12px; }
+      .pj-product-card { padding:20px 16px; border-radius:12px; }
+      .pj-product-card img { width:40px; height:40px; margin-bottom:12px; }
+      .pj-product-card h3 { font-size:14px; }
+      .pj-product-card p { font-size:12px; }
+
+      /* News */
+      .pj-news-grid { grid-template-columns:1fr; gap:16px; }
+      .pj-news-card.featured { grid-template-columns:1fr; }
+      .pj-news-card.featured .pj-news-thumb { min-height:180px; }
+      .pj-news-body { padding:16px; }
+      .pj-news-body h3 { font-size:15px; }
+
+      /* Table */
+      .pj-table-wrap { overflow-x:auto; margin:0 -24px; padding:0 24px; }
+      .pj-table { min-width:600px; }
+      .pj-table td, .pj-table th { padding:10px 12px; font-size:13px; }
+
+      /* CTA */
+      .pj-cta { flex-direction:column; text-align:center; padding:32px 20px; border-radius:16px; gap:20px; }
+      .pj-cta h2 { font-size:22px; }
+      .pj-cta p { font-size:14px; }
+
+      /* Download section */
+      .pj-download-inner { flex-direction:column !important; gap:32px !important; text-align:center; }
+      .pj-download-inner > div:first-child { text-align:center; }
+      .pj-download-inner > div:first-child > div { font-size:24px !important; }
+      .pj-download-inner > div:first-child p { max-width:100% !important; }
+      .pj-download-inner > div:last-child { flex:none !important; }
+      .pj-download-inner > div:last-child img { height:240px !important; margin:0 auto; }
+
+      /* Partners */
+      .pj-partners { gap:24px; }
+      .pj-partners img { height:16px; }
+
+      /* Footer */
+      .pj-footer { padding:32px 0 16px; }
+      .pj-footer-grid { grid-template-columns:1fr; gap:24px; margin-bottom:24px; }
+      .pj-footer-brand p { font-size:12px; }
+      .pj-footer-col h4 { margin-bottom:10px; }
+    }
+
+    /* ===== Very small screens ===== */
+    @media (max-width:400px) {
+      .pj-width { padding:0 16px; }
+      .hero h1 { font-size:24px; }
+      .card-promo-text h2 { font-size:20px; }
+      .pj-product-grid { grid-template-columns:1fr; }
+      .card-promo-stats { flex-direction:column; gap:16px; }
+      .card-stat { text-align:left; }
     }
   </style>
 </head>
@@ -250,18 +357,32 @@
     <div class="pj-header-inner">
       <a href="/" class="pj-logo"><img src="reference/images/logo-poker.svg" alt="POKER JAPAN" style="filter:brightness(0) invert(1);"/></a>
       <nav class="pj-nav">
-        <a href="#news">ニュース</a>
-        <a href="#venues">海外カジノ</a>
-        <a href="#strategy">戦略ガイド</a>
-        <a href="#tournaments">トーナメント</a>
-        <a href="#beginners">初心者向け</a>
+        <a href="pages/news.html">ニュース</a>
+        <a href="pages/casinos.html">海外カジノ</a>
+        <a href="pages/strategy.html">戦略ガイド</a>
+        <a href="pages/tournaments.html">トーナメント</a>
+        <a href="pages/beginners.html">初心者向け</a>
       </nav>
       <div class="pj-header-btns">
         <a href="#" class="btn-ghost">ログイン</a>
         <a href="#" class="btn-gold">無料登録</a>
       </div>
+      <button class="pj-hamburger" onclick="document.querySelector('.pj-mobile-menu').classList.toggle('open');this.classList.toggle('open');" aria-label="メニュー">
+        <span></span><span></span><span></span>
+      </button>
     </div>
   </header>
+  <div class="pj-mobile-menu">
+    <a href="pages/news.html" onclick="document.querySelector('.pj-mobile-menu').classList.remove('open');document.querySelector('.pj-hamburger').classList.remove('open');">ニュース</a>
+    <a href="pages/casinos.html" onclick="document.querySelector('.pj-mobile-menu').classList.remove('open');document.querySelector('.pj-hamburger').classList.remove('open');">海外カジノ</a>
+    <a href="pages/strategy.html" onclick="document.querySelector('.pj-mobile-menu').classList.remove('open');document.querySelector('.pj-hamburger').classList.remove('open');">戦略ガイド</a>
+    <a href="pages/tournaments.html" onclick="document.querySelector('.pj-mobile-menu').classList.remove('open');document.querySelector('.pj-hamburger').classList.remove('open');">トーナメント</a>
+    <a href="pages/beginners.html" onclick="document.querySelector('.pj-mobile-menu').classList.remove('open');document.querySelector('.pj-hamburger').classList.remove('open');">初心者向け</a>
+    <div class="pj-mobile-btns">
+      <a href="#" class="btn-ghost-m">ログイン</a>
+      <a href="#" class="btn-gold-m">無料登録</a>
+    </div>
+  </div>
 
   <!-- ============================================================
        SECTION 1: HERO (Bybit style — dark bg, signup form, ticker)
@@ -538,7 +659,7 @@
           <img src="reference/images/logo-poker.svg" alt="POKER JAPAN" style="height:30px;"/>
           <p>POKER JAPANは、海外ポーカーキャッシュゲームに特化した日本語メディアです。世界各地のポーカールーム情報、戦略記事、トーナメント速報をお届けします。</p>
         </div>
-        <div class="pj-footer-col"><h4>コンテンツ</h4><a href="#">ニュース</a><a href="#">キャッシュゲーム情報</a><a href="#">トーナメント速報</a><a href="#">戦略記事</a><a href="#">初心者ガイド</a></div>
+        <div class="pj-footer-col"><h4>コンテンツ</h4><a href="pages/news.html">ニュース</a><a href="pages/casinos.html">キャッシュゲーム情報</a><a href="pages/tournaments.html">トーナメント速報</a><a href="pages/strategy.html">戦略記事</a><a href="pages/beginners.html">初心者ガイド</a></div>
         <div class="pj-footer-col"><h4>海外カジノ</h4><a href="junkets/bellagio.html">ラスベガス</a><a href="junkets/wynn-macau.html">マカオ</a><a href="junkets/manila-cod.html">マニラ</a><a href="junkets/hippodrome.html">ロンドン</a><a href="junkets/paradise-city.html">韓国</a></div>
         <div class="pj-footer-col"><h4>トーナメント</h4><a href="#">WSOP</a><a href="#">WPT</a><a href="#">EPT</a><a href="#">APPT</a><a href="#">日本人の成績</a></div>
       </div>

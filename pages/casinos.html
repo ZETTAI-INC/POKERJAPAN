@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="ja" dir="ltr">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no"/>
+  <link rel="icon" type="image/svg+xml" href="../reference/images/favicon-poker.svg"/>
+  <title>海外カジノ・ポーカールーム | POKER JAPAN</title>
+  <meta name="description" content="世界50カ国以上、1,200を超えるポーカールームの情報を掲載。ラスベガス、マニラ、マカオ、ロンドンなど主要カジノのステークス・ゲーム情報。"/>
+  <link rel="stylesheet" href="../reference/css/global-common.css"/>
+  <link rel="preload" as="font" type="font/woff2" href="../reference/fonts/Inter-latin-e2cd30fdbc318a1d7777d73399f88ba1.woff2" crossorigin="anonymous"/>
+
+  <style>
+    *, *::before, *::after { box-sizing:border-box; margin:0; padding:0; }
+    :root {
+      --bg-page:#fff; --bg-alt:#f7f8fa;
+      --text-1:#121214; --text-2:#595d61; --text-3:#81858c;
+      --accent:#1a6b3c; --accent-light:#e8f5ee;
+      --gold:#f7a600; --red:#ef454a; --green:#20b26c;
+      --border:#e5e7eb; --border-light:#f0f1f3;
+    }
+    body { font-family:"Inter","Noto Sans JP",system-ui,-apple-system,sans-serif; background:var(--bg-page); color:var(--text-1); -webkit-font-smoothing:antialiased; }
+    a { color:inherit; text-decoration:none; }
+    img { max-width:100%; display:block; }
+
+    /* Header */
+    .pj-header { position:sticky; top:0; z-index:1000; height:64px; background:rgba(18,18,20,.97); backdrop-filter:blur(12px); display:flex; align-items:center; }
+    .pj-header-inner { max-width:1200px; width:100%; margin:0 auto; padding:0 24px; display:flex; align-items:center; justify-content:space-between; }
+    .pj-logo img { height:30px; }
+    .pj-nav { display:flex; gap:28px; }
+    .pj-nav a { font-size:14px; font-weight:500; color:#adb1b8; transition:color .15s; }
+    .pj-nav a:hover, .pj-nav a.active { color:#fff; }
+    .pj-header-btns { display:flex; gap:10px; }
+    .pj-header-btns a { font-size:14px; font-weight:600; padding:7px 18px; border-radius:8px; }
+    .btn-ghost { color:#fff; }
+    .btn-gold { background:var(--gold); color:#121214; }
+    .pj-width { max-width:1200px; margin:0 auto; padding:0 24px; width:100%; }
+
+    /* Page Hero */
+    .page-hero {
+      background:#0b0e11; color:#fff;
+      padding:48px 0; position:relative; overflow:hidden;
+    }
+    .page-hero::before {
+      content:''; position:absolute; top:-40%; right:-15%;
+      width:600px; height:600px;
+      background:radial-gradient(circle, rgba(32,178,108,.08) 0%, transparent 60%);
+      pointer-events:none;
+    }
+    .page-hero-breadcrumb { font-size:13px; color:#595d61; margin-bottom:24px; position:relative; z-index:1; }
+    .page-hero-breadcrumb a { color:#81858c; transition:color .15s; }
+    .page-hero-breadcrumb a:hover { color:#fff; }
+    .page-hero-content { position:relative; z-index:1; }
+    .page-hero-content h1 { font-size:40px; font-weight:700; line-height:1.2; margin-bottom:12px; }
+    .page-hero-content .subtitle { font-size:16px; color:#adb1b8; margin-bottom:32px; line-height:1.5; }
+    .hero-stats { display:flex; gap:48px; }
+    .hero-stat-item { text-align:center; }
+    .hero-stat-item .stat-number { font-size:36px; font-weight:700; color:var(--gold); line-height:1.2; }
+    .hero-stat-item .stat-label { font-size:13px; color:#81858c; margin-top:4px; }
+
+    /* Sections */
+    .pj-section { padding:64px 0; }
+    .pj-section-alt { background:var(--bg-alt); }
+    .pj-section-title { font-size:28px; font-weight:700; margin:0 0 12px; }
+    .pj-section-sub { font-size:15px; color:var(--text-3); margin-bottom:32px; line-height:1.5; }
+
+    /* Filter Tabs */
+    .filter-tabs { display:flex; gap:8px; margin-bottom:40px; flex-wrap:wrap; }
+    .filter-tab {
+      display:inline-flex; align-items:center; justify-content:center;
+      font-family:inherit; font-size:14px; font-weight:500;
+      padding:8px 20px; border-radius:100px;
+      border:1px solid var(--border); background:#fff;
+      color:var(--text-2); cursor:pointer; transition:all .15s;
+    }
+    .filter-tab:hover { border-color:var(--accent); color:var(--accent); }
+    .filter-tab.active {
+      background:var(--accent); color:#fff; border-color:var(--accent);
+    }
+
+    /* Casino Grid */
+    .casino-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:20px; }
+
+    /* Casino Card */
+    .casino-card {
+      background:#fff; border-radius:16px; overflow:hidden;
+      border:1px solid var(--border-light);
+      transition:box-shadow .2s, transform .2s;
+      display:flex; flex-direction:column;
+    }
+    .casino-card:hover {
+      box-shadow:0 4px 20px rgba(0,0,0,.06);
+      transform:translateY(-2px);
+    }
+    .casino-card-top {
+      height:160px; display:flex; align-items:center; justify-content:center;
+      font-size:72px; position:relative;
+    }
+    .casino-card-top.usa { background:linear-gradient(135deg,#1a237e 0%,#283593 50%,#c62828 100%); }
+    .casino-card-top.philippines { background:linear-gradient(135deg,#1565c0 0%,#1976d2 50%,#c62828 100%); }
+    .casino-card-top.macau { background:linear-gradient(135deg,#00695c 0%,#00897b 50%,#004d40 100%); }
+    .casino-card-top.uk { background:linear-gradient(135deg,#0d47a1 0%,#1565c0 50%,#b71c1c 100%); }
+    .casino-card-top.korea { background:linear-gradient(135deg,#0d47a1 0%,#1565c0 50%,#c62828 100%); }
+    .casino-card-top.australia { background:linear-gradient(135deg,#0d47a1 0%,#1565c0 50%,#004d40 100%); }
+    .casino-card-body { padding:20px 24px; flex:1; display:flex; flex-direction:column; }
+    .casino-card-body h3 { font-size:16px; font-weight:600; margin:0 0 6px; }
+    .casino-card-location { font-size:13px; color:var(--text-3); margin-bottom:12px; }
+    .casino-card-stakes {
+      display:inline-block; font-size:13px; font-weight:600; color:var(--accent);
+      background:var(--accent-light); padding:4px 12px; border-radius:100px;
+      margin-bottom:10px; align-self:flex-start;
+    }
+    .casino-card-games { font-size:12px; color:var(--text-3); margin-bottom:12px; }
+    .casino-card-footer { display:flex; align-items:center; justify-content:space-between; margin-top:auto; }
+    .casino-card-status {
+      display:inline-flex; align-items:center; gap:5px;
+      font-size:12px; font-weight:600; color:var(--green);
+    }
+    .casino-card-status .dot {
+      width:7px; height:7px; border-radius:50%; background:var(--green);
+      display:inline-block;
+    }
+    .casino-card-link {
+      font-size:13px; font-weight:600; color:var(--accent);
+      transition:opacity .15s;
+    }
+    .casino-card-link:hover { opacity:.7; }
+
+    /* Info cards grid (Why POKER JAPAN) */
+    .info-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:20px; }
+    .info-card {
+      background:#fff; border-radius:16px; padding:28px 24px;
+      border:1px solid var(--border-light); transition:box-shadow .2s;
+    }
+    .info-card:hover { box-shadow:0 4px 20px rgba(0,0,0,.06); }
+    .info-card .icon { font-size:32px; margin-bottom:14px; }
+    .info-card h3 { font-size:16px; font-weight:600; margin:0 0 8px; }
+    .info-card p { font-size:13px; color:var(--text-3); line-height:1.5; margin:0; }
+
+    /* CTA */
+    .pj-cta { background:linear-gradient(135deg,var(--accent),#0f4025); border-radius:20px; padding:56px 48px; display:flex; align-items:center; justify-content:space-between; gap:40px; color:#fff; }
+    .pj-cta h2 { font-size:28px; font-weight:700; margin:0 0 12px; }
+    .pj-cta p { font-size:16px; color:rgba(255,255,255,.75); margin:0; }
+    .pj-btn { display:inline-flex; align-items:center; justify-content:center; gap:6px; font-family:inherit; font-size:14px; font-weight:600; border-radius:8px; border:none; cursor:pointer; padding:8px 20px; transition:background .15s; }
+
+    /* Footer */
+    .pj-footer { border-top:1px solid var(--border); padding:48px 0 24px; background:#fafbfc; }
+    .pj-footer-grid { display:grid; grid-template-columns:1.5fr 1fr 1fr 1fr; gap:40px; margin-bottom:40px; }
+    .pj-footer-brand p { font-size:13px; color:var(--text-3); margin-top:12px; line-height:1.6; }
+    .pj-footer-col h4 { font-size:14px; font-weight:600; margin:0 0 16px; }
+    .pj-footer-col a { display:block; font-size:13px; color:var(--text-3); margin-bottom:10px; }
+    .pj-footer-col a:hover { color:var(--text-1); }
+    .pj-footer-bottom { border-top:1px solid var(--border); padding-top:20px; font-size:12px; color:var(--text-3); text-align:center; }
+
+    /* Mobile menu */
+    .pj-hamburger {
+      display:none; background:none; border:none; cursor:pointer; padding:8px;
+      flex-direction:column; gap:5px; z-index:1100;
+    }
+    .pj-hamburger span { display:block; width:22px; height:2px; background:#fff; border-radius:2px; transition:transform .2s,opacity .2s; }
+    .pj-hamburger.open span:nth-child(1) { transform:rotate(45deg) translate(5px,5px); }
+    .pj-hamburger.open span:nth-child(2) { opacity:0; }
+    .pj-hamburger.open span:nth-child(3) { transform:rotate(-45deg) translate(5px,-5px); }
+    .pj-mobile-menu {
+      display:none; position:fixed; top:64px; left:0; right:0; bottom:0;
+      background:rgba(18,18,20,.98); z-index:1050; padding:24px;
+      flex-direction:column; gap:0;
+    }
+    .pj-mobile-menu.open { display:flex; }
+    .pj-mobile-menu a {
+      display:block; padding:16px 0; font-size:16px; font-weight:500;
+      color:#adb1b8; border-bottom:1px solid #333537; transition:color .15s;
+    }
+    .pj-mobile-menu a:hover { color:#fff; }
+    .pj-mobile-menu .pj-mobile-btns { display:flex; gap:12px; margin-top:24px; }
+    .pj-mobile-menu .pj-mobile-btns a { border:none; padding:12px 0; text-align:center; flex:1; border-radius:8px; font-weight:600; }
+    .pj-mobile-menu .pj-mobile-btns .btn-ghost-m { background:#1e2023; color:#fff; }
+    .pj-mobile-menu .pj-mobile-btns .btn-gold-m { background:var(--gold); color:#121214; }
+
+    /* Responsive: Tablet */
+    @media (max-width:1024px) {
+      .casino-grid { grid-template-columns:repeat(2,1fr); }
+      .info-grid { grid-template-columns:repeat(2,1fr); }
+      .hero-stats { gap:32px; }
+      .pj-footer-grid { grid-template-columns:repeat(2,1fr); }
+    }
+
+    /* Responsive: Mobile */
+    @media (max-width:768px) {
+      /* Header */
+      .pj-nav { display:none; }
+      .pj-header-btns { display:none; }
+      .pj-hamburger { display:flex; }
+
+      /* Hero */
+      .page-hero { padding:24px 0 32px; }
+      .page-hero-content h1 { font-size:28px; }
+      .page-hero-content .subtitle { font-size:14px; margin-bottom:24px; }
+      .page-hero-breadcrumb { font-size:12px; margin-bottom:16px; }
+      .hero-stats { gap:24px; }
+      .hero-stat-item .stat-number { font-size:28px; }
+      .hero-stat-item .stat-label { font-size:12px; }
+
+      /* Sections */
+      .pj-section { padding:40px 0; }
+      .pj-section-title { font-size:22px; margin-bottom:16px; }
+      .pj-section-sub { font-size:13px; margin-bottom:24px; }
+
+      /* Filter Tabs */
+      .filter-tabs { gap:6px; margin-bottom:24px; }
+      .filter-tab { font-size:13px; padding:6px 16px; }
+
+      /* Casino Grid */
+      .casino-grid { grid-template-columns:1fr; gap:16px; }
+      .casino-card-top { height:120px; font-size:56px; }
+      .casino-card-body { padding:16px; }
+      .casino-card-body h3 { font-size:15px; }
+
+      /* Info cards */
+      .info-grid { grid-template-columns:1fr 1fr; gap:12px; }
+      .info-card { padding:20px 16px; border-radius:12px; }
+      .info-card .icon { font-size:24px; margin-bottom:10px; }
+      .info-card h3 { font-size:14px; }
+      .info-card p { font-size:12px; }
+
+      /* CTA */
+      .pj-cta { flex-direction:column; text-align:center; padding:32px 20px; border-radius:16px; gap:20px; }
+      .pj-cta h2 { font-size:22px; }
+      .pj-cta p { font-size:14px; }
+
+      /* Footer */
+      .pj-footer { padding:32px 0 16px; }
+      .pj-footer-grid { grid-template-columns:1fr; gap:24px; margin-bottom:24px; }
+    }
+
+    /* Very small screens */
+    @media (max-width:400px) {
+      .pj-width { padding:0 16px; }
+      .page-hero-content h1 { font-size:22px; }
+      .hero-stats { flex-direction:column; gap:16px; align-items:flex-start; }
+      .info-grid { grid-template-columns:1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header class="pj-header">
+    <div class="pj-header-inner">
+      <a href="../index.html" class="pj-logo"><img src="../reference/images/logo-poker.svg" alt="POKER JAPAN" style="filter:brightness(0) invert(1);"/></a>
+      <nav class="pj-nav">
+        <a href="news.html">ニュース</a>
+        <a href="casinos.html" class="active">海外カジノ</a>
+        <a href="strategy.html">戦略ガイド</a>
+        <a href="tournaments.html">トーナメント</a>
+        <a href="beginners.html">初心者向け</a>
+      </nav>
+      <div class="pj-header-btns">
+        <a href="#" class="btn-ghost">ログイン</a>
+        <a href="#" class="btn-gold">無料登録</a>
+      </div>
+      <button class="pj-hamburger" onclick="document.querySelector('.pj-mobile-menu').classList.toggle('open');this.classList.toggle('open');" aria-label="メニュー">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+  <div class="pj-mobile-menu">
+    <a href="news.html" onclick="document.querySelector('.pj-mobile-menu').classList.remove('open');document.querySelector('.pj-hamburger').classList.remove('open');">ニュース</a>
+    <a href="casinos.html" onclick="document.querySelector('.pj-mobile-menu').classList.remove('open');document.querySelector('.pj-hamburger').classList.remove('open');">海外カジノ</a>
+    <a href="strategy.html" onclick="document.querySelector('.pj-mobile-menu').classList.remove('open');document.querySelector('.pj-hamburger').classList.remove('open');">戦略ガイド</a>
+    <a href="tournaments.html" onclick="document.querySelector('.pj-mobile-menu').classList.remove('open');document.querySelector('.pj-hamburger').classList.remove('open');">トーナメント</a>
+    <a href="beginners.html" onclick="document.querySelector('.pj-mobile-menu').classList.remove('open');document.querySelector('.pj-hamburger').classList.remove('open');">初心者向け</a>
+    <div class="pj-mobile-btns">
+      <a href="#" class="btn-ghost-m">ログイン</a>
+      <a href="#" class="btn-gold-m">無料登録</a>
+    </div>
+  </div>
+
+  <!-- PAGE HERO -->
+  <section class="page-hero">
+    <div class="pj-width">
+      <div class="page-hero-breadcrumb">
+        <a href="../index.html">ホーム</a> &gt; <span style="color:#adb1b8;">海外カジノ</span>
+      </div>
+      <div class="page-hero-content">
+        <h1>海外カジノ・ポーカールーム</h1>
+        <p class="subtitle">世界50カ国以上、1,200を超えるポーカールームの情報を掲載</p>
+        <div class="hero-stats">
+          <div class="hero-stat-item">
+            <div class="stat-number">50+</div>
+            <div class="stat-label">対応国</div>
+          </div>
+          <div class="hero-stat-item">
+            <div class="stat-number">1,200+</div>
+            <div class="stat-label">ポーカールーム</div>
+          </div>
+          <div class="hero-stat-item">
+            <div class="stat-number">24/7</div>
+            <div class="stat-label">リアルタイム更新</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- REGION TABS + CASINO CARDS -->
+  <section class="pj-section">
+    <div class="pj-width">
+      <div class="filter-tabs">
+        <button class="filter-tab active">すべて</button>
+        <button class="filter-tab">アジア</button>
+        <button class="filter-tab">アメリカ</button>
+        <button class="filter-tab">ヨーロッパ</button>
+        <button class="filter-tab">オセアニア</button>
+      </div>
+
+      <div class="casino-grid">
+        <!-- Card 1: Bellagio -->
+        <a href="../junkets/bellagio.html" class="casino-card">
+          <div class="casino-card-top usa">&#127482;&#127480;</div>
+          <div class="casino-card-body">
+            <h3>Bellagio Poker Room</h3>
+            <div class="casino-card-location">ラスベガス, USA</div>
+            <div class="casino-card-stakes">$1/3〜$400/800</div>
+            <div class="casino-card-games">NLH / PLO / Mixed</div>
+            <div class="casino-card-footer">
+              <span class="casino-card-status"><span class="dot"></span>24時間</span>
+              <span class="casino-card-link">詳細を見る &rarr;</span>
+            </div>
+          </div>
+        </a>
+
+        <!-- Card 2: PokerStars LIVE Manila -->
+        <a href="../junkets/manila-cod.html" class="casino-card">
+          <div class="casino-card-top philippines">&#127477;&#127469;</div>
+          <div class="casino-card-body">
+            <h3>PokerStars LIVE Manila</h3>
+            <div class="casino-card-location">マニラ, フィリピン</div>
+            <div class="casino-card-stakes">&#8369;25/50〜&#8369;500/1K</div>
+            <div class="casino-card-games">NLH / PLO</div>
+            <div class="casino-card-footer">
+              <span class="casino-card-status"><span class="dot"></span>24時間</span>
+              <span class="casino-card-link">詳細を見る &rarr;</span>
+            </div>
+          </div>
+        </a>
+
+        <!-- Card 3: Wynn Macau -->
+        <a href="../junkets/wynn-macau.html" class="casino-card">
+          <div class="casino-card-top macau">&#127474;&#127476;</div>
+          <div class="casino-card-body">
+            <h3>Wynn Macau</h3>
+            <div class="casino-card-location">マカオ, 中国</div>
+            <div class="casino-card-stakes">HK$25/50〜HK$500/1K</div>
+            <div class="casino-card-games">NLH / Short Deck</div>
+            <div class="casino-card-footer">
+              <span class="casino-card-status"><span class="dot"></span>営業中</span>
+              <span class="casino-card-link">詳細を見る &rarr;</span>
+            </div>
+          </div>
+        </a>
+
+        <!-- Card 4: Hippodrome Casino -->
+        <a href="../junkets/hippodrome.html" class="casino-card">
+          <div class="casino-card-top uk">&#127468;&#127463;</div>
+          <div class="casino-card-body">
+            <h3>Hippodrome Casino</h3>
+            <div class="casino-card-location">ロンドン, UK</div>
+            <div class="casino-card-stakes">&pound;1/2〜&pound;25/50</div>
+            <div class="casino-card-games">NLH / PLO / Hi-Lo</div>
+            <div class="casino-card-footer">
+              <span class="casino-card-status"><span class="dot"></span>営業中</span>
+              <span class="casino-card-link">詳細を見る &rarr;</span>
+            </div>
+          </div>
+        </a>
+
+        <!-- Card 5: Paradise City -->
+        <a href="../junkets/paradise-city.html" class="casino-card">
+          <div class="casino-card-top korea">&#127472;&#127479;</div>
+          <div class="casino-card-body">
+            <h3>Paradise City</h3>
+            <div class="casino-card-location">仁川, 韓国</div>
+            <div class="casino-card-stakes">&#8361;10K/20K〜&#8361;100K/200K</div>
+            <div class="casino-card-games">NLH</div>
+            <div class="casino-card-footer">
+              <span class="casino-card-status"><span class="dot"></span>営業中</span>
+              <span class="casino-card-link">詳細を見る &rarr;</span>
+            </div>
+          </div>
+        </a>
+
+        <!-- Card 6: The Star Sydney -->
+        <a href="../junkets/star-sydney.html" class="casino-card">
+          <div class="casino-card-top australia">&#127462;&#127482;</div>
+          <div class="casino-card-body">
+            <h3>The Star Sydney</h3>
+            <div class="casino-card-location">シドニー, オーストラリア</div>
+            <div class="casino-card-stakes">A$2/5〜A$50/100</div>
+            <div class="casino-card-games">NLH / PLO</div>
+            <div class="casino-card-footer">
+              <span class="casino-card-status"><span class="dot"></span>営業中</span>
+              <span class="casino-card-link">詳細を見る &rarr;</span>
+            </div>
+          </div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHY POKER JAPAN -->
+  <section class="pj-section pj-section-alt">
+    <div class="pj-width">
+      <h2 class="pj-section-title">POKER JAPANが選ばれる理由</h2>
+      <p class="pj-section-sub">海外カジノでのプレイを、安心かつ快適にサポートします。</p>
+      <div class="info-grid">
+        <div class="info-card">
+          <div class="icon">&spades;</div>
+          <h3>ジャンケット手配</h3>
+          <p>VIP待遇でプレイできるジャンケットサービスを手配</p>
+        </div>
+        <div class="info-card">
+          <div class="icon">&diams;</div>
+          <h3>渡航サポート</h3>
+          <p>ビザ、フライト、宿泊の手配をワンストップで</p>
+        </div>
+        <div class="info-card">
+          <div class="icon">&clubs;</div>
+          <h3>日本語対応</h3>
+          <p>現地での日本語サポートを提供</p>
+        </div>
+        <div class="info-card">
+          <div class="icon">&hearts;</div>
+          <h3>コミュニティ</h3>
+          <p>25,000人以上の日本人ポーカープレイヤーと繋がる</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="pj-section">
+    <div class="pj-width">
+      <div class="pj-cta">
+        <div>
+          <h2>カジノ・ジャンケットについてのお問い合わせ</h2>
+          <p>ジャンケットの申し込みやカジノ情報のご質問など、お気軽にご連絡ください。POKER JAPANが渡航からプレイまでサポートいたします。</p>
+        </div>
+        <a href="#" class="pj-btn" style="background:#fff;color:var(--accent);padding:14px 36px;font-size:16px;flex-shrink:0;">お問い合わせ</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="pj-footer">
+    <div class="pj-width">
+      <div class="pj-footer-grid">
+        <div class="pj-footer-brand">
+          <img src="../reference/images/logo-poker.svg" alt="POKER JAPAN" style="height:30px;"/>
+          <p>POKER JAPANは、海外ポーカーキャッシュゲームに特化した日本語メディアです。世界各地のポーカールーム情報、戦略記事、トーナメント速報をお届けします。</p>
+        </div>
+        <div class="pj-footer-col"><h4>コンテンツ</h4><a href="news.html">ニュース</a><a href="#">キャッシュゲーム情報</a><a href="#">トーナメント速報</a><a href="strategy.html">戦略記事</a><a href="beginners.html">初心者ガイド</a></div>
+        <div class="pj-footer-col"><h4>海外カジノ</h4><a href="../junkets/bellagio.html">ラスベガス</a><a href="../junkets/wynn-macau.html">マカオ</a><a href="../junkets/manila-cod.html">マニラ</a><a href="../junkets/hippodrome.html">ロンドン</a><a href="../junkets/paradise-city.html">韓国</a></div>
+        <div class="pj-footer-col"><h4>トーナメント</h4><a href="#">WSOP</a><a href="#">WPT</a><a href="#">EPT</a><a href="#">APPT</a><a href="#">日本人の成績</a></div>
+      </div>
+      <div class="pj-footer-bottom">&copy; 2026 POKER JAPAN. All rights reserved.</div>
+    </div>
+  </footer>
+
+</body>
+</html>

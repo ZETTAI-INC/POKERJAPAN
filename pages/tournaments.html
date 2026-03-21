@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="ja" dir="ltr">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no"/>
+  <link rel="icon" type="image/svg+xml" href="../reference/images/favicon-poker.svg"/>
+  <title>トーナメント速報 | POKER JAPAN</title>
+  <meta name="description" content="世界の主要ポーカートーナメント情報。WSOP、WPT、EPT、APPTの日程・結果・日本人プレイヤーの成績をリアルタイムでお届けします。"/>
+  <link rel="stylesheet" href="../reference/css/global-common.css"/>
+  <link rel="preload" as="font" type="font/woff2" href="../reference/fonts/Inter-latin-e2cd30fdbc318a1d7777d73399f88ba1.woff2" crossorigin="anonymous"/>
+
+  <style>
+    *, *::before, *::after { box-sizing:border-box; margin:0; padding:0; }
+    :root {
+      --bg-page:#fff; --bg-alt:#f7f8fa;
+      --text-1:#121214; --text-2:#595d61; --text-3:#81858c;
+      --accent:#1a6b3c; --accent-light:#e8f5ee;
+      --gold:#f7a600; --red:#ef454a; --green:#20b26c;
+      --border:#e5e7eb; --border-light:#f0f1f3;
+    }
+    body { font-family:"Inter","Noto Sans JP",system-ui,-apple-system,sans-serif; background:var(--bg-page); color:var(--text-1); -webkit-font-smoothing:antialiased; }
+    a { color:inherit; text-decoration:none; }
+    img { max-width:100%; display:block; }
+
+    /* Header */
+    .pj-header { position:sticky; top:0; z-index:1000; height:64px; background:rgba(18,18,20,.97); backdrop-filter:blur(12px); display:flex; align-items:center; }
+    .pj-header-inner { max-width:1200px; width:100%; margin:0 auto; padding:0 24px; display:flex; align-items:center; justify-content:space-between; }
+    .pj-logo img { height:30px; }
+    .pj-nav { display:flex; gap:28px; }
+    .pj-nav a { font-size:14px; font-weight:500; color:#adb1b8; transition:color .15s; }
+    .pj-nav a:hover, .pj-nav a.active { color:#fff; }
+    .pj-header-btns { display:flex; gap:10px; }
+    .pj-header-btns a { font-size:14px; font-weight:600; padding:7px 18px; border-radius:8px; }
+    .btn-ghost { color:#fff; }
+    .btn-gold { background:var(--gold); color:#121214; }
+    .pj-width { max-width:1200px; margin:0 auto; padding:0 24px; width:100%; }
+
+    /* Page Hero */
+    .page-hero {
+      background:#0b0e11; color:#fff;
+      padding:48px 0; position:relative; overflow:hidden;
+    }
+    .page-hero::before {
+      content:''; position:absolute; top:-40%; right:-15%;
+      width:600px; height:600px;
+      background:radial-gradient(circle, rgba(32,178,108,.08) 0%, transparent 60%);
+      pointer-events:none;
+    }
+    .page-breadcrumb { font-size:13px; color:#595d61; margin-bottom:24px; position:relative; z-index:1; }
+    .page-breadcrumb a { color:#81858c; transition:color .15s; }
+    .page-breadcrumb a:hover { color:#fff; }
+    .page-hero-content { position:relative; z-index:1; }
+    .page-hero-content h1 { font-size:40px; font-weight:700; line-height:1.2; margin-bottom:12px; }
+    .page-hero-content .sub { font-size:16px; color:#adb1b8; line-height:1.6; }
+
+    /* Sections */
+    .pj-section { padding:64px 0; }
+    .pj-section-alt { background:var(--bg-alt); }
+    .pj-section-title { font-size:28px; font-weight:700; margin:0 0 12px; }
+    .pj-section-sub { font-size:15px; color:var(--text-3); margin-bottom:32px; line-height:1.5; }
+
+    /* Tournament Grid */
+    .tournament-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:20px; }
+    .tournament-card {
+      background:#fff; border-radius:16px; overflow:hidden;
+      border:1px solid var(--border-light); transition:box-shadow .2s, transform .2s;
+    }
+    .tournament-card:hover { box-shadow:0 4px 20px rgba(0,0,0,.06); transform:translateY(-2px); }
+    .tournament-card-bar { height:4px; }
+    .tournament-card-bar.upcoming { background:var(--gold); }
+    .tournament-card-bar.ended { background:#e5e7eb; }
+    .tournament-card-bar.live { background:var(--green); }
+    .tournament-card-body { padding:24px; }
+    .tournament-card-body h3 { font-size:16px; font-weight:600; margin:0 0 14px; }
+    .tournament-status {
+      display:inline-block; font-size:11px; font-weight:600; text-transform:uppercase;
+      letter-spacing:.5px; padding:3px 10px; border-radius:100px; margin-bottom:14px;
+    }
+    .tournament-status.upcoming { background:rgba(247,166,0,.15); color:#b8750c; }
+    .tournament-status.ended { background:#e5e7eb; color:#81858c; }
+    .tournament-status.live { background:var(--green); color:#fff; }
+    .tournament-detail { font-size:13px; color:var(--text-3); display:flex; flex-direction:column; gap:8px; line-height:1.5; }
+    .tournament-detail .label { font-weight:500; color:var(--text-2); display:inline-block; min-width:80px; }
+    .tournament-detail .prize { color:var(--accent); font-weight:600; }
+
+    /* Table */
+    .pj-table { width:100%; border-collapse:collapse; }
+    .pj-table thead th { text-align:left; font-size:12px; font-weight:500; color:var(--text-3); padding:10px 16px; border-bottom:1px solid var(--border); text-transform:uppercase; letter-spacing:.5px; }
+    .pj-table tbody tr { border-bottom:1px solid var(--border-light); transition:background .15s; }
+    .pj-table tbody tr:hover { background:var(--bg-alt); }
+    .pj-table td { padding:14px 16px; font-size:14px; }
+    .pj-table .stakes { color:var(--accent); font-weight:600; }
+    .pj-table-wrap { overflow-x:auto; }
+
+    /* Product Cards (Series Links) */
+    .pj-product-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:20px; }
+    .pj-product-card {
+      background:#fff; border-radius:16px; padding:28px 24px;
+      border:1px solid var(--border-light); transition:box-shadow .2s, border-color .2s;
+    }
+    .pj-product-card:hover { box-shadow:0 4px 20px rgba(0,0,0,.06); border-color:var(--border); }
+    .pj-product-card .card-icon { font-size:40px; margin-bottom:16px; }
+    .pj-product-card h3 { font-size:16px; font-weight:600; margin:0 0 8px; }
+    .pj-product-card p { font-size:13px; color:var(--text-3); line-height:1.5; margin:0; }
+    .pj-product-card .card-link {
+      display:inline-flex; align-items:center; gap:4px;
+      font-size:13px; font-weight:600; color:var(--accent); margin-top:14px;
+    }
+
+    /* CTA */
+    .pj-cta { background:linear-gradient(135deg,var(--accent),#0f4025); border-radius:20px; padding:56px 48px; display:flex; align-items:center; justify-content:space-between; gap:40px; color:#fff; }
+    .pj-cta h2 { font-size:28px; font-weight:700; margin:0 0 12px; }
+    .pj-cta p { font-size:16px; color:rgba(255,255,255,.75); margin:0; }
+    .pj-btn { display:inline-flex; align-items:center; justify-content:center; gap:6px; font-family:inherit; font-size:14px; font-weight:600; border-radius:8px; border:none; cursor:pointer; padding:8px 20px; transition:background .15s; }
+
+    /* Footer */
+    .pj-footer { border-top:1px solid var(--border); padding:48px 0 24px; background:#fafbfc; }
+    .pj-footer-grid { display:grid; grid-template-columns:1.5fr 1fr 1fr 1fr; gap:40px; margin-bottom:40px; }
+    .pj-footer-brand p { font-size:13px; color:var(--text-3); margin-top:12px; line-height:1.6; }
+    .pj-footer-col h4 { font-size:14px; font-weight:600; margin:0 0 16px; }
+    .pj-footer-col a { display:block; font-size:13px; color:var(--text-3); margin-bottom:10px; }
+    .pj-footer-col a:hover { color:var(--text-1); }
+    .pj-footer-bottom { border-top:1px solid var(--border); padding-top:20px; font-size:12px; color:var(--text-3); text-align:center; }
+
+    /* Mobile menu */
+    .pj-hamburger {
+      display:none; background:none; border:none; cursor:pointer; padding:8px;
+      flex-direction:column; gap:5px; z-index:1100;
+    }
+    .pj-hamburger span { display:block; width:22px; height:2px; background:#fff; border-radius:2px; transition:transform .2s,opacity .2s; }
+    .pj-hamburger.open span:nth-child(1) { transform:rotate(45deg) translate(5px,5px); }
+    .pj-hamburger.open span:nth-child(2) { opacity:0; }
+    .pj-hamburger.open span:nth-child(3) { transform:rotate(-45deg) translate(5px,-5px); }
+    .pj-mobile-menu {
+      display:none; position:fixed; top:64px; left:0; right:0; bottom:0;
+      background:rgba(18,18,20,.98); z-index:1050; padding:24px;
+      flex-direction:column; gap:0;
+    }
+    .pj-mobile-menu.open { display:flex; }
+    .pj-mobile-menu a {
+      display:block; padding:16px 0; font-size:16px; font-weight:500;
+      color:#adb1b8; border-bottom:1px solid #333537; transition:color .15s;
+    }
+    .pj-mobile-menu a:hover { color:#fff; }
+    .pj-mobile-menu .pj-mobile-btns { display:flex; gap:12px; margin-top:24px; }
+    .pj-mobile-menu .pj-mobile-btns a { border:none; padding:12px 0; text-align:center; flex:1; border-radius:8px; font-weight:600; }
+    .pj-mobile-menu .pj-mobile-btns .btn-ghost-m { background:#1e2023; color:#fff; }
+    .pj-mobile-menu .pj-mobile-btns .btn-gold-m { background:var(--gold); color:#121214; }
+
+    /* Responsive: Tablet */
+    @media (max-width:1024px) {
+      .tournament-grid { grid-template-columns:repeat(2,1fr); }
+      .pj-product-grid { grid-template-columns:repeat(2,1fr); }
+      .pj-footer-grid { grid-template-columns:repeat(2,1fr); }
+    }
+
+    /* Responsive: Mobile */
+    @media (max-width:768px) {
+      /* Header */
+      .pj-nav { display:none; }
+      .pj-header-btns { display:none; }
+      .pj-hamburger { display:flex; }
+
+      /* Hero */
+      .page-hero { padding:24px 0 32px; }
+      .page-hero-content h1 { font-size:28px; }
+      .page-hero-content .sub { font-size:14px; }
+      .page-breadcrumb { font-size:12px; margin-bottom:16px; }
+
+      /* Sections */
+      .pj-section { padding:40px 0; }
+      .pj-section-title { font-size:22px; margin-bottom:16px; }
+      .pj-section-sub { font-size:13px; margin-bottom:24px; }
+
+      /* Tournament Grid */
+      .tournament-grid { grid-template-columns:1fr; gap:16px; }
+      .tournament-card-body { padding:20px 16px; }
+      .tournament-card-body h3 { font-size:15px; }
+
+      /* Product Grid */
+      .pj-product-grid { grid-template-columns:1fr 1fr; gap:12px; }
+      .pj-product-card { padding:20px 16px; border-radius:12px; }
+      .pj-product-card .card-icon { font-size:32px; margin-bottom:12px; }
+      .pj-product-card h3 { font-size:14px; }
+      .pj-product-card p { font-size:12px; }
+
+      /* Table */
+      .pj-table-wrap { overflow-x:auto; margin:0 -24px; padding:0 24px; }
+      .pj-table { min-width:600px; }
+      .pj-table td, .pj-table th { padding:10px 12px; font-size:13px; }
+
+      /* CTA */
+      .pj-cta { flex-direction:column; text-align:center; padding:32px 20px; border-radius:16px; gap:20px; }
+      .pj-cta h2 { font-size:22px; }
+      .pj-cta p { font-size:14px; }
+
+      /* Footer */
+      .pj-footer { padding:32px 0 16px; }
+      .pj-footer-grid { grid-template-columns:1fr; gap:24px; margin-bottom:24px; }
+    }
+
+    /* Very small screens */
+    @media (max-width:400px) {
+      .pj-width { padding:0 16px; }
+      .page-hero-content h1 { font-size:22px; }
+      .pj-product-grid { grid-template-columns:1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header class="pj-header">
+    <div class="pj-header-inner">
+      <a href="../index.html" class="pj-logo"><img src="../reference/images/logo-poker.svg" alt="POKER JAPAN" style="filter:brightness(0) invert(1);"/></a>
+      <nav class="pj-nav">
+        <a href="news.html">ニュース</a>
+        <a href="casinos.html">海外カジノ</a>
+        <a href="strategy.html">戦略ガイド</a>
+        <a href="tournaments.html" class="active">トーナメント</a>
+        <a href="beginners.html">初心者向け</a>
+      </nav>
+      <div class="pj-header-btns">
+        <a href="#" class="btn-ghost">ログイン</a>
+        <a href="#" class="btn-gold">無料登録</a>
+      </div>
+      <button class="pj-hamburger" onclick="document.querySelector('.pj-mobile-menu').classList.toggle('open');this.classList.toggle('open');" aria-label="メニュー">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+  <div class="pj-mobile-menu">
+    <a href="news.html" onclick="document.querySelector('.pj-mobile-menu').classList.remove('open');document.querySelector('.pj-hamburger').classList.remove('open');">ニュース</a>
+    <a href="casinos.html" onclick="document.querySelector('.pj-mobile-menu').classList.remove('open');document.querySelector('.pj-hamburger').classList.remove('open');">海外カジノ</a>
+    <a href="strategy.html" onclick="document.querySelector('.pj-mobile-menu').classList.remove('open');document.querySelector('.pj-hamburger').classList.remove('open');">戦略ガイド</a>
+    <a href="tournaments.html" onclick="document.querySelector('.pj-mobile-menu').classList.remove('open');document.querySelector('.pj-hamburger').classList.remove('open');">トーナメント</a>
+    <a href="beginners.html" onclick="document.querySelector('.pj-mobile-menu').classList.remove('open');document.querySelector('.pj-hamburger').classList.remove('open');">初心者向け</a>
+    <div class="pj-mobile-btns">
+      <a href="#" class="btn-ghost-m">ログイン</a>
+      <a href="#" class="btn-gold-m">無料登録</a>
+    </div>
+  </div>
+
+  <!-- PAGE HERO -->
+  <section class="page-hero">
+    <div class="pj-width">
+      <div class="page-breadcrumb">
+        <a href="../index.html">ホーム</a> &gt; <span>トーナメント</span>
+      </div>
+      <div class="page-hero-content">
+        <h1>トーナメント速報</h1>
+        <p class="sub">世界の主要ポーカートーナメントをリアルタイムで追う</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 注目のトーナメント -->
+  <section class="pj-section">
+    <div class="pj-width">
+      <h2 class="pj-section-title">注目のトーナメント</h2>
+      <p class="pj-section-sub">開催中・近日開催の主要ポーカートーナメント情報をまとめています。</p>
+      <div class="tournament-grid">
+
+        <!-- WSOP 2026 -->
+        <div class="tournament-card">
+          <div class="tournament-card-bar upcoming"></div>
+          <div class="tournament-card-body">
+            <span class="tournament-status upcoming">近日開催</span>
+            <h3>WSOP 2026</h3>
+            <div class="tournament-detail">
+              <div><span class="label">開催期間</span> 2026.06.01 - 07.14</div>
+              <div><span class="label">開催地</span> ラスベガス</div>
+              <div><span class="label">バイイン</span> $500〜$250,000</div>
+              <div><span class="label">賞金総額</span> <span class="prize">$300M+</span></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- WPT World Championship -->
+        <div class="tournament-card">
+          <div class="tournament-card-bar upcoming"></div>
+          <div class="tournament-card-body">
+            <span class="tournament-status upcoming">近日開催</span>
+            <h3>WPT World Championship</h3>
+            <div class="tournament-detail">
+              <div><span class="label">開催期間</span> 2026.04.15 - 04.28</div>
+              <div><span class="label">開催地</span> ラスベガス</div>
+              <div><span class="label">バイイン</span> $10,000</div>
+              <div><span class="label">賞金総額</span> <span class="prize">$40M</span></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- EPT Monte Carlo -->
+        <div class="tournament-card">
+          <div class="tournament-card-bar upcoming"></div>
+          <div class="tournament-card-body">
+            <span class="tournament-status upcoming">近日開催</span>
+            <h3>EPT Monte Carlo</h3>
+            <div class="tournament-detail">
+              <div><span class="label">開催期間</span> 2026.04.22 - 05.03</div>
+              <div><span class="label">開催地</span> モンテカルロ</div>
+              <div><span class="label">バイイン</span> &euro;1,000〜&euro;100,000</div>
+              <div><span class="label">賞金総額</span> <span class="prize">&euro;30M</span></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- APPT Manila -->
+        <div class="tournament-card">
+          <div class="tournament-card-bar upcoming"></div>
+          <div class="tournament-card-body">
+            <span class="tournament-status upcoming">近日開催</span>
+            <h3>APPT Manila</h3>
+            <div class="tournament-detail">
+              <div><span class="label">開催期間</span> 2026.05.10 - 05.20</div>
+              <div><span class="label">開催地</span> マニラ</div>
+              <div><span class="label">バイイン</span> &#8369;10,000〜&#8369;200,000</div>
+              <div><span class="label">賞金総額</span> <span class="prize">&#8369;100M</span></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Aussie Millions -->
+        <div class="tournament-card">
+          <div class="tournament-card-bar ended"></div>
+          <div class="tournament-card-body">
+            <span class="tournament-status ended">終了</span>
+            <h3>Aussie Millions</h3>
+            <div class="tournament-detail">
+              <div><span class="label">開催期間</span> 2026.01.13 - 02.03</div>
+              <div><span class="label">開催地</span> メルボルン</div>
+              <div><span class="label">バイイン</span> A$1,000〜A$100,000</div>
+              <div><span class="label">賞金総額</span> <span class="prize">A$30M</span></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- WSOP Europe -->
+        <div class="tournament-card">
+          <div class="tournament-card-bar ended"></div>
+          <div class="tournament-card-body">
+            <span class="tournament-status ended">終了</span>
+            <h3>WSOP Europe</h3>
+            <div class="tournament-detail">
+              <div><span class="label">開催期間</span> 2025.10.01 - 10.25</div>
+              <div><span class="label">開催地</span> ロスヴァドーツ</div>
+              <div><span class="label">バイイン</span> &euro;350〜&euro;250,000</div>
+              <div><span class="label">賞金総額</span> <span class="prize">&euro;20M</span></div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- トーナメントカレンダー -->
+  <section class="pj-section pj-section-alt">
+    <div class="pj-width">
+      <h2 class="pj-section-title">2026年トーナメントカレンダー</h2>
+      <p class="pj-section-sub">2026年に開催予定の主要ポーカートーナメントの年間スケジュールです。</p>
+      <div class="pj-table-wrap">
+        <table class="pj-table">
+          <thead>
+            <tr>
+              <th>トーナメント名</th>
+              <th>開催地</th>
+              <th>期間</th>
+              <th>バイイン範囲</th>
+              <th>備考</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Aussie Millions</td>
+              <td>メルボルン</td>
+              <td>1月13日 - 2月3日</td>
+              <td class="stakes">A$1,000〜A$100,000</td>
+              <td>南半球最大のシリーズ</td>
+            </tr>
+            <tr>
+              <td>WPT World Championship</td>
+              <td>ラスベガス</td>
+              <td>4月15日 - 4月28日</td>
+              <td class="stakes">$10,000</td>
+              <td>WPTフラッグシップイベント</td>
+            </tr>
+            <tr>
+              <td>EPT Monte Carlo</td>
+              <td>モンテカルロ</td>
+              <td>4月22日 - 5月3日</td>
+              <td class="stakes">&euro;1,000〜&euro;100,000</td>
+              <td>欧州最大級のシリーズ</td>
+            </tr>
+            <tr>
+              <td>APPT Manila</td>
+              <td>マニラ</td>
+              <td>5月10日 - 5月20日</td>
+              <td class="stakes">&#8369;10,000〜&#8369;200,000</td>
+              <td>アジア最大のAPPTストップ</td>
+            </tr>
+            <tr>
+              <td>WSOP 2026</td>
+              <td>ラスベガス</td>
+              <td>6月1日 - 7月14日</td>
+              <td class="stakes">$500〜$250,000</td>
+              <td>世界最大のポーカーフェスティバル</td>
+            </tr>
+            <tr>
+              <td>EPT Barcelona</td>
+              <td>バルセロナ</td>
+              <td>8月10日 - 8月24日</td>
+              <td class="stakes">&euro;1,000〜&euro;100,000</td>
+              <td>参加者数で世界最大級</td>
+            </tr>
+            <tr>
+              <td>WSOP Europe</td>
+              <td>ロスヴァドーツ</td>
+              <td>10月1日 - 10月25日</td>
+              <td class="stakes">&euro;350〜&euro;250,000</td>
+              <td>WSOP欧州シリーズ</td>
+            </tr>
+            <tr>
+              <td>WPT Five Diamond</td>
+              <td>ラスベガス</td>
+              <td>12月5日 - 12月18日</td>
+              <td class="stakes">$5,000〜$25,000</td>
+              <td>年末の人気クラシック</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- 日本人プレイヤー成績 -->
+  <section class="pj-section">
+    <div class="pj-width">
+      <h2 class="pj-section-title">日本人プレイヤーの活躍</h2>
+      <p class="pj-section-sub">世界のトーナメントで結果を残す日本人プレイヤーたちの最新成績です。</p>
+      <div class="pj-table-wrap">
+        <table class="pj-table">
+          <thead>
+            <tr>
+              <th>プレイヤー名</th>
+              <th>トーナメント</th>
+              <th>順位</th>
+              <th>賞金</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>田中 翔太</td>
+              <td>Aussie Millions Main Event 2026</td>
+              <td>3位 / 812名</td>
+              <td class="stakes">A$1,250,000</td>
+            </tr>
+            <tr>
+              <td>佐藤 健一</td>
+              <td>WSOP 2025 #45 NLH $1,500</td>
+              <td>優勝 / 2,341名</td>
+              <td class="stakes">$523,890</td>
+            </tr>
+            <tr>
+              <td>山本 美咲</td>
+              <td>EPT Monte Carlo High Roller 2025</td>
+              <td>5位 / 156名</td>
+              <td class="stakes">&euro;385,000</td>
+            </tr>
+            <tr>
+              <td>鈴木 大輔</td>
+              <td>APPT Manila Main Event 2025</td>
+              <td>2位 / 1,024名</td>
+              <td class="stakes">&#8369;12,500,000</td>
+            </tr>
+            <tr>
+              <td>小林 裕介</td>
+              <td>WPT World Championship 2025</td>
+              <td>18位 / 2,960名</td>
+              <td class="stakes">$185,400</td>
+            </tr>
+            <tr>
+              <td>渡辺 彩花</td>
+              <td>WSOP Europe 2025 #8 NLH &euro;1,500</td>
+              <td>8位 / 689名</td>
+              <td class="stakes">&euro;72,000</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- シリーズ別リンク -->
+  <section class="pj-section pj-section-alt">
+    <div class="pj-width">
+      <h2 class="pj-section-title">シリーズ別リンク</h2>
+      <p class="pj-section-sub">各トーナメントシリーズの詳細情報はこちらからご覧いただけます。</p>
+      <div class="pj-product-grid">
+        <div class="pj-product-card">
+          <div class="card-icon">&#9824;</div>
+          <h3>WSOP</h3>
+          <p>世界最大のポーカートーナメントシリーズ。毎年夏にラスベガスで開催。</p>
+          <div class="card-link">詳細を見る &rarr;</div>
+        </div>
+        <div class="pj-product-card">
+          <div class="card-icon">&#127760;</div>
+          <h3>WPT</h3>
+          <p>ワールドポーカーツアー。世界各地で開催されるプレミアムシリーズ。</p>
+          <div class="card-link">詳細を見る &rarr;</div>
+        </div>
+        <div class="pj-product-card">
+          <div class="card-icon">&#9830;</div>
+          <h3>EPT</h3>
+          <p>ヨーロピアンポーカーツアー。欧州最大のトーナメントシリーズ。</p>
+          <div class="card-link">詳細を見る &rarr;</div>
+        </div>
+        <div class="pj-product-card">
+          <div class="card-icon">&#9829;</div>
+          <h3>APPT</h3>
+          <p>アジア太平洋ポーカーツアー。アジア圏のプレイヤーに最適。</p>
+          <div class="card-link">詳細を見る &rarr;</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="pj-section">
+    <div class="pj-width">
+      <div class="pj-cta">
+        <div>
+          <h2>トーナメント情報をいち早く受け取る</h2>
+          <p>メルマガに登録すると、最新のトーナメント速報・日本人プレイヤーの成績・エントリー情報をいち早くお届けします。</p>
+        </div>
+        <a href="#" class="pj-btn" style="background:#fff;color:var(--accent);padding:14px 36px;font-size:16px;flex-shrink:0;">無料で登録する</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="pj-footer">
+    <div class="pj-width">
+      <div class="pj-footer-grid">
+        <div class="pj-footer-brand">
+          <img src="../reference/images/logo-poker.svg" alt="POKER JAPAN" style="height:30px;"/>
+          <p>POKER JAPANは、海外ポーカーキャッシュゲームに特化した日本語メディアです。世界各地のポーカールーム情報、戦略記事、トーナメント速報をお届けします。</p>
+        </div>
+        <div class="pj-footer-col">
+          <h4>コンテンツ</h4>
+          <a href="news.html">ニュース</a>
+          <a href="casinos.html">キャッシュゲーム情報</a>
+          <a href="tournaments.html">トーナメント速報</a>
+          <a href="strategy.html">戦略記事</a>
+          <a href="beginners.html">初心者ガイド</a>
+        </div>
+        <div class="pj-footer-col">
+          <h4>海外カジノ</h4>
+          <a href="../junkets/bellagio.html">ラスベガス</a>
+          <a href="../junkets/wynn-macau.html">マカオ</a>
+          <a href="../junkets/manila-cod.html">マニラ</a>
+          <a href="../junkets/hippodrome.html">ロンドン</a>
+          <a href="../junkets/paradise-city.html">韓国</a>
+        </div>
+        <div class="pj-footer-col">
+          <h4>トーナメント</h4>
+          <a href="#">WSOP</a>
+          <a href="#">WPT</a>
+          <a href="#">EPT</a>
+          <a href="#">APPT</a>
+          <a href="#">日本人の成績</a>
+        </div>
+      </div>
+      <div class="pj-footer-bottom">&copy; 2026 POKER JAPAN. All rights reserved.</div>
+    </div>
+  </footer>
+
+</body>
+</html>

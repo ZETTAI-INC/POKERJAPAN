@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="ja" dir="ltr">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no"/>
+  <link rel="icon" type="image/svg+xml" href="../reference/images/favicon-poker.svg"/>
+  <title>戦略ガイド | POKER JAPAN</title>
+  <meta name="description" content="初心者からプロまで、レベル別のポーカー戦略記事を厳選。プリフロップ、ポストフロップ、メンタル、GTO理論まで網羅。"/>
+  <link rel="stylesheet" href="../reference/css/global-common.css"/>
+  <link rel="preload" as="font" type="font/woff2" href="../reference/fonts/Inter-latin-e2cd30fdbc318a1d7777d73399f88ba1.woff2" crossorigin="anonymous"/>
+
+  <style>
+    *, *::before, *::after { box-sizing:border-box; margin:0; padding:0; }
+    :root {
+      --bg-page:#fff; --bg-alt:#f7f8fa;
+      --text-1:#121214; --text-2:#595d61; --text-3:#81858c;
+      --accent:#1a6b3c; --accent-light:#e8f5ee;
+      --gold:#f7a600; --red:#ef454a; --green:#20b26c;
+      --border:#e5e7eb; --border-light:#f0f1f3;
+    }
+    body { font-family:"Inter","Noto Sans JP",system-ui,-apple-system,sans-serif; background:var(--bg-page); color:var(--text-1); -webkit-font-smoothing:antialiased; }
+    a { color:inherit; text-decoration:none; }
+    img { max-width:100%; display:block; }
+
+    /* Header */
+    .pj-header { position:sticky; top:0; z-index:1000; height:64px; background:rgba(18,18,20,.97); backdrop-filter:blur(12px); display:flex; align-items:center; }
+    .pj-header-inner { max-width:1200px; width:100%; margin:0 auto; padding:0 24px; display:flex; align-items:center; justify-content:space-between; }
+    .pj-logo img { height:30px; }
+    .pj-nav { display:flex; gap:28px; }
+    .pj-nav a { font-size:14px; font-weight:500; color:#adb1b8; transition:color .15s; }
+    .pj-nav a:hover, .pj-nav a.active { color:#fff; }
+    .pj-header-btns { display:flex; gap:10px; }
+    .pj-header-btns a { font-size:14px; font-weight:600; padding:7px 18px; border-radius:8px; }
+    .btn-ghost { color:#fff; }
+    .btn-gold { background:var(--gold); color:#121214; }
+    .pj-width { max-width:1200px; margin:0 auto; padding:0 24px; width:100%; }
+
+    /* Page Hero */
+    .page-hero {
+      background:#0b0e11; color:#fff;
+      padding:48px 0; position:relative; overflow:hidden;
+    }
+    .page-hero::before {
+      content:''; position:absolute; top:-40%; right:-15%;
+      width:600px; height:600px;
+      background:radial-gradient(circle, rgba(32,178,108,.08) 0%, transparent 60%);
+      pointer-events:none;
+    }
+    .page-hero-inner { position:relative; z-index:1; }
+    .page-breadcrumb { font-size:13px; color:#595d61; margin-bottom:24px; }
+    .page-breadcrumb a { color:#81858c; transition:color .15s; }
+    .page-breadcrumb a:hover { color:#fff; }
+    .page-hero h1 { font-size:40px; font-weight:700; line-height:1.2; margin-bottom:12px; }
+    .page-hero .page-sub { font-size:16px; color:#adb1b8; line-height:1.6; }
+
+    /* Filter Tabs */
+    .filter-tabs { background:#0b0e11; border-bottom:1px solid #1e2023; padding:0 0 0; }
+    .filter-tabs-inner { display:flex; gap:8px; padding:0 0 20px; flex-wrap:wrap; }
+    .filter-tab {
+      display:inline-flex; align-items:center; gap:6px;
+      font-family:inherit; font-size:13px; font-weight:600;
+      padding:8px 20px; border-radius:100px; border:1px solid #333537;
+      background:transparent; color:#adb1b8; cursor:pointer; transition:all .2s;
+    }
+    .filter-tab:hover { border-color:#595d61; color:#fff; }
+    .filter-tab.active { background:#fff; color:#121214; border-color:#fff; }
+    .filter-tab.active[data-level="beginner"] { background:var(--green); color:#fff; border-color:var(--green); }
+    .filter-tab.active[data-level="intermediate"] { background:var(--gold); color:#121214; border-color:var(--gold); }
+    .filter-tab.active[data-level="advanced"] { background:var(--red); color:#fff; border-color:var(--red); }
+
+    /* Sections */
+    .pj-section { padding:64px 0; }
+    .pj-section-alt { background:var(--bg-alt); }
+    .pj-section-header { display:flex; justify-content:space-between; align-items:center; margin-bottom:32px; }
+    .pj-section-title { font-size:28px; font-weight:700; margin:0; }
+    .pj-section-more { font-size:14px; font-weight:500; color:var(--accent); transition:opacity .15s; }
+    .pj-section-more:hover { opacity:.7; }
+
+    /* News Grid & Card */
+    .pj-news-grid { display:grid; grid-template-columns:1fr 1fr; gap:20px; }
+    .pj-news-card {
+      background:#fff; border-radius:16px; border:1px solid var(--border-light);
+      overflow:hidden; transition:box-shadow .2s, transform .2s; cursor:pointer;
+    }
+    .pj-news-card:hover { box-shadow:0 4px 20px rgba(0,0,0,.06); transform:translateY(-2px); }
+    .pj-news-card-thumb {
+      aspect-ratio:16/9; display:flex; align-items:center; justify-content:center;
+      font-size:48px; position:relative;
+    }
+    .pj-news-card-body { padding:20px 24px; }
+    .pj-news-tag {
+      display:inline-block; font-size:11px; font-weight:600; text-transform:uppercase;
+      letter-spacing:.5px; padding:3px 10px; border-radius:100px; margin-bottom:10px;
+    }
+    .pj-news-tag.beginner { background:#e8f5ee; color:#1a6b3c; }
+    .pj-news-tag.tournament { background:#fef3e2; color:#b8750c; }
+    .pj-news-tag.advanced { background:#ffeaeb; color:#c0392b; }
+    .pj-news-card-body h3 { font-size:16px; font-weight:600; margin:0 0 8px; line-height:1.4; }
+    .pj-news-card-body p { font-size:13px; color:var(--text-3); line-height:1.6; margin:0 0 12px; }
+    .pj-news-card-meta { font-size:12px; color:var(--text-3); display:flex; gap:16px; }
+
+    /* CTA */
+    .pj-cta { background:linear-gradient(135deg,var(--accent),#0f4025); border-radius:20px; padding:56px 48px; display:flex; align-items:center; justify-content:space-between; gap:40px; color:#fff; }
+    .pj-cta h2 { font-size:28px; font-weight:700; margin:0 0 12px; }
+    .pj-cta p { font-size:16px; color:rgba(255,255,255,.75); margin:0; }
+    .pj-btn { display:inline-flex; align-items:center; justify-content:center; gap:6px; font-family:inherit; font-size:14px; font-weight:600; border-radius:8px; border:none; cursor:pointer; padding:8px 20px; transition:background .15s; }
+
+    /* Footer */
+    .pj-footer { border-top:1px solid var(--border); padding:48px 0 24px; background:#fafbfc; }
+    .pj-footer-grid { display:grid; grid-template-columns:1.5fr 1fr 1fr 1fr; gap:40px; margin-bottom:40px; }
+    .pj-footer-brand p { font-size:13px; color:var(--text-3); margin-top:12px; line-height:1.6; }
+    .pj-footer-col h4 { font-size:14px; font-weight:600; margin:0 0 16px; }
+    .pj-footer-col a { display:block; font-size:13px; color:var(--text-3); margin-bottom:10px; }
+    .pj-footer-col a:hover { color:var(--text-1); }
+    .pj-footer-bottom { border-top:1px solid var(--border); padding-top:20px; font-size:12px; color:var(--text-3); text-align:center; }
+
+    /* Mobile menu */
+    .pj-hamburger {
+      display:none; background:none; border:none; cursor:pointer; padding:8px;
+      flex-direction:column; gap:5px; z-index:1100;
+    }
+    .pj-hamburger span { display:block; width:22px; height:2px; background:#fff; border-radius:2px; transition:transform .2s,opacity .2s; }
+    .pj-hamburger.open span:nth-child(1) { transform:rotate(45deg) translate(5px,5px); }
+    .pj-hamburger.open span:nth-child(2) { opacity:0; }
+    .pj-hamburger.open span:nth-child(3) { transform:rotate(-45deg) translate(5px,-5px); }
+    .pj-mobile-menu {
+      display:none; position:fixed; top:64px; left:0; right:0; bottom:0;
+      background:rgba(18,18,20,.98); z-index:1050; padding:24px;
+      flex-direction:column; gap:0;
+    }
+    .pj-mobile-menu.open { display:flex; }
+    .pj-mobile-menu a {
+      display:block; padding:16px 0; font-size:16px; font-weight:500;
+      color:#adb1b8; border-bottom:1px solid #333537; transition:color .15s;
+    }
+    .pj-mobile-menu a:hover { color:#fff; }
+    .pj-mobile-menu .pj-mobile-btns { display:flex; gap:12px; margin-top:24px; }
+    .pj-mobile-menu .pj-mobile-btns a { border:none; padding:12px 0; text-align:center; flex:1; border-radius:8px; font-weight:600; }
+    .pj-mobile-menu .pj-mobile-btns .btn-ghost-m { background:#1e2023; color:#fff; }
+    .pj-mobile-menu .pj-mobile-btns .btn-gold-m { background:var(--gold); color:#121214; }
+
+    /* Section alt card override */
+    .pj-section-alt .pj-news-card { background:#fff; }
+
+    /* Responsive: Tablet */
+    @media (max-width:1024px) {
+      .pj-news-grid { grid-template-columns:1fr 1fr; }
+      .pj-footer-grid { grid-template-columns:repeat(2,1fr); }
+    }
+
+    /* Responsive: Mobile */
+    @media (max-width:768px) {
+      /* Header */
+      .pj-nav { display:none; }
+      .pj-header-btns { display:none; }
+      .pj-hamburger { display:flex; }
+
+      /* Hero */
+      .page-hero { padding:24px 0 32px; }
+      .page-hero h1 { font-size:28px; }
+      .page-hero .page-sub { font-size:14px; }
+      .page-breadcrumb { font-size:12px; margin-bottom:16px; }
+
+      /* Filter Tabs */
+      .filter-tabs-inner { gap:6px; padding-bottom:16px; }
+      .filter-tab { font-size:12px; padding:6px 14px; }
+
+      /* Sections */
+      .pj-section { padding:40px 0; }
+      .pj-section-title { font-size:22px; }
+      .pj-section-header { flex-direction:column; align-items:flex-start; gap:8px; }
+
+      /* News Grid */
+      .pj-news-grid { grid-template-columns:1fr; gap:16px; }
+      .pj-news-card-thumb { font-size:36px; }
+      .pj-news-card-body { padding:16px; }
+      .pj-news-card-body h3 { font-size:15px; }
+      .pj-news-card-body p { font-size:12px; }
+
+      /* CTA */
+      .pj-cta { flex-direction:column; text-align:center; padding:32px 20px; border-radius:16px; gap:20px; }
+      .pj-cta h2 { font-size:22px; }
+      .pj-cta p { font-size:14px; }
+
+      /* Footer */
+      .pj-footer { padding:32px 0 16px; }
+      .pj-footer-grid { grid-template-columns:1fr; gap:24px; margin-bottom:24px; }
+    }
+
+    /* Very small screens */
+    @media (max-width:400px) {
+      .pj-width { padding:0 16px; }
+      .page-hero h1 { font-size:24px; }
+      .filter-tab { font-size:11px; padding:5px 12px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header class="pj-header">
+    <div class="pj-header-inner">
+      <a href="../index.html" class="pj-logo"><img src="../reference/images/logo-poker.svg" alt="POKER JAPAN" style="filter:brightness(0) invert(1);"/></a>
+      <nav class="pj-nav">
+        <a href="news.html">ニュース</a>
+        <a href="casinos.html">海外カジノ</a>
+        <a href="strategy.html" class="active">戦略ガイド</a>
+        <a href="tournaments.html">トーナメント</a>
+        <a href="beginners.html">初心者向け</a>
+      </nav>
+      <div class="pj-header-btns">
+        <a href="#" class="btn-ghost">ログイン</a>
+        <a href="#" class="btn-gold">無料登録</a>
+      </div>
+      <button class="pj-hamburger" onclick="document.querySelector('.pj-mobile-menu').classList.toggle('open');this.classList.toggle('open');" aria-label="メニュー">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+  <div class="pj-mobile-menu">
+    <a href="news.html" onclick="document.querySelector('.pj-mobile-menu').classList.remove('open');document.querySelector('.pj-hamburger').classList.remove('open');">ニュース</a>
+    <a href="casinos.html" onclick="document.querySelector('.pj-mobile-menu').classList.remove('open');document.querySelector('.pj-hamburger').classList.remove('open');">海外カジノ</a>
+    <a href="strategy.html" onclick="document.querySelector('.pj-mobile-menu').classList.remove('open');document.querySelector('.pj-hamburger').classList.remove('open');">戦略ガイド</a>
+    <a href="tournaments.html" onclick="document.querySelector('.pj-mobile-menu').classList.remove('open');document.querySelector('.pj-hamburger').classList.remove('open');">トーナメント</a>
+    <a href="beginners.html" onclick="document.querySelector('.pj-mobile-menu').classList.remove('open');document.querySelector('.pj-hamburger').classList.remove('open');">初心者向け</a>
+    <div class="pj-mobile-btns">
+      <a href="#" class="btn-ghost-m">ログイン</a>
+      <a href="#" class="btn-gold-m">無料登録</a>
+    </div>
+  </div>
+
+  <!-- PAGE HERO -->
+  <section class="page-hero">
+    <div class="pj-width">
+      <div class="page-hero-inner">
+        <div class="page-breadcrumb">
+          <a href="../index.html">ホーム</a> &gt; <span>戦略ガイド</span>
+        </div>
+        <h1>戦略ガイド</h1>
+        <p class="page-sub">初心者からプロまで、レベル別の戦略記事を厳選</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- FILTER TABS -->
+  <div class="filter-tabs">
+    <div class="pj-width">
+      <div class="filter-tabs-inner">
+        <button class="filter-tab active" data-level="all" onclick="filterByLevel('all', this)">すべて</button>
+        <button class="filter-tab" data-level="beginner" onclick="filterByLevel('beginner', this)">初級</button>
+        <button class="filter-tab" data-level="intermediate" onclick="filterByLevel('intermediate', this)">中級</button>
+        <button class="filter-tab" data-level="advanced" onclick="filterByLevel('advanced', this)">上級</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- プリフロップ戦略 -->
+  <section class="pj-section" data-category="preflop">
+    <div class="pj-width">
+      <div class="pj-section-header">
+        <h2 class="pj-section-title">プリフロップ戦略</h2>
+        <a href="#" class="pj-section-more">もっと見る &rarr;</a>
+      </div>
+      <div class="pj-news-grid">
+        <a href="#" class="pj-news-card" data-level="beginner">
+          <div class="pj-news-card-thumb" style="background:linear-gradient(135deg,#e8f5ee,#d4edda);">&spades;</div>
+          <div class="pj-news-card-body">
+            <span class="pj-news-tag beginner">初級</span>
+            <h3>ポジション別ハンドレンジ</h3>
+            <p>UTGからBTNまでの基本レンジ表。まずはこれを暗記しよう。</p>
+            <div class="pj-news-card-meta"><span>2026.03.15</span><span>8分で読める</span></div>
+          </div>
+        </a>
+        <a href="#" class="pj-news-card" data-level="intermediate">
+          <div class="pj-news-card-thumb" style="background:linear-gradient(135deg,#fef3e2,#fde8c8);">&diams;</div>
+          <div class="pj-news-card-body">
+            <span class="pj-news-tag tournament">中級</span>
+            <h3>3-Betレンジの構築方法</h3>
+            <p>バリューとブラフのバランスを数学的に解説。</p>
+            <div class="pj-news-card-meta"><span>2026.03.10</span><span>10分で読める</span></div>
+          </div>
+        </a>
+        <a href="#" class="pj-news-card" data-level="advanced">
+          <div class="pj-news-card-thumb" style="background:linear-gradient(135deg,#ffeaeb,#fdd);">&clubs;</div>
+          <div class="pj-news-card-body">
+            <span class="pj-news-tag advanced">上級</span>
+            <h3>スクイーズ戦略の応用</h3>
+            <p>マルチウェイポットでのスクイーズ判断基準。</p>
+            <div class="pj-news-card-meta"><span>2026.03.05</span><span>12分で読める</span></div>
+          </div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ポストフロップ戦略 -->
+  <section class="pj-section pj-section-alt" data-category="postflop">
+    <div class="pj-width">
+      <div class="pj-section-header">
+        <h2 class="pj-section-title">ポストフロップ戦略</h2>
+        <a href="#" class="pj-section-more">もっと見る &rarr;</a>
+      </div>
+      <div class="pj-news-grid">
+        <a href="#" class="pj-news-card" data-level="beginner">
+          <div class="pj-news-card-thumb" style="background:linear-gradient(135deg,#e8f5ee,#d4edda);">&hearts;</div>
+          <div class="pj-news-card-body">
+            <span class="pj-news-tag beginner">初級</span>
+            <h3>フロップでのCBet基礎</h3>
+            <p>いつ打つべきか、サイズはいくらか。基本原則を解説。</p>
+            <div class="pj-news-card-meta"><span>2026.03.12</span><span>7分で読める</span></div>
+          </div>
+        </a>
+        <a href="#" class="pj-news-card" data-level="intermediate">
+          <div class="pj-news-card-thumb" style="background:linear-gradient(135deg,#fef3e2,#fde8c8);">&spades;</div>
+          <div class="pj-news-card-body">
+            <span class="pj-news-tag tournament">中級</span>
+            <h3>ターンのダブルバレル判断</h3>
+            <p>ボードテクスチャとレンジ分析に基づく判断法。</p>
+            <div class="pj-news-card-meta"><span>2026.03.08</span><span>9分で読める</span></div>
+          </div>
+        </a>
+        <a href="#" class="pj-news-card" data-level="advanced">
+          <div class="pj-news-card-thumb" style="background:linear-gradient(135deg,#ffeaeb,#fdd);">&diams;</div>
+          <div class="pj-news-card-body">
+            <span class="pj-news-tag advanced">上級</span>
+            <h3>リバーのポーラライズドベッティング</h3>
+            <p>バリューとブラフを極端に分けるテクニック。</p>
+            <div class="pj-news-card-meta"><span>2026.03.02</span><span>11分で読める</span></div>
+          </div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- メンタル・バンクロール -->
+  <section class="pj-section" data-category="mental">
+    <div class="pj-width">
+      <div class="pj-section-header">
+        <h2 class="pj-section-title">メンタル・バンクロール</h2>
+        <a href="#" class="pj-section-more">もっと見る &rarr;</a>
+      </div>
+      <div class="pj-news-grid">
+        <a href="#" class="pj-news-card" data-level="beginner">
+          <div class="pj-news-card-thumb" style="background:linear-gradient(135deg,#e8f5ee,#d4edda);">&clubs;</div>
+          <div class="pj-news-card-body">
+            <span class="pj-news-tag beginner">初級</span>
+            <h3>バンクロール管理の基本</h3>
+            <p>キャッシュゲームに必要な適切な資金量とは。</p>
+            <div class="pj-news-card-meta"><span>2026.03.14</span><span>6分で読める</span></div>
+          </div>
+        </a>
+        <a href="#" class="pj-news-card" data-level="intermediate">
+          <div class="pj-news-card-thumb" style="background:linear-gradient(135deg,#fef3e2,#fde8c8);">&hearts;</div>
+          <div class="pj-news-card-body">
+            <span class="pj-news-tag tournament">中級</span>
+            <h3>ティルト対策</h3>
+            <p>負けが続いた時のメンタルコントロール法。</p>
+            <div class="pj-news-card-meta"><span>2026.03.07</span><span>8分で読める</span></div>
+          </div>
+        </a>
+        <a href="#" class="pj-news-card" data-level="advanced">
+          <div class="pj-news-card-thumb" style="background:linear-gradient(135deg,#ffeaeb,#fdd);">&spades;</div>
+          <div class="pj-news-card-body">
+            <span class="pj-news-tag advanced">上級</span>
+            <h3>ステークス移行の判断基準</h3>
+            <p>レートを上げるタイミングと下げる勇気。</p>
+            <div class="pj-news-card-meta"><span>2026.03.01</span><span>7分で読める</span></div>
+          </div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- GTO理論 -->
+  <section class="pj-section pj-section-alt" data-category="gto">
+    <div class="pj-width">
+      <div class="pj-section-header">
+        <h2 class="pj-section-title">GTO理論</h2>
+        <a href="#" class="pj-section-more">もっと見る &rarr;</a>
+      </div>
+      <div class="pj-news-grid">
+        <a href="#" class="pj-news-card" data-level="intermediate">
+          <div class="pj-news-card-thumb" style="background:linear-gradient(135deg,#fef3e2,#fde8c8);">&diams;</div>
+          <div class="pj-news-card-body">
+            <span class="pj-news-tag tournament">中級</span>
+            <h3>GTOとは何か</h3>
+            <p>ゲーム理論最適戦略の基本概念をわかりやすく解説。</p>
+            <div class="pj-news-card-meta"><span>2026.03.11</span><span>10分で読める</span></div>
+          </div>
+        </a>
+        <a href="#" class="pj-news-card" data-level="advanced">
+          <div class="pj-news-card-thumb" style="background:linear-gradient(135deg,#ffeaeb,#fdd);">&clubs;</div>
+          <div class="pj-news-card-body">
+            <span class="pj-news-tag advanced">上級</span>
+            <h3>ソルバーの使い方入門</h3>
+            <p>PioSOLVER/GTO+の基本操作と分析手順。</p>
+            <div class="pj-news-card-meta"><span>2026.03.06</span><span>15分で読める</span></div>
+          </div>
+        </a>
+        <a href="#" class="pj-news-card" data-level="advanced">
+          <div class="pj-news-card-thumb" style="background:linear-gradient(135deg,#ffeaeb,#fdd);">&hearts;</div>
+          <div class="pj-news-card-body">
+            <span class="pj-news-tag advanced">上級</span>
+            <h3>ノードロック分析</h3>
+            <p>対戦相手の傾向に合わせたエクスプロイト構築。</p>
+            <div class="pj-news-card-meta"><span>2026.02.28</span><span>12分で読める</span></div>
+          </div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="pj-section">
+    <div class="pj-width">
+      <div class="pj-cta">
+        <div>
+          <h2>メルマガで限定戦略記事を受け取る</h2>
+          <p>毎週厳選されたポーカー戦略記事をメールでお届けします。無料登録で今すぐ購読開始。</p>
+        </div>
+        <a href="#" class="pj-btn" style="background:#fff;color:var(--accent);padding:14px 36px;font-size:16px;flex-shrink:0;">無料で購読する</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="pj-footer">
+    <div class="pj-width">
+      <div class="pj-footer-grid">
+        <div class="pj-footer-brand">
+          <img src="../reference/images/logo-poker.svg" alt="POKER JAPAN" style="height:30px;"/>
+          <p>POKER JAPANは、海外ポーカーキャッシュゲームに特化した日本語メディアです。世界各地のポーカールーム情報、戦略記事、トーナメント速報をお届けします。</p>
+        </div>
+        <div class="pj-footer-col"><h4>コンテンツ</h4><a href="news.html">ニュース</a><a href="casinos.html">キャッシュゲーム情報</a><a href="tournaments.html">トーナメント速報</a><a href="strategy.html">戦略記事</a><a href="beginners.html">初心者ガイド</a></div>
+        <div class="pj-footer-col"><h4>海外カジノ</h4><a href="../junkets/bellagio.html">ラスベガス</a><a href="../junkets/wynn-macau.html">マカオ</a><a href="../junkets/manila-cod.html">マニラ</a><a href="../junkets/hippodrome.html">ロンドン</a><a href="../junkets/paradise-city.html">韓国</a></div>
+        <div class="pj-footer-col"><h4>トーナメント</h4><a href="#">WSOP</a><a href="#">WPT</a><a href="#">EPT</a><a href="#">APPT</a><a href="#">日本人の成績</a></div>
+      </div>
+      <div class="pj-footer-bottom">&copy; 2026 POKER JAPAN. All rights reserved.</div>
+    </div>
+  </footer>
+
+  <!-- Filter Script -->
+  <script>
+    function filterByLevel(level, btn) {
+      // Update active tab
+      document.querySelectorAll('.filter-tab').forEach(function(t) { t.classList.remove('active'); });
+      btn.classList.add('active');
+
+      // Filter cards
+      var cards = document.querySelectorAll('.pj-news-card[data-level]');
+      var sections = document.querySelectorAll('.pj-section[data-category]');
+
+      if (level === 'all') {
+        cards.forEach(function(c) { c.style.display = ''; });
+        sections.forEach(function(s) { s.style.display = ''; });
+      } else {
+        cards.forEach(function(c) {
+          c.style.display = c.getAttribute('data-level') === level ? '' : 'none';
+        });
+        // Hide sections where all cards are hidden
+        sections.forEach(function(s) {
+          var visibleCards = s.querySelectorAll('.pj-news-card[data-level]:not([style*="display: none"])');
+          s.style.display = visibleCards.length === 0 ? 'none' : '';
+        });
+      }
+    }
+  </script>
+
+</body>
+</html>

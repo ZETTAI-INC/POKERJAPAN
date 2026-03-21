@@ -153,22 +153,100 @@
     .pj-footer-col a:hover { color:var(--text-1); }
     .pj-footer-bottom { border-top:1px solid var(--border); padding-top:20px; font-size:12px; color:var(--text-3); text-align:center; }
 
-    /* Responsive */
+    /* Mobile menu */
+    .pj-hamburger {
+      display:none; background:none; border:none; cursor:pointer; padding:8px;
+      flex-direction:column; gap:5px; z-index:1100;
+    }
+    .pj-hamburger span { display:block; width:22px; height:2px; background:#fff; border-radius:2px; transition:transform .2s,opacity .2s; }
+    .pj-hamburger.open span:nth-child(1) { transform:rotate(45deg) translate(5px,5px); }
+    .pj-hamburger.open span:nth-child(2) { opacity:0; }
+    .pj-hamburger.open span:nth-child(3) { transform:rotate(-45deg) translate(5px,-5px); }
+    .pj-mobile-menu {
+      display:none; position:fixed; top:64px; left:0; right:0; bottom:0;
+      background:rgba(18,18,20,.98); z-index:1050; padding:24px;
+      flex-direction:column; gap:0;
+    }
+    .pj-mobile-menu.open { display:flex; }
+    .pj-mobile-menu a {
+      display:block; padding:16px 0; font-size:16px; font-weight:500;
+      color:#adb1b8; border-bottom:1px solid #333537; transition:color .15s;
+    }
+    .pj-mobile-menu a:hover { color:#fff; }
+    .pj-mobile-menu .pj-mobile-btns { display:flex; gap:12px; margin-top:24px; }
+    .pj-mobile-menu .pj-mobile-btns a { border:none; padding:12px 0; text-align:center; flex:1; border-radius:8px; font-weight:600; }
+    .pj-mobile-menu .pj-mobile-btns .btn-ghost-m { background:#1e2023; color:#fff; }
+    .pj-mobile-menu .pj-mobile-btns .btn-gold-m { background:var(--gold); color:#121214; }
+
+    /* Responsive: Tablet */
     @media (max-width:1024px) {
       .info-grid { grid-template-columns:repeat(2,1fr); }
       .room-grid { grid-template-columns:repeat(2,1fr); }
       .pj-footer-grid { grid-template-columns:repeat(2,1fr); }
     }
+
+    /* Responsive: Mobile */
     @media (max-width:768px) {
-      .junket-hero-inner { flex-direction:column; gap:24px; }
-      .junket-hero-text h1 { font-size:28px; }
-      .junket-hero-visual { flex:none; }
-      .info-grid, .room-grid { grid-template-columns:1fr; }
-      .dining-grid { grid-template-columns:1fr; }
-      .pj-cta { flex-direction:column; text-align:center; padding:32px 24px; }
+      /* Header */
       .pj-nav { display:none; }
-      .pj-footer-grid { grid-template-columns:1fr 1fr; }
-      .pj-table-wrap { overflow-x:auto; }
+      .pj-header-btns { display:none; }
+      .pj-hamburger { display:flex; }
+
+      /* Hero */
+      .junket-hero { padding:24px 0 32px; }
+      .junket-hero-inner { flex-direction:column; gap:24px; }
+      .junket-hero-text h1 { font-size:26px; }
+      .junket-hero-text .flag { font-size:36px; margin-bottom:8px; }
+      .junket-hero-text .desc { font-size:14px; }
+      .junket-hero-visual { flex:none; }
+      .junket-hero-visual .casino-icon { width:140px; height:140px; font-size:56px; border-radius:16px; }
+      .junket-breadcrumb { font-size:12px; margin-bottom:16px; }
+
+      /* Sections */
+      .pj-section { padding:40px 0; }
+      .pj-section-title { font-size:22px; margin-bottom:16px; }
+      .pj-section-sub { font-size:13px; margin-bottom:24px; }
+
+      /* Info cards */
+      .info-grid { grid-template-columns:1fr 1fr; gap:12px; }
+      .info-card { padding:20px 16px; border-radius:12px; }
+      .info-card .icon { font-size:24px; margin-bottom:10px; }
+      .info-card h3 { font-size:14px; }
+      .info-card p { font-size:12px; }
+
+      /* Room cards */
+      .room-grid { grid-template-columns:1fr; gap:16px; }
+      .room-card-thumb { height:120px; font-size:36px; }
+      .room-card-body { padding:16px; }
+      .room-card-body h3 { font-size:15px; }
+      .room-card-body .room-meta { font-size:12px; }
+
+      /* Dining */
+      .dining-grid { grid-template-columns:1fr; gap:12px; }
+      .dining-card { padding:20px 16px; }
+      .dining-card h3 { font-size:15px; }
+      .dining-info { font-size:11px; flex-wrap:wrap; }
+
+      /* Table */
+      .pj-table-wrap { overflow-x:auto; margin:0 -24px; padding:0 24px; }
+      .pj-table { min-width:600px; }
+      .pj-table td, .pj-table th { padding:10px 12px; font-size:13px; }
+
+      /* CTA */
+      .pj-cta { flex-direction:column; text-align:center; padding:32px 20px; border-radius:16px; gap:20px; }
+      .pj-cta h2 { font-size:22px; }
+      .pj-cta p { font-size:14px; }
+
+      /* Footer */
+      .pj-footer { padding:32px 0 16px; }
+      .pj-footer-grid { grid-template-columns:1fr; gap:24px; margin-bottom:24px; }
+    }
+
+    /* Very small screens */
+    @media (max-width:400px) {
+      .pj-width { padding:0 16px; }
+      .junket-hero-text h1 { font-size:22px; }
+      .info-grid { grid-template-columns:1fr; }
     }
   </style>
 </head>
@@ -189,8 +267,22 @@
         <a href="#" class="btn-ghost">ログイン</a>
         <a href="#" class="btn-gold">無料登録</a>
       </div>
+      <button class="pj-hamburger" onclick="document.querySelector('.pj-mobile-menu').classList.toggle('open');this.classList.toggle('open');" aria-label="メニュー">
+        <span></span><span></span><span></span>
+      </button>
     </div>
   </header>
+  <div class="pj-mobile-menu">
+    <a href="../index.html#news" onclick="document.querySelector('.pj-mobile-menu').classList.remove('open');document.querySelector('.pj-hamburger').classList.remove('open');">ニュース</a>
+    <a href="../index.html#venues" onclick="document.querySelector('.pj-mobile-menu').classList.remove('open');document.querySelector('.pj-hamburger').classList.remove('open');">海外カジノ</a>
+    <a href="../index.html#strategy" onclick="document.querySelector('.pj-mobile-menu').classList.remove('open');document.querySelector('.pj-hamburger').classList.remove('open');">戦略ガイド</a>
+    <a href="../index.html#tournaments" onclick="document.querySelector('.pj-mobile-menu').classList.remove('open');document.querySelector('.pj-hamburger').classList.remove('open');">トーナメント</a>
+    <a href="../index.html#beginners" onclick="document.querySelector('.pj-mobile-menu').classList.remove('open');document.querySelector('.pj-hamburger').classList.remove('open');">初心者向け</a>
+    <div class="pj-mobile-btns">
+      <a href="#" class="btn-ghost-m">ログイン</a>
+      <a href="#" class="btn-gold-m">無料登録</a>
+    </div>
+  </div>
 
   <!-- HERO -->
   <section class="junket-hero">
