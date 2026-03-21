@@ -1,0 +1,23 @@
+services:
+  - type: web
+    name: pokerjapan
+    runtime: static
+    staticPublishPath: .
+    buildCommand: ""
+    headers:
+      - path: /*
+        name: X-Frame-Options
+        value: SAMEORIGIN
+      - path: /reference/fonts/*
+        name: Cache-Control
+        value: public, max-age=31536000, immutable
+      - path: /reference/images/*
+        name: Cache-Control
+        value: public, max-age=2592000
+      - path: /reference/css/*
+        name: Cache-Control
+        value: public, max-age=2592000
+    routes:
+      - type: rewrite
+        source: /
+        destination: /index.html
