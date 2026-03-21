@@ -212,29 +212,33 @@
 
       .page-hero { padding:24px 0 28px; }
       .page-hero h1 { font-size:26px; }
-      .page-breadcrumb { font-size:12px; margin-bottom:12px; }
+      .page-breadcrumb { font-size:12px; margin-bottom:8px; }
       .hero-stats { gap:24px; }
-      .hero-stat-val { font-size:22px; }
+      .hero-stat-val { font-size:20px; }
 
-      .tab-item { font-size:13px; padding:12px 14px; }
+      .tab-bar-inner { overflow-x:auto; -webkit-overflow-scrolling:touch; }
+      .tab-item { font-size:13px; padding:12px 14px; white-space:nowrap; }
       .tab-item:first-child { padding-left:0; }
 
       .pj-section { padding:32px 0; }
       .pj-section-title { font-size:20px; margin-bottom:6px; }
 
       .pj-table-wrap { overflow-x:auto; margin:0 -24px; padding:0 24px; }
-      .pj-table { min-width:900px; }
+      .pj-table { min-width:auto; }
       .pj-table td, .pj-table th { padding:10px 12px; font-size:13px; }
+      .hide-mobile { display:none; }
 
       .info-grid { grid-template-columns:1fr 1fr; gap:16px; margin-top:32px; padding-top:32px; }
       .compare-grid { grid-template-columns:1fr; }
 
-      .newsletter-inner { flex-direction:column; text-align:center; }
-      .newsletter-form { flex-direction:column; }
-      .newsletter-form input { width:100%; }
+      .nl-bar-inner { flex-direction:column !important; text-align:center; gap:16px !important; }
+      .nl-bar-inner > div:last-child { width:100%; flex-direction:column !important; }
+      .nl-bar-inner input { width:100% !important; }
+      .nl-bar-inner button { border-radius:0 0 8px 8px !important; padding:14px !important; }
 
       .pj-footer { padding:32px 0 16px; }
-      .pj-footer-grid { grid-template-columns:1fr; gap:24px; margin-bottom:24px; }
+      .pj-footer-grid { grid-template-columns:1fr 1fr; gap:20px; margin-bottom:24px; }
+      .pj-footer-brand { grid-column:1/-1; }
     }
 
     @media (max-width:400px) {
@@ -334,8 +338,8 @@
               <th>ロケーション</th>
               <th>ステークス</th>
               <th>ゲームタイプ</th>
-              <th>テーブル数</th>
-              <th>日本語対応</th>
+              <th class="hide-mobile">テーブル数</th>
+              <th class="hide-mobile">日本語対応</th>
               <th>ステータス</th>
             </tr>
           </thead>
@@ -345,8 +349,8 @@
               <td>ラスベガス, USA</td>
               <td class="stakes">$1/3 &#12316; $400/800</td>
               <td>NLH / PLO / Mixed</td>
-              <td>40+</td>
-              <td><span class="jp-support partial" title="日本語スタッフ一部在籍">&#9651;</span></td>
+              <td class="hide-mobile">40+</td>
+              <td class="hide-mobile"><span class="jp-support partial" title="日本語スタッフ一部在籍">&#9651;</span></td>
               <td><span class="status-dot pulse">24時間営業</span></td>
             </tr>
             <tr data-region="asia">
@@ -354,8 +358,8 @@
               <td>マニラ, フィリピン</td>
               <td class="stakes">&#8369;25/50 &#12316; &#8369;500/1000</td>
               <td>NLH / PLO</td>
-              <td>30+</td>
-              <td><span class="jp-support partial" title="日本語スタッフ一部在籍">&#9651;</span></td>
+              <td class="hide-mobile">30+</td>
+              <td class="hide-mobile"><span class="jp-support partial" title="日本語スタッフ一部在籍">&#9651;</span></td>
               <td><span class="status-dot pulse">24時間営業</span></td>
             </tr>
             <tr data-region="europe">
@@ -363,8 +367,8 @@
               <td>ロンドン, UK</td>
               <td class="stakes">&pound;1/2 &#12316; &pound;25/50</td>
               <td>NLH / PLO / Hi-Lo</td>
-              <td>15+</td>
-              <td><span class="jp-support no" title="日本語対応なし">&times;</span></td>
+              <td class="hide-mobile">15+</td>
+              <td class="hide-mobile"><span class="jp-support no" title="日本語対応なし">&times;</span></td>
               <td><span class="status-dot">営業中</span></td>
             </tr>
             <tr data-region="asia">
@@ -372,8 +376,8 @@
               <td>マカオ, 中国</td>
               <td class="stakes">HK$25/50 &#12316; HK$500/1000</td>
               <td>NLH / Short Deck</td>
-              <td>20+</td>
-              <td><span class="jp-support partial" title="日本語スタッフ一部在籍">&#9651;</span></td>
+              <td class="hide-mobile">20+</td>
+              <td class="hide-mobile"><span class="jp-support partial" title="日本語スタッフ一部在籍">&#9651;</span></td>
               <td><span class="status-dot">営業中</span></td>
             </tr>
             <tr data-region="asia">
@@ -381,8 +385,8 @@
               <td>仁川, 韓国</td>
               <td class="stakes">&#8361;10K/20K &#12316; &#8361;100K/200K</td>
               <td>NLH</td>
-              <td>10+</td>
-              <td><span class="jp-support yes" title="日本語対応あり">&#9675;</span></td>
+              <td class="hide-mobile">10+</td>
+              <td class="hide-mobile"><span class="jp-support yes" title="日本語対応あり">&#9675;</span></td>
               <td><span class="status-dot">営業中</span></td>
             </tr>
             <tr data-region="oceania">
@@ -390,8 +394,8 @@
               <td>シドニー, オーストラリア</td>
               <td class="stakes">A$2/5 &#12316; A$50/100</td>
               <td>NLH / PLO</td>
-              <td>20+</td>
-              <td><span class="jp-support no" title="日本語対応なし">&times;</span></td>
+              <td class="hide-mobile">20+</td>
+              <td class="hide-mobile"><span class="jp-support no" title="日本語対応なし">&times;</span></td>
               <td><span class="status-dot">営業中</span></td>
             </tr>
           </tbody>
@@ -512,7 +516,7 @@
   <!-- NEWSLETTER -->
   <div class="newsletter-bar">
     <div class="pj-width">
-      <div class="newsletter-inner">
+      <div class="newsletter-inner nl-bar-inner">
         <div class="newsletter-text">
           <h3>最新情報をお届け</h3>
           <p>トーナメント速報、キャッシュゲーム情報を毎週配信</p>

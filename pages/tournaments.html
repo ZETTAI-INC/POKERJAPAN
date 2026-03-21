@@ -233,33 +233,38 @@
 
       .page-hero { padding:24px 0 28px; }
       .page-hero h1 { font-size:26px; }
-      .page-breadcrumb { font-size:12px; margin-bottom:12px; }
+      .page-breadcrumb { font-size:12px; margin-bottom:8px; }
       .hero-stats { gap:20px; flex-wrap:wrap; }
-      .hero-stat-val { font-size:22px; }
+      .hero-stat-val { font-size:20px; }
 
       .countdown-bar { padding:16px; flex-direction:column; gap:16px; }
-      .countdown-num { font-size:22px; padding:6px 12px; min-width:44px; }
-      .countdown-timer { gap:10px; }
+      .countdown-num { font-size:18px; padding:6px 10px; min-width:40px; }
+      .countdown-timer { gap:8px; }
+      .countdown-event-name { font-size:14px; }
 
       .pj-section { padding:32px 0; }
       .pj-section-title { font-size:20px; }
 
       .pj-table-wrap { overflow-x:auto; margin:0 -24px; padding:0 24px; }
-      .pj-table { min-width:700px; }
+      .pj-table { min-width:auto; }
       .pj-table td, .pj-table th { padding:10px 12px; font-size:13px; }
+      .hide-mobile { display:none; }
 
       .series-grid { grid-template-columns:1fr; }
       .series-item { border-right:none; border-bottom:1px solid var(--border); }
       .series-item:last-child { border-bottom:none; }
 
-      .aggregate-bar { flex-direction:column; gap:8px; text-align:center; }
+      .aggregate-bar { flex-direction:row; flex-wrap:wrap; gap:12px; text-align:center; justify-content:center; }
+      .aggregate-item { font-size:13px; }
 
-      .newsletter-inner { flex-direction:column; text-align:center; }
-      .newsletter-form { flex-direction:column; }
-      .newsletter-form input { width:100%; }
+      .nl-bar-inner { flex-direction:column !important; text-align:center; gap:16px !important; }
+      .nl-bar-inner > div:last-child { width:100%; flex-direction:column !important; }
+      .nl-bar-inner input { width:100% !important; }
+      .nl-bar-inner button { border-radius:0 0 8px 8px !important; padding:14px !important; }
 
       .pj-footer { padding:32px 0 16px; }
-      .pj-footer-grid { grid-template-columns:1fr; gap:24px; margin-bottom:24px; }
+      .pj-footer-grid { grid-template-columns:1fr 1fr; gap:20px; margin-bottom:24px; }
+      .pj-footer-brand { grid-column:1/-1; }
     }
 
     @media (max-width:400px) {
@@ -369,7 +374,7 @@
               <th>開催地</th>
               <th>期間</th>
               <th>バイイン</th>
-              <th>賞金総額</th>
+              <th class="hide-mobile">賞金総額</th>
               <th>ステータス</th>
             </tr>
           </thead>
@@ -609,7 +614,7 @@
   <!-- NEWSLETTER -->
   <div class="newsletter-bar">
     <div class="pj-width">
-      <div class="newsletter-inner">
+      <div class="newsletter-inner nl-bar-inner">
         <div class="newsletter-text">
           <h3>最新情報をお届け</h3>
           <p>トーナメント速報、キャッシュゲーム情報を毎週配信</p>

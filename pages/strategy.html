@@ -213,13 +213,14 @@
 
       .page-hero { padding:24px 0 28px; }
       .page-hero h1 { font-size:26px; }
-      .page-breadcrumb { font-size:12px; margin-bottom:12px; }
+      .page-breadcrumb { font-size:12px; margin-bottom:8px; }
 
-      .tab-item { font-size:13px; padding:12px 14px; }
+      .tab-bar-inner { overflow-x:auto; -webkit-overflow-scrolling:touch; }
+      .tab-item { font-size:13px; padding:12px 14px; white-space:nowrap; }
       .tab-item:first-child { padding-left:0; }
 
       .strategy-content { padding:24px 0 40px; }
-      .article-item { gap:12px; }
+      .article-item { gap:12px; padding:12px 0; }
       .article-title { font-size:14px; }
       .article-desc { font-size:12px; }
 
@@ -229,12 +230,14 @@
       .learning-step { flex-direction:row; gap:12px; }
       .learning-step-label { margin-top:0; }
 
-      .newsletter-inner { flex-direction:column; text-align:center; }
-      .newsletter-form { flex-direction:column; }
-      .newsletter-form input { width:100%; }
+      .nl-bar-inner { flex-direction:column !important; text-align:center; gap:16px !important; }
+      .nl-bar-inner > div:last-child { width:100%; flex-direction:column !important; }
+      .nl-bar-inner input { width:100% !important; }
+      .nl-bar-inner button { border-radius:0 0 8px 8px !important; padding:14px !important; }
 
       .pj-footer { padding:32px 0 16px; }
-      .pj-footer-grid { grid-template-columns:1fr; gap:24px; margin-bottom:24px; }
+      .pj-footer-grid { grid-template-columns:1fr 1fr; gap:20px; margin-bottom:24px; }
+      .pj-footer-brand { grid-column:1/-1; }
     }
 
     @media (max-width:400px) {
@@ -534,7 +537,7 @@
   <!-- NEWSLETTER -->
   <div class="newsletter-bar">
     <div class="pj-width">
-      <div class="newsletter-inner">
+      <div class="newsletter-inner nl-bar-inner">
         <div class="newsletter-text">
           <h3>最新情報をお届け</h3>
           <p>トーナメント速報、キャッシュゲーム情報を毎週配信</p>

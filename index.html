@@ -272,10 +272,14 @@
       .hero .sub { font-size:14px; margin-bottom:20px; }
       .hero-right { flex:none; width:100%; justify-content:center; }
       .hero-right img { height:260px; }
+
+      /* Fix 4: Hero register row — preserve border-radius when stacked */
       .register-row { max-width:100%; flex-direction:column; border-radius:8px; }
-      .register-row input { padding:14px 16px; }
-      .register-row button { padding:14px 16px; border-radius:0 0 8px 8px; }
-      .social-row { gap:12px; }
+      .register-row input { padding:14px 16px; border-radius:8px 8px 0 0; }
+      .register-row button { padding:14px 16px; border-radius:0 0 8px 8px; width:100%; }
+
+      /* Fix 6: Social icons — better mobile spacing */
+      .social-row { gap:10px; justify-content:flex-start; flex-wrap:wrap; }
       .social-icon { width:36px; height:36px; font-size:16px; }
 
       /* Ticker */
@@ -288,17 +292,22 @@
       .card-promo { padding:48px 0; }
       .card-promo-inner { padding:28px 20px; gap:24px; border-radius:16px; }
       .card-promo-text h2 { font-size:24px; margin-bottom:24px; }
+      /* Fix 8: Card promo stats — prevent overflow */
       .card-promo-stats { flex-direction:row; gap:0; justify-content:space-between; }
       .card-stat { text-align:center; flex:1; }
-      .card-stat-val { font-size:20px; }
-      .card-stat-label { font-size:12px; }
+      .card-stat-val { font-size:18px; }
+      .card-stat-label { font-size:11px; }
       .card-promo-visual { text-align:center; }
       .card-promo-visual img { width:200px !important; margin:0 auto; }
 
       /* Sections */
       .pj-section { padding:40px 0; }
       .pj-section-title { font-size:22px; margin-bottom:20px; }
-      .pj-section-header { flex-direction:column; align-items:flex-start; gap:8px; }
+
+      /* Fix 5: Section header — keep row layout, don't stack */
+      .pj-section-header { flex-direction:row; align-items:center; gap:12px; }
+      .pj-section-header h2 { font-size:20px; flex:1; }
+      .pj-section-header a { font-size:13px; white-space:nowrap; }
 
       /* Product cards */
       .pj-product-grid { grid-template-columns:1fr 1fr; gap:12px; }
@@ -310,14 +319,16 @@
       /* News */
       .pj-news-grid { grid-template-columns:1fr; gap:16px; }
       .pj-news-card.featured { grid-template-columns:1fr; }
-      .pj-news-card.featured .pj-news-thumb { min-height:180px; }
+      /* Fix 7: Featured news card image height */
+      .pj-news-card.featured .pj-news-thumb { min-height:160px; aspect-ratio:16/9; }
       .pj-news-body { padding:16px; }
       .pj-news-body h3 { font-size:15px; }
 
-      /* Table */
+      /* Fix 3: Table — hide less important columns, remove forced min-width */
       .pj-table-wrap { overflow-x:auto; margin:0 -24px; padding:0 24px; }
-      .pj-table { min-width:800px; }
+      .pj-table { min-width:auto; }
       .pj-table td, .pj-table th { padding:10px 12px; font-size:13px; }
+      .hide-mobile { display:none; }
 
       /* CTA */
       .pj-cta { flex-direction:column; text-align:center; padding:32px 20px; border-radius:16px; gap:20px; }
@@ -332,19 +343,27 @@
       .pj-download-inner > div:last-child { flex:none !important; }
       .pj-download-inner > div:last-child img { height:240px !important; margin:0 auto; }
 
+      /* Fix 1: Tournament announcement bar — mobile wrap */
+      .tournament-bar { flex-direction:column !important; align-items:flex-start !important; gap:8px !important; }
+      .tournament-bar > div { flex-wrap:wrap; gap:8px !important; }
+
       /* Partners */
       .pj-partners { gap:24px; }
       .pj-partners img { height:16px; }
 
-      /* Footer */
+      /* Fix 6: Footer — 2 columns on mobile */
       .pj-footer { padding:32px 0 16px; }
-      .pj-footer-grid { grid-template-columns:1fr; gap:24px; margin-bottom:24px; }
+      .pj-footer-grid { grid-template-columns:1fr 1fr; gap:20px; margin-bottom:24px; }
+      .pj-footer-brand { grid-column:1/-1; }
       .pj-footer-brand p { font-size:12px; }
       .pj-footer-col h4 { margin-bottom:10px; }
 
-      /* Newsletter bar */
+      /* Fix 2: Newsletter bar — full-width input */
       .nl-bar-inner { flex-direction:column !important; text-align:center; gap:16px !important; }
+      .nl-bar-inner > div:last-child { width:100%; flex-direction:column; border-radius:8px; }
       .nl-bar-inner input { width:100% !important; }
+      .nl-bar-inner button { border-radius:0 0 8px 8px; padding:14px 16px; }
+
       /* Countdown */
       .countdown-nums { gap:16px !important; }
       .countdown-nums > div > div:first-child { font-size:32px !important; }
@@ -649,14 +668,14 @@
       </div>
       <div class="pj-table-wrap">
         <table class="pj-table">
-          <thead><tr><th>ポーカールーム</th><th>ロケーション</th><th>ステークス</th><th>ゲームタイプ</th><th>テーブル数</th><th>日本語</th><th>ステータス</th></tr></thead>
+          <thead><tr><th>ポーカールーム</th><th>ロケーション</th><th>ステークス</th><th>ゲームタイプ</th><th class="hide-mobile">テーブル数</th><th class="hide-mobile">日本語</th><th>ステータス</th></tr></thead>
           <tbody>
-            <tr><td><a href="junkets/bellagio.html" class="room-name"><span class="room-flag">🇺🇸</span>Bellagio Poker Room</a></td><td>ラスベガス, USA</td><td class="stakes">$1/3 〜 $400/800</td><td>NLH / PLO / Mixed</td><td>40+</td><td>△</td><td><span class="status-dot"></span>24時間営業</td></tr>
-            <tr><td><a href="junkets/manila-cod.html" class="room-name"><span class="room-flag">🇵🇭</span>PokerStars LIVE Manila</a></td><td>マニラ, フィリピン</td><td class="stakes">₱25/50 〜 ₱500/1000</td><td>NLH / PLO</td><td>30+</td><td>△</td><td><span class="status-dot"></span>24時間営業</td></tr>
-            <tr><td><a href="junkets/hippodrome.html" class="room-name"><span class="room-flag">🇬🇧</span>Hippodrome Casino</a></td><td>ロンドン, UK</td><td class="stakes">£1/2 〜 £25/50</td><td>NLH / PLO / Hi-Lo</td><td>15+</td><td>&times;</td><td><span class="status-dot"></span>営業中</td></tr>
-            <tr><td><a href="junkets/wynn-macau.html" class="room-name"><span class="room-flag">🇲🇴</span>Wynn Macau</a></td><td>マカオ, 中国</td><td class="stakes">HK$25/50 〜 HK$500/1000</td><td>NLH / Short Deck</td><td>20+</td><td>△</td><td><span class="status-dot"></span>営業中</td></tr>
-            <tr><td><a href="junkets/paradise-city.html" class="room-name"><span class="room-flag">🇰🇷</span>Paradise City Poker</a></td><td>仁川, 韓国</td><td class="stakes">₩10K/20K 〜 ₩100K/200K</td><td>NLH</td><td>10+</td><td>○</td><td><span class="status-dot"></span>営業中</td></tr>
-            <tr><td><a href="junkets/star-sydney.html" class="room-name"><span class="room-flag">🇦🇺</span>The Star Sydney</a></td><td>シドニー, オーストラリア</td><td class="stakes">A$2/5 〜 A$50/100</td><td>NLH / PLO</td><td>20+</td><td>△</td><td><span class="status-dot"></span>営業中</td></tr>
+            <tr><td><a href="junkets/bellagio.html" class="room-name"><span class="room-flag">🇺🇸</span>Bellagio Poker Room</a></td><td>ラスベガス, USA</td><td class="stakes">$1/3 〜 $400/800</td><td>NLH / PLO / Mixed</td><td class="hide-mobile">40+</td><td class="hide-mobile">△</td><td><span class="status-dot"></span>24時間営業</td></tr>
+            <tr><td><a href="junkets/manila-cod.html" class="room-name"><span class="room-flag">🇵🇭</span>PokerStars LIVE Manila</a></td><td>マニラ, フィリピン</td><td class="stakes">₱25/50 〜 ₱500/1000</td><td>NLH / PLO</td><td class="hide-mobile">30+</td><td class="hide-mobile">△</td><td><span class="status-dot"></span>24時間営業</td></tr>
+            <tr><td><a href="junkets/hippodrome.html" class="room-name"><span class="room-flag">🇬🇧</span>Hippodrome Casino</a></td><td>ロンドン, UK</td><td class="stakes">£1/2 〜 £25/50</td><td>NLH / PLO / Hi-Lo</td><td class="hide-mobile">15+</td><td class="hide-mobile">&times;</td><td><span class="status-dot"></span>営業中</td></tr>
+            <tr><td><a href="junkets/wynn-macau.html" class="room-name"><span class="room-flag">🇲🇴</span>Wynn Macau</a></td><td>マカオ, 中国</td><td class="stakes">HK$25/50 〜 HK$500/1000</td><td>NLH / Short Deck</td><td class="hide-mobile">20+</td><td class="hide-mobile">△</td><td><span class="status-dot"></span>営業中</td></tr>
+            <tr><td><a href="junkets/paradise-city.html" class="room-name"><span class="room-flag">🇰🇷</span>Paradise City Poker</a></td><td>仁川, 韓国</td><td class="stakes">₩10K/20K 〜 ₩100K/200K</td><td>NLH</td><td class="hide-mobile">10+</td><td class="hide-mobile">○</td><td><span class="status-dot"></span>営業中</td></tr>
+            <tr><td><a href="junkets/star-sydney.html" class="room-name"><span class="room-flag">🇦🇺</span>The Star Sydney</a></td><td>シドニー, オーストラリア</td><td class="stakes">A$2/5 〜 A$50/100</td><td>NLH / PLO</td><td class="hide-mobile">20+</td><td class="hide-mobile">△</td><td><span class="status-dot"></span>営業中</td></tr>
           </tbody>
         </table>
       </div>
@@ -666,7 +685,7 @@
 
   <!-- ===== トーナメント告知 ===== -->
   <section style="background:#0b0e11;color:#fff;padding:28px 0;">
-    <div class="pj-width" style="display:flex;align-items:center;justify-content:space-between;">
+    <div class="pj-width tournament-bar" style="display:flex;align-items:center;justify-content:space-between;">
       <div style="display:flex;align-items:center;gap:16px;flex-wrap:wrap;">
         <span style="font-size:12px;color:#595d61;text-transform:uppercase;letter-spacing:.5px;">次の大型トーナメント</span>
         <span style="font-size:15px;font-weight:700;">WSOP 2026</span>
