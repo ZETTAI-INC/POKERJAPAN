@@ -35,10 +35,10 @@
     .btn-gold { background:var(--gold); color:#121214; }
     .pj-width { max-width:1200px; margin:0 auto; padding:0 24px; width:100%; }
 
-    /* Page Hero */
+    /* Page Hero - compact */
     .page-hero {
       background:#0b0e11; color:#fff;
-      padding:48px 0; position:relative; overflow:hidden;
+      padding:32px 0; position:relative; overflow:hidden;
     }
     .page-hero::before {
       content:''; position:absolute; top:-40%; right:-15%;
@@ -47,58 +47,72 @@
       pointer-events:none;
     }
     .page-hero .pj-width { position:relative; z-index:1; }
-    .page-breadcrumb { font-size:13px; color:#595d61; margin-bottom:24px; }
+    .page-breadcrumb { font-size:13px; color:#595d61; margin-bottom:16px; }
     .page-breadcrumb a { color:#81858c; transition:color .15s; }
     .page-breadcrumb a:hover { color:#fff; }
-    .page-hero h1 { font-size:40px; font-weight:700; line-height:1.2; margin-bottom:8px; }
-    .page-hero .page-sub { font-size:16px; color:#adb1b8; line-height:1.5; }
+    .page-hero h1 { font-size:32px; font-weight:700; line-height:1.2; margin-bottom:6px; }
+    .page-hero .page-sub { font-size:14px; color:#adb1b8; line-height:1.5; }
 
-    /* Filter Tabs */
-    .filter-section { padding:32px 0; border-bottom:1px solid var(--border-light); }
-    .filter-tabs { display:flex; gap:8px; flex-wrap:wrap; }
-    .filter-tab {
-      display:inline-block; font-size:13px; font-weight:600;
-      padding:8px 16px; border-radius:100px; cursor:pointer;
-      border:1px solid var(--border); background:#fff; color:var(--text-2);
-      transition:all .15s;
+    /* Underline Tabs */
+    .tab-bar { border-bottom:1px solid var(--border); }
+    .tab-bar-inner { display:flex; gap:0; }
+    .tab-item {
+      font-size:14px; font-weight:500; color:var(--text-3);
+      padding:14px 20px; cursor:pointer; position:relative;
+      transition:color .15s; border:none; background:none; font-family:inherit;
     }
-    .filter-tab:hover { border-color:var(--accent); color:var(--accent); }
-    .filter-tab.active { background:var(--accent); color:#fff; border-color:var(--accent); }
-    .filter-tab.tournament { border-color:#fef3e2; color:#b8750c; background:#fef3e2; }
-    .filter-tab.tournament:hover { background:#b8750c; color:#fff; border-color:#b8750c; }
-    .filter-tab.cash { border-color:var(--accent-light); color:var(--accent); background:var(--accent-light); }
-    .filter-tab.cash:hover { background:var(--accent); color:#fff; border-color:var(--accent); }
-    .filter-tab.strategy { border-color:#eef0ff; color:#4a5eb8; background:#eef0ff; }
-    .filter-tab.strategy:hover { background:#4a5eb8; color:#fff; border-color:#4a5eb8; }
-    .filter-tab.beginner { border-color:#ffeaeb; color:#c0392b; background:#ffeaeb; }
-    .filter-tab.beginner:hover { background:#c0392b; color:#fff; border-color:#c0392b; }
+    .tab-item:first-child { padding-left:0; }
+    .tab-item:hover { color:var(--text-1); }
+    .tab-item.active {
+      color:var(--text-1); font-weight:600;
+    }
+    .tab-item.active::after {
+      content:''; position:absolute; bottom:-1px; left:0; right:0;
+      height:2px; background:var(--accent);
+    }
+    .tab-item:first-child.active::after { left:0; }
 
-    /* Sections */
-    .pj-section { padding:64px 0; }
-    .pj-section-alt { background:var(--bg-alt); }
+    /* Main layout */
+    .news-layout { display:grid; grid-template-columns:1fr 320px; gap:48px; padding:32px 0 64px; }
+    .news-main { min-width:0; }
+    .news-sidebar { min-width:0; }
 
-    /* News Grid */
-    .pj-news-grid { display:grid; grid-template-columns:1fr 1fr; gap:20px; }
-    .pj-news-card { background:#fff; border-radius:16px; overflow:hidden; border:1px solid var(--border-light); transition:box-shadow .2s,transform .2s; }
-    .pj-news-card:hover { box-shadow:0 4px 20px rgba(0,0,0,.06); transform:translateY(-2px); }
-    .pj-news-card.featured { grid-column:1/-1; display:grid; grid-template-columns:1.2fr 1fr; }
-    .pj-news-thumb { width:100%; aspect-ratio:16/9; display:flex; align-items:center; justify-content:center; font-size:56px; }
-    .pj-news-card.featured .pj-news-thumb { aspect-ratio:auto; height:100%; min-height:240px; }
-    .pj-news-body { padding:20px 24px; display:flex; flex-direction:column; }
-    .pj-news-tag { display:inline-block; font-size:11px; font-weight:600; text-transform:uppercase; letter-spacing:.5px; padding:3px 10px; border-radius:100px; margin-bottom:10px; width:fit-content; }
-    .pj-news-tag.tournament { background:#fef3e2; color:#b8750c; }
-    .pj-news-tag.cash { background:var(--accent-light); color:var(--accent); }
-    .pj-news-tag.strategy { background:#eef0ff; color:#4a5eb8; }
-    .pj-news-tag.beginner { background:#ffeaeb; color:#c0392b; }
-    .pj-news-body h3 { font-size:16px; font-weight:600; line-height:1.4; margin:0 0 8px; }
-    .pj-news-body p { font-size:13px; color:var(--text-3); line-height:1.55; margin:0; flex:1; }
-    .pj-news-meta { display:flex; gap:12px; margin-top:12px; font-size:12px; color:var(--text-3); }
+    /* News list items */
+    .news-item { display:block; padding:20px 0; border-bottom:1px solid var(--border-light); transition:background .1s; }
+    .news-item:first-child { padding-top:0; }
+    .news-item:hover .news-item-title { color:var(--accent); }
+    .news-item-inner { display:flex; gap:0; }
+    .news-item-accent { width:3px; border-radius:2px; flex-shrink:0; margin-right:16px; }
+    .news-item-accent.tournament { background:#f7a600; }
+    .news-item-accent.cash { background:var(--accent); }
+    .news-item-accent.strategy { background:#4a5eb8; }
+    .news-item-accent.beginner { background:#c0392b; }
+    .news-item-content { flex:1; min-width:0; }
+    .news-item-meta { display:flex; align-items:center; gap:10px; margin-bottom:6px; }
+    .news-item-date { font-size:12px; color:var(--text-3); }
+    .news-item-tag { font-size:11px; font-weight:600; color:var(--text-3); text-transform:uppercase; letter-spacing:.3px; }
+    .news-item-tag.tournament { color:#b8750c; }
+    .news-item-tag.cash { color:var(--accent); }
+    .news-item-tag.strategy { color:#4a5eb8; }
+    .news-item-tag.beginner { color:#c0392b; }
+    .news-item-title { font-size:16px; font-weight:600; line-height:1.4; margin:0 0 4px; transition:color .15s; }
+    .news-item-excerpt { font-size:13px; color:var(--text-3); line-height:1.5; margin:0; }
 
-    /* CTA */
-    .pj-cta { background:linear-gradient(135deg,var(--accent),#0f4025); border-radius:20px; padding:56px 48px; display:flex; align-items:center; justify-content:space-between; gap:40px; color:#fff; }
-    .pj-cta h2 { font-size:28px; font-weight:700; margin:0 0 12px; }
-    .pj-cta p { font-size:16px; color:rgba(255,255,255,.75); margin:0; }
-    .pj-btn { display:inline-flex; align-items:center; justify-content:center; gap:6px; font-family:inherit; font-size:14px; font-weight:600; border-radius:8px; border:none; cursor:pointer; padding:8px 20px; transition:background .15s; }
+    /* Featured item */
+    .news-item.featured .news-item-title { font-size:20px; }
+    .news-item.featured .news-item-excerpt { font-size:13px; line-height:1.6; }
+
+    /* Sidebar */
+    .sidebar-title { font-size:14px; font-weight:700; text-transform:uppercase; letter-spacing:.5px; color:var(--text-1); margin-bottom:16px; padding-bottom:12px; border-bottom:1px solid var(--border); }
+    .popular-list { list-style:none; }
+    .popular-item { display:flex; gap:12px; padding:12px 0; border-bottom:1px solid var(--border-light); }
+    .popular-item:last-child { border-bottom:none; }
+    .popular-rank { font-size:18px; font-weight:700; color:var(--border); line-height:1; min-width:24px; }
+    .popular-item:nth-child(1) .popular-rank,
+    .popular-item:nth-child(2) .popular-rank,
+    .popular-item:nth-child(3) .popular-rank { color:var(--accent); }
+    .popular-title { font-size:13px; font-weight:500; line-height:1.4; flex:1; }
+    .popular-title:hover { color:var(--accent); }
 
     /* Footer */
     .pj-footer { border-top:1px solid var(--border); padding:48px 0 24px; background:#fafbfc; }
@@ -136,7 +150,7 @@
 
     /* Responsive: Tablet */
     @media (max-width:1024px) {
-      .pj-news-card.featured { grid-template-columns:1fr 1fr; }
+      .news-layout { grid-template-columns:1fr; gap:40px; }
       .pj-footer-grid { grid-template-columns:repeat(2,1fr); }
     }
 
@@ -146,35 +160,27 @@
       .pj-header-btns { display:none; }
       .pj-hamburger { display:flex; }
 
-      .page-hero { padding:24px 0 32px; }
-      .page-hero h1 { font-size:26px; }
-      .page-hero .page-sub { font-size:14px; }
-      .page-breadcrumb { font-size:12px; margin-bottom:16px; }
+      .page-hero { padding:20px 0 24px; }
+      .page-hero h1 { font-size:24px; }
+      .page-breadcrumb { font-size:12px; margin-bottom:12px; }
 
-      .filter-section { padding:20px 0; }
-      .filter-tabs { gap:6px; }
-      .filter-tab { font-size:12px; padding:6px 12px; }
+      .tab-item { font-size:13px; padding:12px 14px; }
+      .tab-item:first-child { padding-left:0; }
 
-      .pj-section { padding:40px 0; }
-
-      .pj-news-grid { grid-template-columns:1fr; gap:16px; }
-      .pj-news-card.featured { grid-template-columns:1fr; }
-      .pj-news-card.featured .pj-news-thumb { min-height:180px; }
-      .pj-news-body { padding:16px; }
-      .pj-news-body h3 { font-size:15px; }
-
-      .pj-cta { flex-direction:column; text-align:center; padding:32px 20px; border-radius:16px; gap:20px; }
-      .pj-cta h2 { font-size:22px; }
-      .pj-cta p { font-size:14px; }
+      .news-layout { padding:24px 0 40px; }
+      .news-item-title { font-size:15px; }
+      .news-item.featured .news-item-title { font-size:17px; }
+      .news-item-accent { margin-right:12px; }
 
       .pj-footer { padding:32px 0 16px; }
       .pj-footer-grid { grid-template-columns:1fr; gap:24px; margin-bottom:24px; }
     }
 
-    /* Very small screens */
     @media (max-width:400px) {
       .pj-width { padding:0 16px; }
       .page-hero h1 { font-size:22px; }
+      .tab-bar-inner { overflow-x:auto; }
+      .tab-item { white-space:nowrap; font-size:12px; padding:10px 12px; }
     }
   </style>
 </head>
@@ -223,150 +229,207 @@
     </div>
   </section>
 
-  <!-- FILTER TABS -->
-  <section class="filter-section">
+  <!-- TABS -->
+  <div class="tab-bar">
     <div class="pj-width">
-      <div class="filter-tabs">
-        <span class="filter-tab active">すべて</span>
-        <span class="filter-tab tournament">トーナメント</span>
-        <span class="filter-tab cash">キャッシュゲーム</span>
-        <span class="filter-tab strategy">戦略</span>
-        <span class="filter-tab beginner">初心者</span>
+      <div class="tab-bar-inner">
+        <button class="tab-item active">すべて</button>
+        <button class="tab-item">トーナメント</button>
+        <button class="tab-item">キャッシュゲーム</button>
+        <button class="tab-item">戦略</button>
+        <button class="tab-item">初心者向け</button>
       </div>
     </div>
-  </section>
+  </div>
 
-  <!-- NEWS GRID -->
-  <section class="pj-section">
-    <div class="pj-width">
-      <div class="pj-news-grid">
+  <!-- NEWS CONTENT -->
+  <div class="pj-width">
+    <div class="news-layout">
 
-        <!-- 1. FEATURED: tournament -->
-        <div class="pj-news-card featured">
-          <div class="pj-news-thumb" style="background:linear-gradient(135deg,#fef3e2,#fff8e1); font-size:72px;">&#127942;</div>
-          <div class="pj-news-body">
-            <span class="pj-news-tag tournament">トーナメント</span>
-            <h3>WSOP 2026 メインイベント &#8212; 日本人プレイヤー3名がDay4進出</h3>
-            <p>ワールドシリーズ・オブ・ポーカー2026メインイベント($10,000 NLH)で、日本人プレイヤー3名がDay4への進出を決めた。残り342名のフィールドで、日本勢の最高チップカウントは285万チップ。賞金圏内での活躍が期待される。</p>
-            <div class="pj-news-meta"><span>2026.03.20</span><span>&middot;</span><span>読了 5分</span></div>
+      <!-- Main column -->
+      <div class="news-main">
+
+        <!-- 1. Featured -->
+        <a href="#" class="news-item featured">
+          <div class="news-item-inner">
+            <div class="news-item-accent tournament"></div>
+            <div class="news-item-content">
+              <div class="news-item-meta">
+                <span class="news-item-date">2026.03.20</span>
+                <span class="news-item-tag tournament">トーナメント</span>
+              </div>
+              <h3 class="news-item-title">WSOP 2026 メインイベント &#8212; 日本人プレイヤー3名がDay4進出</h3>
+              <p class="news-item-excerpt">ワールドシリーズ・オブ・ポーカー2026メインイベント($10,000 NLH)で、日本人プレイヤー3名がDay4への進出を決めた。残り342名のフィールドで、日本勢の最高チップカウントは285万チップ。賞金圏内での活躍が期待される。</p>
+            </div>
           </div>
-        </div>
+        </a>
 
-        <!-- 2. cash -->
-        <div class="pj-news-card">
-          <div class="pj-news-thumb" style="background:linear-gradient(135deg,#e8f5ee,#f0faf4);">&#128176;</div>
-          <div class="pj-news-body">
-            <span class="pj-news-tag cash">キャッシュゲーム</span>
-            <h3>ベラージオ $5/$10 NLH &#8212; 週末の平均ポット額が過去最高を記録</h3>
-            <p>ラスベガス・ベラージオのポーカールームで、$5/$10 NLHテーブルの週末平均ポット額が$1,200を超え、過去最高を更新した。</p>
-            <div class="pj-news-meta"><span>2026.03.19</span><span>&middot;</span><span>読了 3分</span></div>
+        <!-- 2 -->
+        <a href="#" class="news-item">
+          <div class="news-item-inner">
+            <div class="news-item-accent cash"></div>
+            <div class="news-item-content">
+              <div class="news-item-meta">
+                <span class="news-item-date">2026.03.19</span>
+                <span class="news-item-tag cash">キャッシュゲーム</span>
+              </div>
+              <h3 class="news-item-title">ベラージオ $5/$10 NLH &#8212; 週末の平均ポット額が過去最高を記録</h3>
+              <p class="news-item-excerpt">ラスベガス・ベラージオのポーカールームで、$5/$10 NLHテーブルの週末平均ポット額が$1,200を超え、過去最高を更新した。</p>
+            </div>
           </div>
-        </div>
+        </a>
 
-        <!-- 3. tournament -->
-        <div class="pj-news-card">
-          <div class="pj-news-thumb" style="background:linear-gradient(135deg,#fef3e2,#fff8e1);">&#127941;</div>
-          <div class="pj-news-body">
-            <span class="pj-news-tag tournament">トーナメント</span>
-            <h3>WPT World Championship 2026 &#8212; 賞金総額$40M超えの見込み</h3>
-            <p>WPTワールドチャンピオンシップ2026の賞金総額が$40Mを超える見込みであることが発表された。昨年の$35Mを大幅に上回る規模に。</p>
-            <div class="pj-news-meta"><span>2026.03.18</span><span>&middot;</span><span>読了 4分</span></div>
+        <!-- 3 -->
+        <a href="#" class="news-item">
+          <div class="news-item-inner">
+            <div class="news-item-accent tournament"></div>
+            <div class="news-item-content">
+              <div class="news-item-meta">
+                <span class="news-item-date">2026.03.18</span>
+                <span class="news-item-tag tournament">トーナメント</span>
+              </div>
+              <h3 class="news-item-title">WPT World Championship 2026 &#8212; 賞金総額$40M超えの見込み</h3>
+              <p class="news-item-excerpt">WPTワールドチャンピオンシップ2026の賞金総額が$40Mを超える見込みであることが発表された。昨年の$35Mを大幅に上回る規模に。</p>
+            </div>
           </div>
-        </div>
+        </a>
 
-        <!-- 4. strategy -->
-        <div class="pj-news-card">
-          <div class="pj-news-thumb" style="background:linear-gradient(135deg,#eef0ff,#f5f6ff);">&#129504;</div>
-          <div class="pj-news-body">
-            <span class="pj-news-tag strategy">戦略</span>
-            <h3>リバーでのオーバーベット戦略 &#8212; いつ、なぜ使うべきか</h3>
-            <p>リバーでポットサイズ以上のベットを打つ「オーバーベット」戦略。ソルバー分析に基づいた最適なスポットとハンドレンジ構成を詳しく解説。</p>
-            <div class="pj-news-meta"><span>2026.03.17</span><span>&middot;</span><span>読了 8分</span></div>
+        <!-- 4 -->
+        <a href="#" class="news-item">
+          <div class="news-item-inner">
+            <div class="news-item-accent strategy"></div>
+            <div class="news-item-content">
+              <div class="news-item-meta">
+                <span class="news-item-date">2026.03.17</span>
+                <span class="news-item-tag strategy">戦略</span>
+              </div>
+              <h3 class="news-item-title">リバーでのオーバーベット戦略 &#8212; いつ、なぜ使うべきか</h3>
+              <p class="news-item-excerpt">リバーでポットサイズ以上のベットを打つ「オーバーベット」戦略。ソルバー分析に基づいた最適なスポットとハンドレンジ構成を詳しく解説。</p>
+            </div>
           </div>
-        </div>
+        </a>
 
-        <!-- 5. cash -->
-        <div class="pj-news-card">
-          <div class="pj-news-thumb" style="background:linear-gradient(135deg,#e8f5ee,#f0faf4);">&#127183;</div>
-          <div class="pj-news-body">
-            <span class="pj-news-tag cash">キャッシュゲーム</span>
-            <h3>マニラ COD &#8212; 新設$5/$10テーブルが好評、待ち時間情報</h3>
-            <p>マニラ・シティオブドリームズに新設された$5/$10 NLHテーブルが好評を博している。平日は平均待ち時間15分、週末は1時間超のウェイティングも。</p>
-            <div class="pj-news-meta"><span>2026.03.16</span><span>&middot;</span><span>読了 3分</span></div>
+        <!-- 5 -->
+        <a href="#" class="news-item">
+          <div class="news-item-inner">
+            <div class="news-item-accent cash"></div>
+            <div class="news-item-content">
+              <div class="news-item-meta">
+                <span class="news-item-date">2026.03.16</span>
+                <span class="news-item-tag cash">キャッシュゲーム</span>
+              </div>
+              <h3 class="news-item-title">マニラ COD &#8212; 新設$5/$10テーブルが好評、待ち時間情報</h3>
+              <p class="news-item-excerpt">マニラ・シティオブドリームズに新設された$5/$10 NLHテーブルが好評を博している。平日は平均待ち時間15分、週末は1時間超のウェイティングも。</p>
+            </div>
           </div>
-        </div>
+        </a>
 
-        <!-- 6. beginner -->
-        <div class="pj-news-card">
-          <div class="pj-news-thumb" style="background:linear-gradient(135deg,#ffeaeb,#fff5f5);">&#128218;</div>
-          <div class="pj-news-body">
-            <span class="pj-news-tag beginner">初心者</span>
-            <h3>ポーカー用語集 &#8212; 初心者が覚えるべき50の基本用語</h3>
-            <p>ブラインド、フロップ、ナッツ、ドンクベット...。ポーカーテーブルで飛び交う専門用語を初心者向けにわかりやすく解説。これだけ覚えればOKの厳選50語。</p>
-            <div class="pj-news-meta"><span>2026.03.15</span><span>&middot;</span><span>読了 10分</span></div>
+        <!-- 6 -->
+        <a href="#" class="news-item">
+          <div class="news-item-inner">
+            <div class="news-item-accent beginner"></div>
+            <div class="news-item-content">
+              <div class="news-item-meta">
+                <span class="news-item-date">2026.03.15</span>
+                <span class="news-item-tag beginner">初心者</span>
+              </div>
+              <h3 class="news-item-title">ポーカー用語集 &#8212; 初心者が覚えるべき50の基本用語</h3>
+              <p class="news-item-excerpt">ブラインド、フロップ、ナッツ、ドンクベット...。ポーカーテーブルで飛び交う専門用語を初心者向けにわかりやすく解説。</p>
+            </div>
           </div>
-        </div>
+        </a>
 
-        <!-- 7. tournament -->
-        <div class="pj-news-card">
-          <div class="pj-news-thumb" style="background:linear-gradient(135deg,#fef3e2,#fff8e1);">&#127912;</div>
-          <div class="pj-news-body">
-            <span class="pj-news-tag tournament">トーナメント</span>
-            <h3>EPT Monte Carlo 2026 &#8212; スケジュールと日本からの参加方法</h3>
-            <p>EPTモンテカルロ2026の全スケジュールが公開。メインイベントのバイインは&#8364;5,300。日本からの参加に必要なビザ情報と渡航ガイドもあわせて紹介。</p>
-            <div class="pj-news-meta"><span>2026.03.14</span><span>&middot;</span><span>読了 5分</span></div>
+        <!-- 7 -->
+        <a href="#" class="news-item">
+          <div class="news-item-inner">
+            <div class="news-item-accent tournament"></div>
+            <div class="news-item-content">
+              <div class="news-item-meta">
+                <span class="news-item-date">2026.03.14</span>
+                <span class="news-item-tag tournament">トーナメント</span>
+              </div>
+              <h3 class="news-item-title">EPT Monte Carlo 2026 &#8212; スケジュールと日本からの参加方法</h3>
+              <p class="news-item-excerpt">EPTモンテカルロ2026の全スケジュールが公開。メインイベントのバイインは&#8364;5,300。日本からの参加に必要なビザ情報と渡航ガイド。</p>
+            </div>
           </div>
-        </div>
+        </a>
 
-        <!-- 8. strategy -->
-        <div class="pj-news-card">
-          <div class="pj-news-thumb" style="background:linear-gradient(135deg,#eef0ff,#f5f6ff);">&#128202;</div>
-          <div class="pj-news-body">
-            <span class="pj-news-tag strategy">戦略</span>
-            <h3>マルチウェイポットでのCBet頻度を下げるべき理由</h3>
-            <p>ヘッズアップでは高頻度でCBetを打つのが一般的だが、3人以上のマルチウェイポットでは戦略が大きく変わる。エクイティ分布とボード構成に基づいた最適解を解説。</p>
-            <div class="pj-news-meta"><span>2026.03.13</span><span>&middot;</span><span>読了 7分</span></div>
+        <!-- 8 -->
+        <a href="#" class="news-item">
+          <div class="news-item-inner">
+            <div class="news-item-accent strategy"></div>
+            <div class="news-item-content">
+              <div class="news-item-meta">
+                <span class="news-item-date">2026.03.13</span>
+                <span class="news-item-tag strategy">戦略</span>
+              </div>
+              <h3 class="news-item-title">マルチウェイポットでのCBet頻度を下げるべき理由</h3>
+              <p class="news-item-excerpt">ヘッズアップでは高頻度でCBetを打つのが一般的だが、3人以上のマルチウェイポットでは戦略が大きく変わる。</p>
+            </div>
           </div>
-        </div>
+        </a>
 
-        <!-- 9. cash -->
-        <div class="pj-news-card">
-          <div class="pj-news-thumb" style="background:linear-gradient(135deg,#e8f5ee,#f0faf4);">&#127922;</div>
-          <div class="pj-news-body">
-            <span class="pj-news-tag cash">キャッシュゲーム</span>
-            <h3>パラダイスシティ &#8212; 週末限定トーナメントとキャッシュゲーム情報</h3>
-            <p>韓国・仁川のパラダイスシティが週末限定のミニトーナメントシリーズを開催。キャッシュゲームも増卓され、日本からのアクセスの良さで人気急上昇中。</p>
-            <div class="pj-news-meta"><span>2026.03.12</span><span>&middot;</span><span>読了 4分</span></div>
+        <!-- 9 -->
+        <a href="#" class="news-item">
+          <div class="news-item-inner">
+            <div class="news-item-accent cash"></div>
+            <div class="news-item-content">
+              <div class="news-item-meta">
+                <span class="news-item-date">2026.03.12</span>
+                <span class="news-item-tag cash">キャッシュゲーム</span>
+              </div>
+              <h3 class="news-item-title">パラダイスシティ &#8212; 週末限定トーナメントとキャッシュゲーム情報</h3>
+              <p class="news-item-excerpt">韓国・仁川のパラダイスシティが週末限定のミニトーナメントシリーズを開催。日本からのアクセスの良さで人気急上昇中。</p>
+            </div>
           </div>
-        </div>
+        </a>
 
-        <!-- 10. beginner -->
-        <div class="pj-news-card">
-          <div class="pj-news-thumb" style="background:linear-gradient(135deg,#ffeaeb,#fff5f5);">&#9992;&#65039;</div>
-          <div class="pj-news-body">
-            <span class="pj-news-tag beginner">初心者</span>
-            <h3>はじめての海外ポーカー持ち物チェックリスト</h3>
-            <p>パスポート、バンクロール、サングラス...。初めて海外のポーカールームに行く前に確認すべき持ち物リストを完全網羅。現地で困らないための準備ガイド。</p>
-            <div class="pj-news-meta"><span>2026.03.11</span><span>&middot;</span><span>読了 6分</span></div>
+        <!-- 10 -->
+        <a href="#" class="news-item">
+          <div class="news-item-inner">
+            <div class="news-item-accent beginner"></div>
+            <div class="news-item-content">
+              <div class="news-item-meta">
+                <span class="news-item-date">2026.03.11</span>
+                <span class="news-item-tag beginner">初心者</span>
+              </div>
+              <h3 class="news-item-title">はじめての海外ポーカー持ち物チェックリスト</h3>
+              <p class="news-item-excerpt">パスポート、バンクロール、サングラス...。初めて海外のポーカールームに行く前に確認すべき持ち物リストを完全網羅。</p>
+            </div>
           </div>
-        </div>
+        </a>
 
       </div>
-    </div>
-  </section>
 
-  <!-- CTA: メルマガ登録 -->
-  <section class="pj-section pj-section-alt">
-    <div class="pj-width">
-      <div class="pj-cta">
-        <div>
-          <h2>メルマガに登録しよう</h2>
-          <p>最新のポーカーニュース、トーナメント速報、限定戦略記事をメールでお届けします。週1回配信、いつでも解除可能。</p>
-        </div>
-        <a href="#" class="pj-btn" style="background:#fff;color:var(--accent);padding:14px 36px;font-size:16px;flex-shrink:0;">無料で登録する</a>
-      </div>
+      <!-- Sidebar -->
+      <aside class="news-sidebar">
+        <h3 class="sidebar-title">人気記事</h3>
+        <ul class="popular-list">
+          <li class="popular-item">
+            <span class="popular-rank">1</span>
+            <a href="#" class="popular-title">WSOP 2026 メインイベント日本人3名がDay4進出</a>
+          </li>
+          <li class="popular-item">
+            <span class="popular-rank">2</span>
+            <a href="#" class="popular-title">リバーでのオーバーベット戦略の使い方</a>
+          </li>
+          <li class="popular-item">
+            <span class="popular-rank">3</span>
+            <a href="#" class="popular-title">ベラージオ $5/$10 NLH 平均ポット額が過去最高</a>
+          </li>
+          <li class="popular-item">
+            <span class="popular-rank">4</span>
+            <a href="#" class="popular-title">ポーカー用語集：初心者が覚えるべき50語</a>
+          </li>
+          <li class="popular-item">
+            <span class="popular-rank">5</span>
+            <a href="#" class="popular-title">WPT World Championship 賞金総額$40M超え</a>
+          </li>
+        </ul>
+      </aside>
+
     </div>
-  </section>
+  </div>
 
   <!-- FOOTER -->
   <footer class="pj-footer">

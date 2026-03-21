@@ -35,10 +35,10 @@
     .btn-gold { background:var(--gold); color:#121214; }
     .pj-width { max-width:1200px; margin:0 auto; padding:0 24px; width:100%; }
 
-    /* Page Hero */
+    /* Page Hero - compact */
     .page-hero {
       background:#0b0e11; color:#fff;
-      padding:48px 0; position:relative; overflow:hidden;
+      padding:32px 0; position:relative; overflow:hidden;
     }
     .page-hero::before {
       content:''; position:absolute; top:-40%; right:-15%;
@@ -46,36 +46,31 @@
       background:radial-gradient(circle, rgba(32,178,108,.08) 0%, transparent 60%);
       pointer-events:none;
     }
-    .page-breadcrumb { font-size:13px; color:#595d61; margin-bottom:24px; position:relative; z-index:1; }
+    .page-hero .pj-width { position:relative; z-index:1; }
+    .page-breadcrumb { font-size:13px; color:#595d61; margin-bottom:16px; }
     .page-breadcrumb a { color:#81858c; transition:color .15s; }
     .page-breadcrumb a:hover { color:#fff; }
-    .page-hero-content { position:relative; z-index:1; }
-    .page-hero-content h1 { font-size:40px; font-weight:700; line-height:1.2; margin-bottom:12px; }
-    .page-hero-content .sub { font-size:16px; color:#adb1b8; line-height:1.6; }
+    .page-hero h1 { font-size:32px; font-weight:700; line-height:1.2; margin-bottom:6px; }
+    .page-hero .page-sub { font-size:14px; color:#adb1b8; line-height:1.5; }
 
     /* Sections */
-    .pj-section { padding:64px 0; }
-    .pj-section-alt { background:var(--bg-alt); }
-    .pj-section-title { font-size:28px; font-weight:700; margin:0 0 12px; }
-    .pj-section-sub { font-size:15px; color:var(--text-3); margin-bottom:32px; line-height:1.5; }
+    .pj-section { padding:48px 0; }
+    .pj-section + .pj-section { border-top:1px solid var(--border); }
+    .pj-section-title { font-size:20px; font-weight:700; margin:0 0 24px; }
 
-    /* Step List */
-    .step-list { position:relative; padding-left:60px; list-style:none; }
-    .step-item { position:relative; padding-bottom:40px; }
-    .step-item::before {
-      content:''; position:absolute; left:19px; top:40px; bottom:0;
-      width:2px; background:var(--border-light);
+    /* Step guide - numbered with left border */
+    .step-list { list-style:none; }
+    .step-item { display:flex; gap:24px; padding:24px 0; border-bottom:1px solid var(--border-light); }
+    .step-item:first-child { padding-top:0; }
+    .step-item:last-child { border-bottom:none; }
+    .step-num {
+      font-size:32px; font-weight:700; color:var(--border);
+      line-height:1; flex-shrink:0; min-width:48px;
+      border-left:3px solid var(--accent); padding-left:16px;
     }
-    .step-item:last-child::before { display:none; }
-    .step-item:last-child { padding-bottom:0; }
-    .step-number {
-      position:absolute; left:-60px; width:40px; height:40px;
-      border-radius:50%; background:var(--accent); color:#fff;
-      display:flex; align-items:center; justify-content:center;
-      font-weight:700; font-size:16px; flex-shrink:0;
-    }
-    .step-item h3 { font-size:18px; font-weight:600; margin-bottom:8px; line-height:1.4; padding-top:8px; }
-    .step-item p { font-size:14px; color:var(--text-2); line-height:1.6; margin:0; }
+    .step-body { flex:1; }
+    .step-body h3 { font-size:16px; font-weight:600; margin:0 0 6px; line-height:1.4; }
+    .step-body p { font-size:14px; color:var(--text-2); line-height:1.6; margin:0; }
 
     /* Table */
     .pj-table { width:100%; border-collapse:collapse; }
@@ -86,38 +81,33 @@
     .pj-table .rank { color:var(--accent); font-weight:600; }
     .pj-table-wrap { overflow-x:auto; }
 
-    /* FAQ List */
+    /* FAQ */
     .faq-list { list-style:none; }
     .faq-item { border-bottom:1px solid var(--border-light); }
     .faq-question {
       display:flex; justify-content:space-between; align-items:center;
-      padding:20px 0; cursor:pointer; font-weight:600; font-size:15px;
-      user-select:none;
+      padding:18px 0; cursor:pointer; font-weight:600; font-size:14px;
+      user-select:none; transition:color .15s;
     }
-    .faq-question::after { content:"+"; font-size:20px; color:var(--text-3); transition:transform .2s; flex-shrink:0; margin-left:16px; }
-    .faq-item.open .faq-question::after { content:"\2212"; }
+    .faq-question:hover { color:var(--accent); }
+    .faq-question::after {
+      content:"\203A"; font-size:18px; color:var(--text-3);
+      transition:transform .2s; flex-shrink:0; margin-left:16px;
+      transform:rotate(0deg);
+    }
+    .faq-item.open .faq-question::after { transform:rotate(90deg); }
     .faq-answer { max-height:0; overflow:hidden; transition:max-height .3s ease; }
     .faq-item.open .faq-answer { max-height:200px; }
-    .faq-answer p { padding:0 0 20px; font-size:14px; color:var(--text-2); line-height:1.6; margin:0; }
+    .faq-answer p { padding:0 0 18px; font-size:14px; color:var(--text-2); line-height:1.6; margin:0; }
 
-    /* Product Cards */
-    .product-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:20px; }
-    .pj-product-card {
-      background:#fff; border-radius:16px; padding:28px 24px;
-      border:1px solid var(--border-light); transition:box-shadow .2s, border-color .2s;
-      display:block;
-    }
-    .pj-product-card:hover { box-shadow:0 4px 20px rgba(0,0,0,.06); border-color:var(--border); }
-    .pj-product-card .card-flag { font-size:32px; margin-bottom:14px; }
-    .pj-product-card h3 { font-size:16px; font-weight:600; margin:0 0 8px; }
-    .pj-product-card p { font-size:13px; color:var(--text-3); line-height:1.5; margin:0 0 16px; }
-    .pj-product-card .card-link { font-size:13px; font-weight:600; color:var(--accent); }
-
-    /* CTA */
-    .pj-cta { background:linear-gradient(135deg,var(--accent),#0f4025); border-radius:20px; padding:56px 48px; display:flex; align-items:center; justify-content:space-between; gap:40px; color:#fff; }
-    .pj-cta h2 { font-size:28px; font-weight:700; margin:0 0 12px; }
-    .pj-cta p { font-size:16px; color:rgba(255,255,255,.75); margin:0; }
-    .pj-btn { display:inline-flex; align-items:center; justify-content:center; gap:6px; font-family:inherit; font-size:14px; font-weight:600; border-radius:8px; border:none; cursor:pointer; padding:8px 20px; transition:background .15s; }
+    /* Recommended casinos - horizontal row */
+    .rec-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:0; border:1px solid var(--border); border-radius:8px; overflow:hidden; }
+    .rec-item { padding:24px; border-right:1px solid var(--border); transition:background .15s; }
+    .rec-item:last-child { border-right:none; }
+    .rec-item:hover { background:var(--bg-alt); }
+    .rec-item h3 { font-size:15px; font-weight:600; margin:0 0 4px; }
+    .rec-item p { font-size:13px; color:var(--text-3); line-height:1.4; margin:0; }
+    .rec-item .rec-link { font-size:12px; font-weight:600; color:var(--accent); margin-top:8px; display:inline-block; }
 
     /* Footer */
     .pj-footer { border-top:1px solid var(--border); padding:48px 0 24px; background:#fafbfc; }
@@ -155,58 +145,42 @@
 
     /* Responsive: Tablet */
     @media (max-width:1024px) {
-      .product-grid { grid-template-columns:repeat(2,1fr); }
       .pj-footer-grid { grid-template-columns:repeat(2,1fr); }
     }
 
     /* Responsive: Mobile */
     @media (max-width:768px) {
-      /* Header */
       .pj-nav { display:none; }
       .pj-header-btns { display:none; }
       .pj-hamburger { display:flex; }
 
-      /* Hero */
-      .page-hero { padding:24px 0 32px; }
-      .page-hero-content h1 { font-size:28px; }
-      .page-hero-content .sub { font-size:14px; }
-      .page-breadcrumb { font-size:12px; margin-bottom:16px; }
+      .page-hero { padding:20px 0 24px; }
+      .page-hero h1 { font-size:24px; }
+      .page-breadcrumb { font-size:12px; margin-bottom:12px; }
 
-      /* Sections */
-      .pj-section { padding:40px 0; }
-      .pj-section-title { font-size:22px; margin-bottom:16px; }
-      .pj-section-sub { font-size:13px; margin-bottom:24px; }
+      .pj-section { padding:32px 0; }
+      .pj-section-title { font-size:18px; margin-bottom:16px; }
 
-      /* Step list */
-      .step-list { padding-left:48px; }
-      .step-number { left:-48px; }
-      .step-item h3 { font-size:16px; }
-      .step-item p { font-size:13px; }
+      .step-item { gap:16px; padding:20px 0; }
+      .step-num { font-size:24px; min-width:40px; padding-left:12px; }
+      .step-body h3 { font-size:15px; }
+      .step-body p { font-size:13px; }
 
-      /* Table */
       .pj-table-wrap { overflow-x:auto; margin:0 -24px; padding:0 24px; }
       .pj-table { min-width:600px; }
       .pj-table td, .pj-table th { padding:10px 12px; font-size:13px; }
 
-      /* Product grid */
-      .product-grid { grid-template-columns:1fr; gap:16px; }
+      .rec-grid { grid-template-columns:1fr; }
+      .rec-item { border-right:none; border-bottom:1px solid var(--border); }
+      .rec-item:last-child { border-bottom:none; }
 
-      /* CTA */
-      .pj-cta { flex-direction:column; text-align:center; padding:32px 20px; border-radius:16px; gap:20px; }
-      .pj-cta h2 { font-size:22px; }
-      .pj-cta p { font-size:14px; }
-
-      /* Footer */
       .pj-footer { padding:32px 0 16px; }
       .pj-footer-grid { grid-template-columns:1fr; gap:24px; margin-bottom:24px; }
     }
 
-    /* Very small screens */
     @media (max-width:400px) {
       .pj-width { padding:0 16px; }
-      .page-hero-content h1 { font-size:22px; }
-      .step-list { padding-left:44px; }
-      .step-number { left:-44px; width:36px; height:36px; font-size:14px; }
+      .page-hero h1 { font-size:22px; }
     }
   </style>
 </head>
@@ -250,10 +224,8 @@
       <div class="page-breadcrumb">
         <a href="../index.html">ホーム</a> &gt; <span>初心者向け</span>
       </div>
-      <div class="page-hero-content">
-        <h1>はじめてのポーカー</h1>
-        <p class="sub">ゼロからわかる海外ポーカーガイド。ルールから渡航まで完全サポート。</p>
-      </div>
+      <h1>はじめてのポーカー</h1>
+      <p class="page-sub">ゼロからわかる海外ポーカーガイド。ルールから渡航まで完全サポート。</p>
     </div>
   </section>
 
@@ -263,36 +235,46 @@
       <h2 class="pj-section-title">5ステップで海外ポーカーデビュー</h2>
       <div class="step-list">
         <div class="step-item">
-          <div class="step-number">1</div>
-          <h3>ポーカーの基本ルールを覚える</h3>
-          <p>テキサスホールデムのルール、ハンドの流れ、ベッティングラウンドを理解しましょう。動画付きでわかりやすく解説します。</p>
+          <div class="step-num">01</div>
+          <div class="step-body">
+            <h3>ポーカーの基本ルールを覚える</h3>
+            <p>テキサスホールデムのルール、ハンドの流れ、ベッティングラウンドを理解しましょう。動画付きでわかりやすく解説します。</p>
+          </div>
         </div>
         <div class="step-item">
-          <div class="step-number">2</div>
-          <h3>ハンドランキングを暗記する</h3>
-          <p>ロイヤルフラッシュからハイカードまで。10種類のハンドの強さを完全に覚えることが第一歩です。</p>
+          <div class="step-num">02</div>
+          <div class="step-body">
+            <h3>ハンドランキングを暗記する</h3>
+            <p>ロイヤルフラッシュからハイカードまで。10種類のハンドの強さを完全に覚えることが第一歩です。</p>
+          </div>
         </div>
         <div class="step-item">
-          <div class="step-number">3</div>
-          <h3>基本戦略を身につける</h3>
-          <p>ポジションの重要性、プリフロップのハンド選択、ポットオッズの計算方法を学びます。</p>
+          <div class="step-num">03</div>
+          <div class="step-body">
+            <h3>基本戦略を身につける</h3>
+            <p>ポジションの重要性、プリフロップのハンド選択、ポットオッズの計算方法を学びます。</p>
+          </div>
         </div>
         <div class="step-item">
-          <div class="step-number">4</div>
-          <h3>国内で練習する</h3>
-          <p>アミューズメントポーカーやオンラインのフリーロールで実戦経験を積みましょう。おすすめの練習場所も紹介。</p>
+          <div class="step-num">04</div>
+          <div class="step-body">
+            <h3>国内で練習する</h3>
+            <p>アミューズメントポーカーやオンラインのフリーロールで実戦経験を積みましょう。おすすめの練習場所も紹介。</p>
+          </div>
         </div>
         <div class="step-item">
-          <div class="step-number">5</div>
-          <h3>海外デビューする</h3>
-          <p>パスポート、資金、カジノ選びまで。初めての海外ポーカー旅行を完全ガイドします。</p>
+          <div class="step-num">05</div>
+          <div class="step-body">
+            <h3>海外デビューする</h3>
+            <p>パスポート、資金、カジノ選びまで。初めての海外ポーカー旅行を完全ガイドします。</p>
+          </div>
         </div>
       </div>
     </div>
   </section>
 
   <!-- HAND RANKINGS -->
-  <section class="pj-section pj-section-alt">
+  <section class="pj-section">
     <div class="pj-width">
       <h2 class="pj-section-title">ハンドランキング一覧</h2>
       <div class="pj-table-wrap">
@@ -332,7 +314,7 @@
         </div>
         <div class="faq-item">
           <div class="faq-question">最低いくらあればプレイできますか？</div>
-          <div class="faq-answer"><p>最も低いレート（$1/$2や$1/$3）であれば$100〜$300程度のバイインから始められます。</p></div>
+          <div class="faq-answer"><p>最も低いレート（$1/$2や$1/$3）であれば$100&#12316;$300程度のバイインから始められます。</p></div>
         </div>
         <div class="faq-item">
           <div class="faq-question">チップの買い方は？</div>
@@ -340,7 +322,7 @@
         </div>
         <div class="faq-item">
           <div class="faq-question">レーキ（手数料）とは何ですか？</div>
-          <div class="faq-answer"><p>カジノがポットから徴収する手数料です。通常5〜10%、上限$5程度が一般的です。</p></div>
+          <div class="faq-answer"><p>カジノがポットから徴収する手数料です。通常5&#12316;10%、上限$5程度が一般的です。</p></div>
         </div>
         <div class="faq-item">
           <div class="faq-question">日本人が多いカジノはどこですか？</div>
@@ -348,7 +330,7 @@
         </div>
         <div class="faq-item">
           <div class="faq-question">バンクロールはいくら持っていくべき？</div>
-          <div class="faq-answer"><p>プレイするステークスの20〜30バイイン分が推奨です。$1/$3なら$6,000〜$9,000程度。</p></div>
+          <div class="faq-answer"><p>プレイするステークスの20&#12316;30バイイン分が推奨です。$1/$3なら$6,000&#12316;$9,000程度。</p></div>
         </div>
         <div class="faq-item">
           <div class="faq-question">ジャンケットとは何ですか？</div>
@@ -359,41 +341,25 @@
   </section>
 
   <!-- RECOMMENDED CASINOS -->
-  <section class="pj-section pj-section-alt">
-    <div class="pj-width">
-      <h2 class="pj-section-title">初心者におすすめのカジノ</h2>
-      <div class="product-grid">
-        <a href="../junkets/paradise-city.html" class="pj-product-card">
-          <div class="card-flag">&#127472;&#127479;</div>
-          <h3>Paradise City</h3>
-          <p>日本から最も近い海外カジノ。空港直結でアクセス抜群。低レートから打てる。</p>
-          <span class="card-link">詳しく見る &rarr;</span>
-        </a>
-        <a href="../junkets/manila-cod.html" class="pj-product-card">
-          <div class="card-flag">&#127477;&#127469;</div>
-          <h3>PokerStars LIVE Manila</h3>
-          <p>アジア最大級のポーカールーム。&#8369;25/50から始められる。</p>
-          <span class="card-link">詳しく見る &rarr;</span>
-        </a>
-        <a href="../junkets/star-sydney.html" class="pj-product-card">
-          <div class="card-flag">&#127462;&#127482;</div>
-          <h3>The Star Sydney</h3>
-          <p>リラックスした雰囲気で初心者歓迎。A$2/5からスタート可能。</p>
-          <span class="card-link">詳しく見る &rarr;</span>
-        </a>
-      </div>
-    </div>
-  </section>
-
-  <!-- CTA -->
   <section class="pj-section">
     <div class="pj-width">
-      <div class="pj-cta">
-        <div>
-          <h2>無料で始める</h2>
-          <p>メルマガに登録して、最新のポーカー情報や初心者向けコンテンツを受け取りましょう。</p>
-        </div>
-        <a href="#" class="pj-btn" style="background:#fff;color:var(--accent);padding:14px 36px;font-size:16px;flex-shrink:0;">メルマガ登録</a>
+      <h2 class="pj-section-title">初心者におすすめのカジノ</h2>
+      <div class="rec-grid">
+        <a href="../junkets/paradise-city.html" class="rec-item">
+          <h3>Paradise City</h3>
+          <p>日本から最も近い海外カジノ。空港直結でアクセス抜群。低レートから打てる。</p>
+          <span class="rec-link">詳しく見る &rarr;</span>
+        </a>
+        <a href="../junkets/manila-cod.html" class="rec-item">
+          <h3>PokerStars LIVE Manila</h3>
+          <p>アジア最大級のポーカールーム。&#8369;25/50から始められる。</p>
+          <span class="rec-link">詳しく見る &rarr;</span>
+        </a>
+        <a href="../junkets/star-sydney.html" class="rec-item">
+          <h3>The Star Sydney</h3>
+          <p>リラックスした雰囲気で初心者歓迎。A$2/5からスタート可能。</p>
+          <span class="rec-link">詳しく見る &rarr;</span>
+        </a>
       </div>
     </div>
   </section>
