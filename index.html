@@ -125,33 +125,21 @@
     .ticker-up { color:var(--green); }
     .ticker-down { color:var(--red); }
 
-    /* ===== SECTION 2: CARD PROMO (Bybit style) ===== */
+    /* ===== SECTION 2: VALUE PROP ===== */
     .card-promo {
-      padding:80px 0;
+      padding:72px 0;
       background:var(--bg-page);
+      border-bottom:1px solid var(--border-light);
     }
-    .card-promo-inner {
-      display:flex; align-items:center; gap:64px;
-      background:linear-gradient(135deg, #f0faf4 0%, #fff 40%, #fef8f0 100%);
-      border-radius:24px; padding:56px 64px;
-      border:1px solid var(--border-light);
-      overflow:hidden; position:relative;
-    }
-    .card-promo-inner::before {
-      content:''; position:absolute; top:-50%; right:-20%;
-      width:500px; height:500px;
-      background:radial-gradient(circle, rgba(26,107,60,.06) 0%, transparent 60%);
-      pointer-events:none;
-    }
-    .card-promo-text { flex:1; position:relative; z-index:1; }
-    .card-promo-text h2 { font-size:36px; font-weight:700; line-height:1.2; margin-bottom:40px; }
+    .card-promo-inner {}
+    .card-promo-text {}
+    .card-promo-text h2 { font-size:40px; font-weight:700; line-height:1.2; margin-bottom:48px; max-width:600px; }
     .card-promo-text h2 .accent { color:var(--accent); }
-    .card-promo-stats { display:flex; gap:48px; }
-    .card-stat {}
+    .card-promo-stats { display:flex; gap:0; }
+    .card-stat { padding-right:40px; margin-right:40px; border-right:1px solid var(--border); }
+    .card-stat:last-child { border-right:none; margin-right:0; padding-right:0; }
     .card-stat-val { font-size:28px; font-weight:700; color:var(--text-1); }
-    .card-stat-label { font-size:14px; color:var(--text-3); margin-top:4px; }
-    .card-promo-visual { flex:0 0 380px; position:relative; z-index:1; text-align:center; }
-    .card-promo-visual img { width:100%; max-width:360px; border-radius:16px; }
+    .card-stat-label { font-size:13px; color:var(--text-3); margin-top:4px; }
 
     /* ===== Shared sections ===== */
     .pj-section { padding:64px 0; }
@@ -261,9 +249,7 @@
     /* ===== Responsive: Tablet ===== */
     @media (max-width:1024px) {
       .pj-product-grid { grid-template-columns:repeat(2,1fr); }
-      .card-promo-inner { flex-direction:column; padding:40px 32px; gap:32px; }
-      .card-promo-visual { flex:none; }
-      .card-promo-text h2 { font-size:28px; }
+      .card-promo-text h2 { font-size:32px; }
       .pj-footer-grid { grid-template-columns:repeat(2,1fr); }
       .pj-news-card.featured { grid-template-columns:1fr 1fr; }
     }
@@ -298,19 +284,13 @@
       .ticker-price { font-size:11px; }
       .ticker-change { font-size:11px; }
 
-      /* Card promo — horizontal mobile layout */
-      .card-promo { padding:32px 0; }
-      .card-promo-inner { padding:24px 20px; gap:16px; border-radius:14px; align-items:flex-start; }
-      .card-promo-text h2 { font-size:20px; margin-bottom:20px; line-height:1.35; }
-      .card-promo-stats {
-        flex-direction:row; gap:0; justify-content:space-between;
-        padding-top:16px; border-top:1px solid rgba(0,0,0,.06);
-      }
-      .card-stat { text-align:left; flex:1; }
-      .card-stat-val { font-size:17px; }
-      .card-stat-label { font-size:10px; letter-spacing:.2px; }
-      .card-promo-visual { flex:0 0 100px; width:100px; align-self:center; }
-      .card-promo-visual img { width:100px !important; margin:0; border-radius:12px; }
+      /* Value prop */
+      .card-promo { padding:40px 0; }
+      .card-promo-text h2 { font-size:24px; margin-bottom:28px; }
+      .card-promo-stats { flex-wrap:wrap; gap:0; }
+      .card-stat { border-right:none; margin-right:0; padding:0; flex:1; min-width:33%; text-align:center; }
+      .card-stat-val { font-size:20px; }
+      .card-stat-label { font-size:10px; }
 
       /* Sections */
       .pj-section { padding:40px 0; }
@@ -419,11 +399,8 @@
       .hero { padding:20px 0 0; }
       .hero h1 { font-size:22px; }
       .hero .sub { font-size:12px; margin-bottom:12px; }
-      .card-promo-text h2 { font-size:18px; }
-      .card-promo-visual { flex:0 0 80px; width:80px; }
-      .card-promo-visual img { width:80px !important; }
-      .card-promo-stats { gap:0; }
-      .card-stat-val { font-size:15px; }
+      .card-promo-text h2 { font-size:22px; }
+      .card-stat-val { font-size:18px; }
     }
   </style>
 </head>
@@ -581,14 +558,12 @@
     </div>
   </section>
 
-  <!-- ============================================================
-       SECTION 2: CARD PROMO (Bybit "Live crypto. Pay anywhere." style)
-       ============================================================ -->
+  <!-- ===== VALUE PROP ===== -->
   <section class="card-promo">
     <div class="pj-width">
       <div class="card-promo-inner">
         <div class="card-promo-text">
-          <h2>ライブポーカー。<br/>世界中で<span class="accent">プレイ</span>しよう。<br/>最大10%キャッシュバック。</h2>
+          <h2>ライブポーカー。<br/>世界中で<span class="accent">プレイ</span>しよう。</h2>
           <div class="card-promo-stats">
             <div class="card-stat">
               <div class="card-stat-val">50+</div>
@@ -603,9 +578,6 @@
               <div class="card-stat-label">特典・リワード</div>
             </div>
           </div>
-        </div>
-        <div class="card-promo-visual">
-          <img src="reference/images/spotlight/Card-1745f92e4ce488e1ecb5fa8f418091f1.png" alt="POKER JAPAN Card" style="width:280px;border-radius:16px;"/>
         </div>
       </div>
     </div>
