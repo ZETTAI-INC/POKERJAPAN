@@ -183,22 +183,33 @@
     .pj-table .room-flag { font-size:20px; }
     .pj-table .stakes { color:var(--accent); font-weight:500; }
 
-    /* News */
-    .pj-news-grid { display:grid; grid-template-columns:1fr 1fr; gap:20px; }
-    .pj-news-card { background:#fff; border-radius:16px; overflow:hidden; border:1px solid var(--border-light); transition:box-shadow .2s,transform .2s; }
-    .pj-news-card:hover { box-shadow:0 4px 20px rgba(0,0,0,.06); transform:translateY(-2px); }
-    .pj-news-card.featured { grid-column:1/-1; display:grid; grid-template-columns:1.2fr 1fr; }
-    .pj-news-thumb { width:100%; aspect-ratio:16/9; background:linear-gradient(135deg,#e8f5ee,#f7f8fa); display:flex; align-items:center; justify-content:center; font-size:56px; color:var(--accent); }
-    .pj-news-card.featured .pj-news-thumb { aspect-ratio:auto; height:100%; min-height:240px; }
-    .pj-news-body { padding:20px 24px; display:flex; flex-direction:column; }
-    .pj-news-tag { display:inline-block; font-size:11px; font-weight:600; text-transform:uppercase; letter-spacing:.5px; padding:3px 10px; border-radius:100px; margin-bottom:10px; width:fit-content; }
-    .pj-news-tag.tournament { background:#fef3e2; color:#b8750c; }
-    .pj-news-tag.cash { background:var(--accent-light); color:var(--accent); }
-    .pj-news-tag.strategy { background:#eef0ff; color:#4a5eb8; }
-    .pj-news-tag.beginner { background:#ffeaeb; color:#c0392b; }
-    .pj-news-body h3 { font-size:16px; font-weight:600; line-height:1.4; margin:0 0 8px; }
-    .pj-news-body p { font-size:13px; color:var(--text-3); line-height:1.55; margin:0; flex:1; }
-    .pj-news-meta { display:flex; gap:12px; margin-top:12px; font-size:12px; color:var(--text-3); }
+    /* News — asymmetric layout (main + sidebar list) */
+    .news-layout { display:grid; grid-template-columns:1fr 1fr; gap:24px; }
+    .news-main { }
+    .news-main-img { width:100%; aspect-ratio:16/10; object-fit:cover; border-radius:12px; display:block; }
+    .news-main-tag { display:inline-block; font-size:11px; font-weight:600; text-transform:uppercase; letter-spacing:.3px; padding:3px 10px; border-radius:4px; margin:16px 0 10px; }
+    .news-main-tag.tournament { background:#fef3e2; color:#b8750c; }
+    .news-main h3 { font-size:22px; font-weight:700; line-height:1.35; margin:0 0 10px; }
+    .news-main h3 a { transition:color .15s; }
+    .news-main h3 a:hover { color:var(--accent); }
+    .news-main p { font-size:14px; color:var(--text-2); line-height:1.6; margin:0; }
+    .news-main-meta { display:flex; gap:10px; margin-top:12px; font-size:12px; color:var(--text-3); }
+
+    .news-side { display:flex; flex-direction:column; gap:0; }
+    .news-side-item { display:flex; gap:16px; padding:20px 0; border-bottom:1px solid var(--border-light); }
+    .news-side-item:first-child { padding-top:0; }
+    .news-side-item:last-child { border-bottom:none; }
+    .news-side-thumb { width:120px; min-width:120px; height:80px; object-fit:cover; border-radius:8px; }
+    .news-side-body { flex:1; min-width:0; display:flex; flex-direction:column; justify-content:center; }
+    .news-side-tag { font-size:10px; font-weight:600; text-transform:uppercase; letter-spacing:.3px; margin-bottom:4px; }
+    .news-side-tag.cash { color:var(--accent); }
+    .news-side-tag.strategy { color:#4a5eb8; }
+    .news-side-tag.beginner { color:#c0392b; }
+    .news-side-tag.tournament { color:#b8750c; }
+    .news-side-body h4 { font-size:14px; font-weight:600; line-height:1.35; margin:0; }
+    .news-side-body h4 a { transition:color .15s; }
+    .news-side-body h4 a:hover { color:var(--accent); }
+    .news-side-meta { font-size:11px; color:var(--text-3); margin-top:6px; }
 
     /* CTA */
     .pj-cta { background:linear-gradient(135deg,var(--accent),#0f4025); border-radius:20px; padding:56px 48px; display:flex; align-items:center; justify-content:space-between; gap:40px; color:#fff; }
@@ -316,13 +327,12 @@
       .pj-product-card p { font-size:12px; }
 
       /* News */
-      .pj-news-grid { grid-template-columns:1fr; gap:16px; }
-      .pj-news-card.featured { grid-template-columns:1fr; }
-      /* Fix 7: Featured news card image height */
-      .pj-news-card.featured .pj-news-thumb { min-height:160px; aspect-ratio:16/9; }
-      .pj-news-body { padding:16px; }
-      .pj-news-body h3 { font-size:15px; }
-      .pj-news-thumb { font-size:36px !important; }
+      .news-layout { grid-template-columns:1fr; gap:32px; }
+      .news-main h3 { font-size:18px; }
+      .news-main p { font-size:13px; }
+      .news-side-item { gap:12px; padding:16px 0; }
+      .news-side-thumb { width:88px; min-width:88px; height:60px; }
+      .news-side-body h4 { font-size:13px; }
 
       /* Fix 3: Table — hide less important columns, remove forced min-width */
       .pj-table-wrap { overflow-x:auto; margin:0 -24px; padding:0 24px; }
@@ -610,59 +620,59 @@
         <h2 class="pj-section-title" style="margin:0;">最新ニュース</h2>
         <a href="pages/news.html">すべてのニュースを見る &rarr;</a>
       </div>
-      <div class="pj-news-grid">
-        <div class="pj-news-card featured">
-          <img class="pj-news-thumb" src="reference/images/news/featured-wsop.png" alt="WSOP" style="object-fit:cover; padding:0; background:none;" />
-          <div class="pj-news-body">
-            <span class="pj-news-tag tournament">トーナメント</span>
-            <h3>WSOP 2026 スケジュール発表 &#8212; 全95イベント、メインイベントは7月開催</h3>
-            <p>ワールドシリーズ・オブ・ポーカーの2026年度スケジュールが正式に発表。今年は全95イベントが予定されており、メインイベント（$10,000 NLH）は7月6日から14日間にわたって開催されます。</p>
-            <div class="pj-news-meta"><span>2026.03.19</span><span>&middot;</span><span>読了 5分</span></div>
-          </div>
+      <div class="news-layout">
+        <!-- Main article (left) -->
+        <div class="news-main">
+          <a href="pages/news.html">
+            <img class="news-main-img" src="reference/images/news/featured-wsop.png" alt="WSOP 2026"/>
+          </a>
+          <span class="news-main-tag tournament">トーナメント</span>
+          <h3><a href="pages/news.html">WSOP 2026 スケジュール発表 — 全95イベント、メインイベントは7月開催</a></h3>
+          <p>ワールドシリーズ・オブ・ポーカーの2026年度スケジュールが正式に発表。今年は全95イベントが予定されており、メインイベント（$10,000 NLH）は7月6日から14日間にわたって開催されます。</p>
+          <div class="news-main-meta"><span>2026.03.19</span><span>&middot;</span><span>読了 5分</span></div>
         </div>
-        <div class="pj-news-card">
-          <img class="pj-news-thumb" src="reference/images/news/cashgame-manila.png" alt="Cash Game" style="object-fit:cover; padding:0; background:none;" />
-          <div class="pj-news-body">
-            <span class="pj-news-tag cash">キャッシュゲーム</span>
-            <h3>マニラ・シティオブドリームズが $2/$5 NLHテーブルを増設</h3>
-            <p>フィリピン・マニラのシティオブドリームズが、需要増加に対応して$2/$5テーブルを4台から8台に拡大。</p>
-            <div class="pj-news-meta"><span>2026.03.18</span><span>&middot;</span><span>読了 3分</span></div>
+
+        <!-- Side list (right) -->
+        <div class="news-side">
+          <div class="news-side-item">
+            <img class="news-side-thumb" src="reference/images/news/cashgame-manila.png" alt=""/>
+            <div class="news-side-body">
+              <span class="news-side-tag cash">キャッシュゲーム</span>
+              <h4><a href="pages/news.html">マニラ COD が $2/$5 NLHテーブルを増設</a></h4>
+              <div class="news-side-meta">2026.03.18 &middot; 読了 3分</div>
+            </div>
           </div>
-        </div>
-        <div class="pj-news-card">
-          <img class="pj-news-thumb" src="reference/images/news/strategy-3bet.png" alt="Strategy" style="object-fit:cover; padding:0; background:none;" />
-          <div class="pj-news-body">
-            <span class="pj-news-tag strategy">戦略</span>
-            <h3>3-Bet Potのフロップ戦略 &#8212; CBetサイジングの新アプローチ</h3>
-            <p>ソルバー分析に基づいた3Betポットにおけるフロップ戦略。テクスチャ別の最適なベットサイズを解説。</p>
-            <div class="pj-news-meta"><span>2026.03.17</span><span>&middot;</span><span>読了 8分</span></div>
+          <div class="news-side-item">
+            <img class="news-side-thumb" src="reference/images/news/strategy-3bet.png" alt=""/>
+            <div class="news-side-body">
+              <span class="news-side-tag strategy">戦略</span>
+              <h4><a href="pages/news.html">3-Bet Potのフロップ戦略 — CBetサイジング</a></h4>
+              <div class="news-side-meta">2026.03.17 &middot; 読了 8分</div>
+            </div>
           </div>
-        </div>
-        <div class="pj-news-card">
-          <img class="pj-news-thumb" src="reference/images/news/beginner-vegas.png" alt="Beginner" style="object-fit:cover; padding:0; background:none;" />
-          <div class="pj-news-body">
-            <span class="pj-news-tag beginner">初心者</span>
-            <h3>はじめての海外ポーカー &#8212; ラスベガス編：おすすめルーム5選</h3>
-            <p>ベラージオ、アリア、ウィン、ヴェネチアン、リゾーツワールド。各ルームの特徴と初心者に優しいポイント。</p>
-            <div class="pj-news-meta"><span>2026.03.16</span><span>&middot;</span><span>読了 6分</span></div>
+          <div class="news-side-item">
+            <img class="news-side-thumb" src="reference/images/news/beginner-vegas.png" alt=""/>
+            <div class="news-side-body">
+              <span class="news-side-tag beginner">初心者</span>
+              <h4><a href="pages/news.html">はじめてのラスベガス — おすすめルーム5選</a></h4>
+              <div class="news-side-meta">2026.03.16 &middot; 読了 6分</div>
+            </div>
           </div>
-        </div>
-        <div class="pj-news-card">
-          <img class="pj-news-thumb" src="reference/images/news/featured-wsop.png" alt="EPT" style="object-fit:cover;padding:0;background:none;"/>
-          <div class="pj-news-body">
-            <span class="pj-news-tag tournament">トーナメント</span>
-            <h3>EPT Monte Carlo 2026 &#8212; エントリー受付開始、日本からの参加方法を解説</h3>
-            <p>ヨーロッパポーカーツアーのモンテカルロ大会が2026年度のエントリー受付を開始。日本からの渡航・参加手続きを詳しく紹介。</p>
-            <div class="pj-news-meta"><span>2026.03.15</span><span>&middot;</span><span>読了 4分</span></div>
+          <div class="news-side-item">
+            <img class="news-side-thumb" src="reference/images/news/featured-wsop.png" alt=""/>
+            <div class="news-side-body">
+              <span class="news-side-tag tournament">トーナメント</span>
+              <h4><a href="pages/news.html">EPT Monte Carlo 2026 — エントリー受付開始</a></h4>
+              <div class="news-side-meta">2026.03.15 &middot; 読了 4分</div>
+            </div>
           </div>
-        </div>
-        <div class="pj-news-card">
-          <img class="pj-news-thumb" src="reference/images/news/cashgame-manila.png" alt="Paradise City" style="object-fit:cover;padding:0;background:none;"/>
-          <div class="pj-news-body">
-            <span class="pj-news-tag cash">キャッシュゲーム</span>
-            <h3>パラダイスシティ韓国 &#8212; 週末限定ハイステークスNLHテーブル開設</h3>
-            <p>韓国・仁川のパラダイスシティが週末限定で高レートNLHテーブルを新設。韓国ポーカーシーンの活性化が進む。</p>
-            <div class="pj-news-meta"><span>2026.03.14</span><span>&middot;</span><span>読了 3分</span></div>
+          <div class="news-side-item">
+            <img class="news-side-thumb" src="reference/images/news/cashgame-manila.png" alt=""/>
+            <div class="news-side-body">
+              <span class="news-side-tag cash">キャッシュゲーム</span>
+              <h4><a href="pages/news.html">パラダイスシティ — 週末限定ハイステークス開設</a></h4>
+              <div class="news-side-meta">2026.03.14 &middot; 読了 3分</div>
+            </div>
           </div>
         </div>
       </div>
