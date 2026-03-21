@@ -298,17 +298,19 @@
       .ticker-price { font-size:11px; }
       .ticker-change { font-size:11px; }
 
-      /* Card promo */
-      .card-promo { padding:48px 0; }
-      .card-promo-inner { padding:28px 20px; gap:20px; border-radius:16px; }
-      .card-promo-text h2 { font-size:24px; margin-bottom:24px; }
-      /* Fix 8: Card promo stats — prevent overflow */
-      .card-promo-stats { flex-direction:row; gap:0; justify-content:space-between; }
-      .card-stat { text-align:center; flex:1; }
-      .card-stat-val { font-size:18px; }
-      .card-stat-label { font-size:11px; }
-      .card-promo-visual { flex:none; width:100%; text-align:center; }
-      .card-promo-visual img { width:180px !important; margin:0 auto; }
+      /* Card promo — horizontal mobile layout */
+      .card-promo { padding:32px 0; }
+      .card-promo-inner { padding:24px 20px; gap:16px; border-radius:14px; align-items:flex-start; }
+      .card-promo-text h2 { font-size:20px; margin-bottom:20px; line-height:1.35; }
+      .card-promo-stats {
+        flex-direction:row; gap:0; justify-content:space-between;
+        padding-top:16px; border-top:1px solid rgba(0,0,0,.06);
+      }
+      .card-stat { text-align:left; flex:1; }
+      .card-stat-val { font-size:17px; }
+      .card-stat-label { font-size:10px; letter-spacing:.2px; }
+      .card-promo-visual { flex:0 0 100px; width:100px; align-self:center; }
+      .card-promo-visual img { width:100px !important; margin:0; border-radius:12px; }
 
       /* Sections */
       .pj-section { padding:40px 0; }
@@ -319,12 +321,24 @@
       .pj-section-header h2 { font-size:20px; flex:1; }
       .pj-section-header a { font-size:13px; white-space:nowrap; }
 
-      /* Product cards */
-      .pj-product-grid { grid-template-columns:1fr 1fr; gap:12px; }
-      .pj-product-card { padding:20px 16px; border-radius:12px; }
-      .pj-product-card img { width:40px; height:40px; margin-bottom:12px; }
-      .pj-product-card h3 { font-size:14px; }
-      .pj-product-card p { font-size:12px; }
+      /* Product cards — horizontal scroll with inline layout */
+      .pj-product-grid {
+        display:flex; gap:10px; overflow-x:auto; -webkit-overflow-scrolling:touch;
+        margin:0 -24px; padding:4px 24px 16px;
+        scroll-snap-type:x mandatory; scrollbar-width:none;
+      }
+      .pj-product-grid::-webkit-scrollbar { display:none; }
+      .pj-product-card {
+        min-width:250px; flex:0 0 auto; padding:16px; border-radius:12px;
+        scroll-snap-align:start;
+        display:grid; grid-template-columns:36px 1fr; grid-template-rows:auto auto;
+        gap:2px 12px; align-items:start;
+      }
+      .pj-product-card img {
+        width:36px; height:36px; margin:0; grid-row:1/3; align-self:start; margin-top:2px;
+      }
+      .pj-product-card h3 { font-size:14px; grid-column:2; margin:0; }
+      .pj-product-card p { font-size:12px; grid-column:2; margin:0; line-height:1.45; }
 
       /* News */
       .news-layout { grid-template-columns:1fr; gap:32px; }
@@ -334,11 +348,29 @@
       .news-side-thumb { width:88px; min-width:88px; height:60px; }
       .news-side-body h4 { font-size:13px; }
 
-      /* Fix 3: Table — hide less important columns, remove forced min-width */
-      .pj-table-wrap { overflow-x:auto; margin:0 -24px; padding:0 24px; }
-      .pj-table { min-width:auto; }
-      .pj-table td, .pj-table th { padding:10px 12px; font-size:13px; }
-      .hide-mobile { display:none; }
+      /* Fix 3: Table — horizontal card scroll on mobile */
+      .pj-table-wrap { overflow:visible; margin:0 -24px; padding:0; }
+      .pj-table { display:block; min-width:0; }
+      .pj-table thead { display:none; }
+      .pj-table tbody {
+        display:flex; gap:12px; overflow-x:auto; -webkit-overflow-scrolling:touch;
+        padding:4px 24px 16px; scroll-snap-type:x mandatory;
+        scrollbar-width:none;
+      }
+      .pj-table tbody::-webkit-scrollbar { display:none; }
+      .pj-table tbody tr {
+        display:flex; flex-direction:column; min-width:220px; flex:0 0 auto;
+        border:1px solid var(--border-light); border-radius:12px;
+        padding:16px; background:#fff; gap:6px; scroll-snap-align:start;
+        box-shadow:0 1px 4px rgba(0,0,0,.04);
+      }
+      .pj-table tbody tr:hover { background:#fff; }
+      .pj-table td { padding:2px 0; font-size:13px; }
+      .pj-table td:nth-child(2) { font-size:12px; color:var(--text-3); }
+      .pj-table .room-name { font-size:14px; }
+      .pj-table .room-flag { font-size:24px; }
+      .pj-table .stakes { font-size:14px; }
+      .hide-mobile { display:none !important; }
 
       /* CTA */
       .pj-cta { flex-direction:column; text-align:center; padding:32px 20px; border-radius:16px; gap:20px; }
@@ -379,12 +411,6 @@
       .countdown-nums { gap:16px !important; }
       .countdown-nums > div > div:first-child { font-size:32px !important; }
 
-      /* Table scroll indicator */
-      .pj-table-wrap { position:relative; }
-      .pj-table-wrap::after { content:''; position:absolute; top:0; right:0; bottom:0; width:32px; background:linear-gradient(to right, transparent, var(--bg-alt)); pointer-events:none; }
-
-      /* Card promo image */
-      .card-promo-visual img { width:180px !important; margin:0 auto; }
     }
 
     /* ===== Very small screens ===== */
@@ -393,10 +419,11 @@
       .hero { padding:20px 0 0; }
       .hero h1 { font-size:22px; }
       .hero .sub { font-size:12px; margin-bottom:12px; }
-      .card-promo-text h2 { font-size:20px; }
-      .pj-product-grid { grid-template-columns:1fr; }
-      .card-promo-stats { flex-direction:column; gap:16px; }
-      .card-stat { text-align:left; }
+      .card-promo-text h2 { font-size:18px; }
+      .card-promo-visual { flex:0 0 80px; width:80px; }
+      .card-promo-visual img { width:80px !important; }
+      .card-promo-stats { gap:0; }
+      .card-stat-val { font-size:15px; }
     }
   </style>
 </head>

@@ -227,20 +227,35 @@
       .pj-cta a, .pj-cta .pj-btn { width:100%; text-align:center; }
       .pj-cta h2 { font-size:20px; }
 
-      .pj-table-wrap { overflow-x:auto; margin:0 -24px; padding:0 24px; }
-      .pj-table { min-width:auto; }
-      .pj-table td, .pj-table th { padding:10px 12px; font-size:13px; }
-      .hide-mobile { display:none; }
+      /* Table — horizontal card scroll on mobile */
+      .pj-table-wrap { overflow:visible; margin:0 -24px; padding:0; }
+      .pj-table { display:block; min-width:0; }
+      .pj-table thead { display:none; }
+      .pj-table tbody {
+        display:flex; gap:12px; overflow-x:auto; -webkit-overflow-scrolling:touch;
+        padding:4px 24px 16px; scroll-snap-type:x mandatory;
+        scrollbar-width:none;
+      }
+      .pj-table tbody::-webkit-scrollbar { display:none; }
+      .pj-table tbody tr {
+        display:flex; flex-direction:column; min-width:220px; flex:0 0 auto;
+        border:1px solid var(--border-light); border-radius:12px;
+        padding:16px; background:#fff; gap:6px; scroll-snap-align:start;
+        box-shadow:0 1px 4px rgba(0,0,0,.04);
+      }
+      .pj-table tbody tr:hover { background:#fff; }
+      .pj-table td { padding:2px 0; font-size:13px; }
+      .pj-table td:nth-child(2) { font-size:12px; color:var(--text-3); }
+      .pj-table .room-name { font-size:14px; }
+      .pj-table .room-flag { font-size:24px; }
+      .pj-table .stakes { font-size:14px; }
+      .hide-mobile { display:none !important; }
 
       .info-grid { grid-template-columns:1fr 1fr; gap:16px; margin-top:32px; padding-top:32px; }
       .compare-grid { grid-template-columns:1fr; }
       .compare-card { padding:20px 16px; }
       .compare-stat { font-size:13px; }
       .compare-card-sub { font-size:13px; }
-
-      /* Table scroll indicator */
-      .pj-table-wrap { position:relative; }
-      .pj-table-wrap::after { content:''; position:absolute; top:0; right:0; bottom:0; width:32px; background:linear-gradient(to right, transparent, var(--bg-page)); pointer-events:none; }
 
       .nl-bar-inner { flex-direction:column !important; text-align:center; gap:16px !important; }
       .nl-bar-inner > div:last-child { width:100%; flex-direction:column !important; }
