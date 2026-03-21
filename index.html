@@ -289,15 +289,15 @@
 
       /* Card promo */
       .card-promo { padding:48px 0; }
-      .card-promo-inner { padding:28px 20px; gap:24px; border-radius:16px; }
+      .card-promo-inner { padding:28px 20px; gap:20px; border-radius:16px; }
       .card-promo-text h2 { font-size:24px; margin-bottom:24px; }
       /* Fix 8: Card promo stats — prevent overflow */
       .card-promo-stats { flex-direction:row; gap:0; justify-content:space-between; }
       .card-stat { text-align:center; flex:1; }
       .card-stat-val { font-size:18px; }
       .card-stat-label { font-size:11px; }
-      .card-promo-visual { text-align:center; }
-      .card-promo-visual img { width:200px !important; margin:0 auto; }
+      .card-promo-visual { flex:none; width:100%; text-align:center; }
+      .card-promo-visual img { width:180px !important; margin:0 auto; }
 
       /* Sections */
       .pj-section { padding:40px 0; }
@@ -322,6 +322,7 @@
       .pj-news-card.featured .pj-news-thumb { min-height:160px; aspect-ratio:16/9; }
       .pj-news-body { padding:16px; }
       .pj-news-body h3 { font-size:15px; }
+      .pj-news-thumb { font-size:36px !important; }
 
       /* Fix 3: Table — hide less important columns, remove forced min-width */
       .pj-table-wrap { overflow-x:auto; margin:0 -24px; padding:0 24px; }
@@ -333,6 +334,7 @@
       .pj-cta { flex-direction:column; text-align:center; padding:32px 20px; border-radius:16px; gap:20px; }
       .pj-cta h2 { font-size:22px; }
       .pj-cta p { font-size:14px; }
+      .pj-cta a, .pj-cta .pj-btn { width:100%; text-align:center; padding:14px 20px !important; }
 
       /* Download section */
       .pj-download-inner { flex-direction:column !important; gap:32px !important; text-align:center; }
