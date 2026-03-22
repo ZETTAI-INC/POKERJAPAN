@@ -18,424 +18,142 @@
       --gold:#f7a600; --red:#ef454a; --green:#20b26c;
       --border:#e5e7eb; --border-light:#f0f1f3;
     }
-    body { font-family:"Inter","Noto Sans JP",system-ui,-apple-system,sans-serif; background:#0b0e11; color:var(--text-1); -webkit-font-smoothing:antialiased; overflow-x:hidden; }
+    body { font-family:"Inter","Noto Sans JP",system-ui,-apple-system,sans-serif; background:#0b0e11; color:var(--text-1); -webkit-font-smoothing:antialiased; }
     a { color:inherit; text-decoration:none; }
     img { max-width:100%; display:block; }
 
-    /* Header — minimal for login */
-    .pj-header { position:fixed; top:0; left:0; right:0; z-index:1000; height:64px; background:transparent; display:flex; align-items:center; }
-    .pj-header-inner { max-width:1200px; width:100%; margin:0 auto; padding:0 24px; display:flex; align-items:center; justify-content:space-between; }
-    .pj-logo img { height:30px; }
-    .pj-header-right { display:flex; align-items:center; gap:16px; }
-    .pj-header-right span { font-size:13px; color:#595d61; }
-    .pj-header-right a { font-size:13px; font-weight:600; color:var(--gold); transition:color .15s; }
-    .pj-header-right a:hover { color:#ffc35c; }
-
-    /* ===== Split layout ===== */
-    .login-split {
-      display:flex; min-height:100vh;
+    .login-page {
+      min-height:100vh; display:flex; flex-direction:column;
+      align-items:center; justify-content:center;
+      padding:24px;
     }
 
-    /* Left panel — dark branding */
-    .login-brand {
-      flex:1; background:#0b0e11; color:#fff;
-      display:flex; flex-direction:column; justify-content:center;
-      padding:80px 60px; position:relative; overflow:hidden;
+    .login-top {
+      margin-bottom:40px; text-align:center;
     }
-    .login-brand::before {
-      content:''; position:absolute; top:-20%; left:-20%;
-      width:140%; height:140%;
-      background:
-        radial-gradient(ellipse at 20% 50%, rgba(26,107,60,.12) 0%, transparent 50%),
-        radial-gradient(ellipse at 80% 20%, rgba(247,166,0,.06) 0%, transparent 40%),
-        radial-gradient(ellipse at 60% 80%, rgba(32,178,108,.08) 0%, transparent 45%);
-      pointer-events:none;
-      animation:brandGlow 8s ease-in-out infinite alternate;
-    }
-    @keyframes brandGlow {
-      0% { opacity:.7; transform:scale(1) rotate(0deg); }
-      100% { opacity:1; transform:scale(1.05) rotate(2deg); }
-    }
-    /* Grid pattern overlay */
-    .login-brand::after {
-      content:''; position:absolute; inset:0;
-      background-image:
-        linear-gradient(rgba(255,255,255,.02) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255,255,255,.02) 1px, transparent 1px);
-      background-size:60px 60px;
-      pointer-events:none;
-    }
-    .brand-content { position:relative; z-index:1; max-width:480px; }
-    .brand-content h1 {
-      font-size:40px; font-weight:700; line-height:1.2; margin-bottom:16px;
-      background:linear-gradient(135deg, #fff 0%, #adb1b8 100%);
-      -webkit-background-clip:text; -webkit-text-fill-color:transparent;
-      background-clip:text;
-    }
-    .brand-content .sub { font-size:16px; color:#adb1b8; line-height:1.6; margin-bottom:48px; }
-    .brand-content .sub .gold { color:var(--gold); font-weight:600; }
+    .login-top img { height:26px; margin:0 auto; filter:brightness(0) invert(1); }
 
-    /* Trust indicators */
-    .trust-items { display:flex; flex-direction:column; gap:20px; }
-    .trust-item {
-      display:flex; align-items:center; gap:14px;
-      padding:16px 20px; border-radius:12px;
-      background:rgba(255,255,255,.04); border:1px solid rgba(255,255,255,.06);
-      backdrop-filter:blur(4px);
-      transition:all .3s;
-    }
-    .trust-item:hover { background:rgba(255,255,255,.07); border-color:rgba(255,255,255,.1); transform:translateX(4px); }
-    .trust-icon {
-      width:44px; height:44px; border-radius:10px;
-      display:flex; align-items:center; justify-content:center;
-      font-size:20px; flex-shrink:0;
-    }
-    .trust-icon.ti-green { background:rgba(32,178,108,.15); }
-    .trust-icon.ti-gold { background:rgba(247,166,0,.15); }
-    .trust-icon.ti-blue { background:rgba(59,130,246,.15); }
-    .trust-item h3 { font-size:14px; font-weight:600; color:#fff; margin-bottom:2px; }
-    .trust-item p { font-size:12px; color:#81858c; margin:0; line-height:1.4; }
-
-    /* Brand stats bar */
-    .brand-stats {
-      display:flex; gap:32px; margin-top:48px; padding-top:32px;
-      border-top:1px solid rgba(255,255,255,.08);
-    }
-    .brand-stat {}
-    .brand-stat .val { font-size:24px; font-weight:700; color:#fff; }
-    .brand-stat .lbl { font-size:11px; color:#595d61; margin-top:2px; text-transform:uppercase; letter-spacing:.5px; }
-
-    /* Right panel — form */
-    .login-form-panel {
-      flex:0 0 520px; background:#fff;
-      display:flex; flex-direction:column; justify-content:center;
-      padding:60px 56px; position:relative;
-    }
-    .form-inner { max-width:400px; width:100%; margin:0 auto; }
-    .form-greeting {
-      font-size:28px; font-weight:700; margin-bottom:6px; color:var(--text-1);
-    }
-    .form-greeting-sub {
-      font-size:14px; color:var(--text-3); margin-bottom:36px; line-height:1.5;
+    .login-card {
+      width:100%; max-width:380px;
+      background:#15171a; border:1px solid #2a2d31;
+      border-radius:12px; padding:32px 28px;
     }
 
-    /* Social login — prominent */
-    .social-login { display:flex; gap:12px; margin-bottom:24px; }
-    .social-btn {
-      flex:1; display:flex; align-items:center; justify-content:center; gap:10px;
-      padding:13px 16px; border:1px solid var(--border); border-radius:10px;
-      font-size:14px; font-weight:500; color:var(--text-1); background:#fff;
-      cursor:pointer; transition:all .2s; font-family:inherit;
-    }
-    .social-btn:hover { border-color:var(--text-3); background:var(--bg-alt); box-shadow:0 2px 8px rgba(0,0,0,.06); transform:translateY(-1px); }
-    .social-btn:active { transform:translateY(0); }
-    .social-btn svg { flex-shrink:0; }
+    .login-heading { font-size:20px; font-weight:600; color:#fff; margin-bottom:24px; }
 
-    .login-divider {
-      display:flex; align-items:center; gap:16px;
-      margin:0 0 24px; font-size:12px; color:var(--text-3); text-transform:uppercase; letter-spacing:.5px;
-    }
-    .login-divider::before, .login-divider::after {
-      content:''; flex:1; height:1px; background:var(--border);
-    }
-
-    /* Form */
-    .form-group { margin-bottom:20px; position:relative; }
-    .form-label { display:block; font-size:13px; font-weight:600; margin-bottom:6px; color:var(--text-2); }
-    .input-wrap {
-      position:relative;
-    }
-    .input-wrap .input-icon {
-      position:absolute; left:14px; top:50%; transform:translateY(-50%);
-      color:var(--text-3); pointer-events:none; transition:color .15s;
-      display:flex; align-items:center;
-    }
+    .form-group { margin-bottom:16px; }
+    .form-label { display:block; font-size:13px; font-weight:500; margin-bottom:5px; color:#81858c; }
     .form-input {
-      width:100%; padding:13px 14px 13px 42px; font-size:14px; font-family:inherit;
-      border:1.5px solid var(--border); border-radius:10px; background:#fff;
-      color:var(--text-1); outline:none; transition:all .2s;
+      width:100%; padding:10px 12px; font-size:14px; font-family:inherit;
+      border:1px solid #2a2d31; border-radius:6px; background:#0b0e11;
+      color:#fff; outline:none; transition:border-color .15s;
     }
-    .form-input:focus { border-color:var(--accent); box-shadow:0 0 0 3px rgba(26,107,60,.1); }
-    .form-input:focus ~ .input-icon { color:var(--accent); }
-    .form-input::placeholder { color:var(--text-3); }
+    .form-input:focus { border-color:var(--accent); }
+    .form-input::placeholder { color:#4a4d52; }
 
-    /* Password toggle */
+    .input-wrap { position:relative; }
     .pass-toggle {
-      position:absolute; right:14px; top:50%; transform:translateY(-50%);
-      background:none; border:none; cursor:pointer; color:var(--text-3);
-      padding:4px; display:flex; align-items:center; transition:color .15s;
+      position:absolute; right:10px; top:50%; transform:translateY(-50%);
+      background:none; border:none; cursor:pointer; color:#4a4d52;
+      padding:4px; display:flex; transition:color .15s;
     }
-    .pass-toggle:hover { color:var(--text-1); }
+    .pass-toggle:hover { color:#81858c; }
 
-    .login-options {
+    .form-options {
       display:flex; justify-content:space-between; align-items:center;
-      margin-bottom:28px; font-size:13px;
+      margin:20px 0 24px; font-size:13px;
     }
-    .login-remember {
-      display:flex; align-items:center; gap:8px; color:var(--text-2); cursor:pointer;
-    }
-    .login-remember input { display:none; }
-    .custom-check {
-      width:18px; height:18px; border-radius:5px; border:1.5px solid var(--border);
-      display:flex; align-items:center; justify-content:center; transition:all .15s;
-      flex-shrink:0;
-    }
-    .login-remember input:checked ~ .custom-check {
-      background:var(--accent); border-color:var(--accent);
-    }
-    .login-remember input:checked ~ .custom-check::after {
-      content:''; width:5px; height:9px;
-      border:solid #fff; border-width:0 2px 2px 0;
-      transform:rotate(45deg); margin-top:-2px;
-    }
-    .login-forgot { color:var(--accent); font-weight:500; transition:color .15s; }
-    .login-forgot:hover { color:#155a32; }
+    .form-options label { display:flex; align-items:center; gap:6px; color:#81858c; cursor:pointer; }
+    .form-options label input { accent-color:var(--accent); }
+    .form-options a { color:#81858c; transition:color .15s; }
+    .form-options a:hover { color:#fff; }
 
     .btn-login {
-      width:100%; padding:14px 24px; font-size:15px; font-weight:600; font-family:inherit;
-      background:var(--accent); color:#fff; border:none; border-radius:10px;
-      cursor:pointer; transition:all .2s; position:relative; overflow:hidden;
+      width:100%; padding:11px; font-size:14px; font-weight:600; font-family:inherit;
+      background:var(--accent); color:#fff; border:none; border-radius:6px;
+      cursor:pointer; transition:background .15s;
     }
-    .btn-login:hover { background:#155a32; box-shadow:0 4px 12px rgba(26,107,60,.3); transform:translateY(-1px); }
-    .btn-login:active { transform:translateY(0); }
-    /* Loading state */
-    .btn-login.loading { pointer-events:none; color:transparent; }
-    .btn-login.loading::after {
-      content:''; position:absolute; top:50%; left:50%; transform:translate(-50%,-50%);
-      width:20px; height:20px; border:2px solid rgba(255,255,255,.3);
-      border-top-color:#fff; border-radius:50%;
-      animation:btnSpin .6s linear infinite;
-    }
-    @keyframes btnSpin { to { transform:translate(-50%,-50%) rotate(360deg); } }
+    .btn-login:hover { background:#155a32; }
+    .btn-login.loading { pointer-events:none; opacity:.7; }
 
-    .login-footer {
-      text-align:center; font-size:13px; color:var(--text-3); margin-top:28px;
+    .login-divider {
+      display:flex; align-items:center; gap:12px;
+      margin:20px 0; font-size:12px; color:#4a4d52;
     }
-    .login-footer a { color:var(--accent); font-weight:600; transition:color .15s; }
-    .login-footer a:hover { color:#155a32; text-decoration:underline; }
-
-    /* Toast notification */
-    .login-toast {
-      position:fixed; top:80px; right:24px; z-index:9999;
-      padding:14px 20px; border-radius:10px;
-      background:#fff; border:1px solid var(--border-light);
-      box-shadow:0 8px 32px rgba(0,0,0,.12);
-      display:flex; align-items:center; gap:10px;
-      font-size:14px; font-weight:500; color:var(--text-1);
-      transform:translateX(120%); transition:transform .4s cubic-bezier(.16,1,.3,1);
-    }
-    .login-toast.show { transform:translateX(0); }
-    .toast-icon {
-      width:32px; height:32px; border-radius:50%;
-      background:var(--accent-light); color:var(--accent);
-      display:flex; align-items:center; justify-content:center;
-      font-size:16px; flex-shrink:0;
+    .login-divider::before, .login-divider::after {
+      content:''; flex:1; height:1px; background:#2a2d31;
     }
 
-    /* ===== Responsive ===== */
-    @media (max-width:1024px) {
-      .login-brand { padding:60px 40px; }
-      .brand-content h1 { font-size:32px; }
-      .login-form-panel { flex:0 0 460px; padding:48px 40px; }
+    .social-row { display:flex; gap:8px; }
+    .social-btn {
+      flex:1; display:flex; align-items:center; justify-content:center; gap:6px;
+      padding:10px; border:1px solid #2a2d31; border-radius:6px;
+      font-size:13px; font-weight:500; color:#adb1b8; background:transparent;
+      cursor:pointer; transition:all .15s; font-family:inherit;
     }
+    .social-btn:hover { border-color:#4a4d52; color:#fff; }
 
-    @media (max-width:768px) {
-      .login-split { flex-direction:column; }
-      .login-brand { display:none; }
-      .login-form-panel {
-        flex:1; padding:0;
-        background:#0b0e11;
-      }
-      .pj-header { background:transparent; }
-
-      .form-inner {
-        max-width:100%; padding:100px 24px 40px;
-      }
-      /* Mobile: dark form */
-      .form-greeting { color:#fff; font-size:24px; }
-      .form-greeting-sub { color:#81858c; }
-      .form-input {
-        background:#18191c; border-color:#333537; color:#fff;
-      }
-      .form-input:focus { border-color:var(--accent); box-shadow:0 0 0 3px rgba(26,107,60,.2); }
-      .form-input::placeholder { color:#595d61; }
-      .form-label { color:#81858c; }
-      .social-btn {
-        background:#18191c; border-color:#333537; color:#fff;
-      }
-      .social-btn:hover { background:#1e2023; border-color:#595d61; }
-      .login-divider { color:#595d61; }
-      .login-divider::before, .login-divider::after { background:#333537; }
-      .login-options { color:#81858c; }
-      .login-remember { color:#adb1b8; }
-      .custom-check { border-color:#404347; }
-      .login-forgot { color:var(--gold); }
-      .login-footer { color:#595d61; }
-      .login-footer a { color:var(--gold); }
-      .pass-toggle { color:#595d61; }
-      .pass-toggle:hover { color:#adb1b8; }
-      .input-wrap .input-icon { color:#595d61; }
-      .form-input:focus ~ .input-icon { color:var(--accent); }
-
-      /* Mobile brand strip */
-      .mobile-brand {
-        display:flex; gap:20px; margin-top:32px; padding-top:24px;
-        border-top:1px solid #333537;
-      }
-      .mobile-brand .mb-item { text-align:center; flex:1; }
-      .mobile-brand .mb-val { font-size:18px; font-weight:700; color:#fff; }
-      .mobile-brand .mb-lbl { font-size:10px; color:#595d61; margin-top:2px; text-transform:uppercase; letter-spacing:.3px; }
+    .login-bottom {
+      margin-top:24px; text-align:center; font-size:13px; color:#4a4d52;
     }
+    .login-bottom a { color:#adb1b8; font-weight:500; }
+    .login-bottom a:hover { color:#fff; }
 
-    @media (min-width:769px) {
-      .mobile-brand { display:none; }
-    }
-
-    @media (max-width:400px) {
-      .form-inner { padding:88px 16px 32px; }
-      .form-greeting { font-size:22px; }
-      .social-login { flex-direction:column; gap:10px; }
+    @media (max-width:480px) {
+      .login-card { padding:24px 20px; }
+      .social-row { flex-direction:column; }
     }
   </style>
 </head>
 <body>
 
-  <!-- Minimal header -->
-  <header class="pj-header">
-    <div class="pj-header-inner">
-      <a href="../index.html" class="pj-logo"><img src="../reference/images/logo-poker.svg" alt="POKER JAPAN" style="filter:brightness(0) invert(1);"/></a>
-      <div class="pj-header-right">
-        <span>アカウントをお持ちでない方</span>
-        <a href="booking.html">無料登録 &rarr;</a>
-      </div>
+  <div class="login-page">
+    <div class="login-top">
+      <a href="../index.html"><img src="../reference/images/logo-poker.svg" alt="POKER JAPAN"/></a>
     </div>
-  </header>
 
-  <!-- Toast -->
-  <div class="login-toast" id="login-toast">
-    <div class="toast-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></div>
-    <span>ログイン中...</span>
-  </div>
+    <div class="login-card">
+      <div class="login-heading">ログイン</div>
 
-  <!-- Split layout -->
-  <div class="login-split">
-
-    <!-- Left: Brand -->
-    <div class="login-brand">
-      <div class="brand-content">
-        <h1>世界のポーカーテーブルへ、<br/>ワンクリックで。</h1>
-        <p class="sub">ジャンケット予約から渡航準備まで。<br/><span class="gold">POKER JAPAN</span>があなたの海外ポーカーをサポートします。</p>
-
-        <div class="trust-items">
-          <div class="trust-item">
-            <div class="trust-icon ti-green"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#20b26c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/></svg></div>
-            <div>
-              <h3>50+ の国と地域に対応</h3>
-              <p>ラスベガス、マカオ、マニラなど主要都市のカジノと提携</p>
-            </div>
-          </div>
-          <div class="trust-item">
-            <div class="trust-icon ti-gold"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#f7a600" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg></div>
-            <div>
-              <h3>安全なジャンケット手配</h3>
-              <p>パスポート情報は暗号化して保管。信頼できるカジノのみ掲載</p>
-            </div>
-          </div>
-          <div class="trust-item">
-            <div class="trust-icon ti-blue"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#3b82f6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></div>
-            <div>
-              <h3>最短24時間で予約確定</h3>
-              <p>専任スタッフが迅速に対応。渡航までのフルサポート付き</p>
-            </div>
+      <form id="login-form" onsubmit="return handleLogin(event);">
+        <div class="form-group">
+          <label class="form-label">メールアドレス</label>
+          <input class="form-input" type="email" id="login-email" placeholder="you@example.com" required autocomplete="email"/>
+        </div>
+        <div class="form-group">
+          <label class="form-label">パスワード</label>
+          <div class="input-wrap">
+            <input class="form-input" type="password" id="login-pass" placeholder="パスワード" required autocomplete="current-password" style="padding-right:36px;"/>
+            <button type="button" class="pass-toggle" onclick="togglePass();">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" id="eye-icon"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+            </button>
           </div>
         </div>
 
-        <div class="brand-stats">
-          <div class="brand-stat">
-            <div class="val">25,000+</div>
-            <div class="lbl">会員数</div>
-          </div>
-          <div class="brand-stat">
-            <div class="val">1,200+</div>
-            <div class="lbl">提携ルーム</div>
-          </div>
-          <div class="brand-stat">
-            <div class="val">98%</div>
-            <div class="lbl">満足度</div>
-          </div>
+        <div class="form-options">
+          <label><input type="checkbox" checked/> ログイン状態を保持</label>
+          <a href="#">パスワードを忘れた方</a>
         </div>
+
+        <button type="submit" class="btn-login" id="btn-login">ログイン</button>
+      </form>
+
+      <div class="login-divider">または</div>
+
+      <div class="social-row">
+        <button class="social-btn" type="button" onclick="handleLogin(event);">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 01-2.2 3.32v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.1z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09A6.97 6.97 0 015.5 12c0-.72.13-1.43.34-2.09V7.07H2.18A11 11 0 001 12c0 1.77.43 3.45 1.18 4.93l3.66-2.84z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg>
+          Google
+        </button>
+        <button class="social-btn" type="button" onclick="handleLogin(event);">
+          <svg width="16" height="16" viewBox="0 0 24 24"><path d="M17.05 20.28c-.98.95-2.05.88-3.08.4-1.09-.5-2.08-.48-3.24 0-1.44.62-2.2.44-3.06-.4C3.79 16.17 4.36 9.02 8.7 8.76c1.29.07 2.18.72 2.93.76.98-.2 1.92-.78 2.98-.71 1.26.1 2.22.58 2.84 1.5-2.6 1.55-1.98 4.97.52 5.92-.47 1.28-.94 2.54-1.92 4.05zM12.1 8.67c-.14-2.2 1.62-4.1 3.72-4.27.28 2.46-2.2 4.42-3.72 4.27z" fill="#fff"/></svg>
+          Apple
+        </button>
       </div>
     </div>
 
-    <!-- Right: Form -->
-    <div class="login-form-panel">
-      <div class="form-inner">
-        <div class="form-greeting">おかえりなさい</div>
-        <div class="form-greeting-sub">アカウントにログインしてください</div>
-
-        <div class="social-login">
-          <button class="social-btn" onclick="handleLogin(event);" type="button">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 01-2.2 3.32v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.1z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09A6.97 6.97 0 015.5 12c0-.72.13-1.43.34-2.09V7.07H2.18A11 11 0 001 12c0 1.77.43 3.45 1.18 4.93l3.66-2.84z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg>
-            Google
-          </button>
-          <button class="social-btn" onclick="handleLogin(event);" type="button">
-            <svg width="18" height="18" viewBox="0 0 24 24"><path d="M17.05 20.28c-.98.95-2.05.88-3.08.4-1.09-.5-2.08-.48-3.24 0-1.44.62-2.2.44-3.06-.4C3.79 16.17 4.36 9.02 8.7 8.76c1.29.07 2.18.72 2.93.76.98-.2 1.92-.78 2.98-.71 1.26.1 2.22.58 2.84 1.5-2.6 1.55-1.98 4.97.52 5.92-.47 1.28-.94 2.54-1.92 4.05zM12.1 8.67c-.14-2.2 1.62-4.1 3.72-4.27.28 2.46-2.2 4.42-3.72 4.27z" fill="currentColor"/></svg>
-            Apple
-          </button>
-          <button class="social-btn" onclick="handleLogin(event);" type="button">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="#06C755"><path d="M12 2C6.48 2 2 5.82 2 10.5c0 3.27 2.18 6.1 5.4 7.5-.08.28-.5 1.8-.57 2.07-.1.37.14.36.29.26.12-.07 1.84-1.22 2.6-1.72.74.1 1.5.17 2.28.17 5.52 0 10-3.82 10-8.5S17.52 2 12 2z"/></svg>
-            LINE
-          </button>
-        </div>
-
-        <div class="login-divider">メールアドレスでログイン</div>
-
-        <form id="login-form" onsubmit="return handleLogin(event);">
-          <div class="form-group">
-            <label class="form-label">メールアドレス</label>
-            <div class="input-wrap">
-              <input class="form-input" type="email" id="login-email" placeholder="you@example.com" required autocomplete="email"/>
-              <div class="input-icon">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M22 7l-10 6L2 7"/></svg>
-              </div>
-            </div>
-          </div>
-          <div class="form-group">
-            <label class="form-label">パスワード</label>
-            <div class="input-wrap">
-              <input class="form-input" type="password" id="login-pass" placeholder="パスワードを入力" required autocomplete="current-password"/>
-              <div class="input-icon">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
-              </div>
-              <button type="button" class="pass-toggle" id="pass-toggle" onclick="togglePass();">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" id="eye-icon"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
-              </button>
-            </div>
-          </div>
-
-          <div class="login-options">
-            <label class="login-remember">
-              <input type="checkbox" checked/>
-              <span class="custom-check"></span>
-              ログイン状態を保持
-            </label>
-            <a href="#" class="login-forgot">パスワードを忘れた方</a>
-          </div>
-
-          <button type="submit" class="btn-login" id="btn-login">ログイン</button>
-        </form>
-
-        <div class="login-footer">
-          アカウントをお持ちでない方は <a href="booking.html">無料登録</a>
-        </div>
-
-        <!-- Mobile only brand stats -->
-        <div class="mobile-brand">
-          <div class="mb-item"><div class="mb-val">25K+</div><div class="mb-lbl">会員数</div></div>
-          <div class="mb-item"><div class="mb-val">1,200+</div><div class="mb-lbl">提携ルーム</div></div>
-          <div class="mb-item"><div class="mb-val">98%</div><div class="mb-lbl">満足度</div></div>
-        </div>
-      </div>
+    <div class="login-bottom">
+      アカウントをお持ちでない方は <a href="booking.html">新規登録</a>
     </div>
   </div>
 
@@ -445,7 +163,6 @@
       window.location.href = 'profile.html';
       return;
     }
-
     window.togglePass = function() {
       var inp = document.getElementById('login-pass');
       var icon = document.getElementById('eye-icon');
@@ -457,23 +174,16 @@
         icon.innerHTML = '<path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/>';
       }
     };
-
     window.handleLogin = function(e) {
       if (e) e.preventDefault();
       var email = document.getElementById('login-email').value.trim() || 'user@pokerjapan.com';
-      var btn = document.getElementById('btn-login');
-      btn.classList.add('loading');
-
-      // Show toast
-      var toast = document.getElementById('login-toast');
-      toast.classList.add('show');
-
+      document.getElementById('btn-login').classList.add('loading');
       setTimeout(function() {
         localStorage.setItem('pj_logged_in', 'true');
         localStorage.setItem('pj_user_email', email);
         localStorage.setItem('pj_user_name', email.split('@')[0]);
         window.location.href = 'profile.html';
-      }, 800);
+      }, 400);
       return false;
     };
   })();
