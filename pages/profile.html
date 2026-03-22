@@ -67,8 +67,6 @@
     .welcome-text .breadcrumb a { color:#595d61; transition:color .15s; }
     .welcome-text .breadcrumb a:hover { color:#adb1b8; }
     .welcome-text h1 { font-size:32px; font-weight:700; margin-bottom:6px; }
-    .welcome-text h1 .wave { display:inline-block; animation:wave 2s ease-in-out infinite; transform-origin:70% 70%; }
-    @keyframes wave { 0%,60%,100%{transform:rotate(0)} 10%{transform:rotate(14deg)} 20%{transform:rotate(-8deg)} 30%{transform:rotate(14deg)} 40%{transform:rotate(-4deg)} 50%{transform:rotate(10deg)} }
     .welcome-text .sub { font-size:15px; color:#adb1b8; line-height:1.5; }
 
     /* Inline stats in welcome */
@@ -239,7 +237,7 @@
       transition:all .2s;
     }
     .cta-casino-chip:hover { background:rgba(255,255,255,.1); transform:translateX(4px); }
-    .cta-casino-chip .chip-flag { font-size:18px; }
+    .cta-casino-chip .chip-flag { font-size:11px; font-weight:700; background:rgba(255,255,255,.1); padding:2px 6px; border-radius:4px; letter-spacing:.5px; }
     .cta-casino-chip .chip-name { font-weight:600; color:#fff; }
     .cta-casino-chip .chip-stakes { font-size:11px; color:var(--green); margin-left:auto; }
 
@@ -524,7 +522,7 @@
 
   <!-- Toast -->
   <div class="profile-toast" id="profile-toast">
-    <div class="toast-icon">&#10003;</div>
+    <div class="toast-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></div>
     <div class="toast-text">
       <strong>ログインしました</strong>
       <span>POKER JAPANへようこそ</span>
@@ -537,7 +535,7 @@
       <div class="welcome-inner">
         <div class="welcome-text">
           <div class="breadcrumb"><a href="../index.html">ホーム</a> &gt; マイページ</div>
-          <h1><span class="wave">&#128075;</span> おかえりなさい、<span id="welcome-name">Player</span>さん</h1>
+          <h1>おかえりなさい、<span id="welcome-name">Player</span>さん</h1>
           <div class="sub">アカウント情報の確認やジャンケット予約ができます</div>
         </div>
       </div>
@@ -579,7 +577,7 @@
             <div class="profile-name" id="profile-name">Player</div>
             <div class="profile-email" id="profile-email">user@pokerjapan.com</div>
             <div class="profile-tier tier-bronze">
-              <span class="tier-icon">&#127941;</span> Bronze会員
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px;"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89L17 22l-5-3-5 3 1.523-9.11"/></svg> Bronze会員
             </div>
             <div class="tier-progress">
               <div class="tier-progress-bar"><div class="tier-progress-fill"></div></div>
@@ -589,23 +587,23 @@
           <div>
             <div class="sidebar-nav">
               <a href="profile.html" class="active">
-                <span class="nav-icon">&#128100;</span> プロフィール
+                <span class="nav-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></span> プロフィール
                 <span class="nav-arrow">&rsaquo;</span>
               </a>
               <a href="booking.html">
-                <span class="nav-icon">&#9992;&#65039;</span> ジャンケット予約
+                <span class="nav-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4z"/></svg></span> ジャンケット予約
                 <span class="nav-arrow">&rsaquo;</span>
               </a>
               <a href="casinos.html">
-                <span class="nav-icon">&#127183;</span> カジノ情報
+                <span class="nav-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="2"/><path d="M12 8v8M8 12h8"/></svg></span> カジノ情報
                 <span class="nav-arrow">&rsaquo;</span>
               </a>
               <a href="tournaments.html">
-                <span class="nav-icon">&#127942;</span> トーナメント
+                <span class="nav-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9H4.5a2.5 2.5 0 010-5H6M18 9h1.5a2.5 2.5 0 000-5H18M4 22h16M10 22V9m4 13V9m-7 0h10a1 1 0 001-1V4H6v4a1 1 0 001 1z"/></svg></span> トーナメント
                 <span class="nav-arrow">&rsaquo;</span>
               </a>
               <a href="#">
-                <span class="nav-icon">&#9881;&#65039;</span> 設定
+                <span class="nav-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"/></svg></span> 設定
                 <span class="nav-arrow">&rsaquo;</span>
               </a>
             </div>
@@ -633,22 +631,22 @@
               </div>
               <div class="cta-visual">
                 <div class="cta-casino-chip">
-                  <span class="chip-flag">&#127482;&#127480;</span>
+                  <span class="chip-flag">US</span>
                   <span class="chip-name">Bellagio</span>
                   <span class="chip-stakes">$1/3~</span>
                 </div>
                 <div class="cta-casino-chip">
-                  <span class="chip-flag">&#127477;&#127469;</span>
+                  <span class="chip-flag">PH</span>
                   <span class="chip-name">Manila COD</span>
-                  <span class="chip-stakes">&#8369;25/50~</span>
+                  <span class="chip-stakes">PHP 25/50~</span>
                 </div>
                 <div class="cta-casino-chip">
-                  <span class="chip-flag">&#127474;&#127476;</span>
+                  <span class="chip-flag">MO</span>
                   <span class="chip-name">Wynn Macau</span>
                   <span class="chip-stakes">HK$25/50~</span>
                 </div>
                 <div class="cta-casino-chip">
-                  <span class="chip-flag">&#127468;&#127463;</span>
+                  <span class="chip-flag">GB</span>
                   <span class="chip-name">Hippodrome</span>
                   <span class="chip-stakes">&pound;1/2~</span>
                 </div>
@@ -659,17 +657,17 @@
           <!-- Stats -->
           <div class="stats-row">
             <div class="stat-card">
-              <div class="stat-icon si-green">&#9992;&#65039;</div>
+              <div class="stat-icon si-green"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4z"/></svg></div>
               <div class="stat-val">0</div>
               <div class="stat-label">予約件数</div>
             </div>
             <div class="stat-card">
-              <div class="stat-icon si-gold">&#127183;</div>
+              <div class="stat-icon si-gold"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#b8750c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="2"/><path d="M12 8v8M8 12h8"/></svg></div>
               <div class="stat-val">0</div>
               <div class="stat-label">訪問カジノ数</div>
             </div>
             <div class="stat-card">
-              <div class="stat-icon si-blue">&#128197;</div>
+              <div class="stat-icon si-blue"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#4a5eb8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></div>
               <div class="stat-val">--</div>
               <div class="stat-label">次回渡航予定</div>
             </div>
@@ -702,19 +700,19 @@
             </div>
             <div class="info-card-body">
               <div class="info-row">
-                <span class="label"><span class="label-icon">&#128100;</span> 氏名</span>
+                <span class="label"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px;"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg> 氏名</span>
                 <span class="value" id="info-name">--</span>
               </div>
               <div class="info-row">
-                <span class="label"><span class="label-icon">&#9993;&#65039;</span> メールアドレス</span>
+                <span class="label"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px;"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M22 7l-10 6L2 7"/></svg> メールアドレス</span>
                 <span class="value" id="info-email">--</span>
               </div>
               <div class="info-row">
-                <span class="label"><span class="label-icon">&#128994;</span> 会員ステータス</span>
+                <span class="label"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px;"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><path d="M22 4L12 14.01l-3-3"/></svg> 会員ステータス</span>
                 <span class="value"><span class="value-badge active">アクティブ</span></span>
               </div>
               <div class="info-row">
-                <span class="label"><span class="label-icon">&#128197;</span> 登録日</span>
+                <span class="label"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px;"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg> 登録日</span>
                 <span class="value" id="info-date">--</span>
               </div>
             </div>
@@ -731,7 +729,7 @@
             <div class="info-card-body" style="padding:0;">
               <div class="quick-actions">
                 <a href="booking.html" class="quick-action">
-                  <div class="qa-icon green">&#9992;&#65039;</div>
+                  <div class="qa-icon green"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4z"/></svg></div>
                   <div>
                     <h4>ジャンケット予約</h4>
                     <p>新しい予約を作成する</p>
@@ -739,7 +737,7 @@
                   <span class="qa-arrow">&rsaquo;</span>
                 </a>
                 <a href="casinos.html" class="quick-action">
-                  <div class="qa-icon gold">&#127183;</div>
+                  <div class="qa-icon gold"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#b8750c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="2"/><path d="M12 8v8M8 12h8"/></svg></div>
                   <div>
                     <h4>カジノを探す</h4>
                     <p>世界のポーカールーム</p>
@@ -747,7 +745,7 @@
                   <span class="qa-arrow">&rsaquo;</span>
                 </a>
                 <a href="strategy.html" class="quick-action">
-                  <div class="qa-icon blue">&#128218;</div>
+                  <div class="qa-icon blue"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#4a5eb8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 014 4v14a3 3 0 00-3-3H2zM22 3h-6a4 4 0 00-4 4v14a3 3 0 013-3h7z"/></svg></div>
                   <div>
                     <h4>戦略ガイド</h4>
                     <p>レベルアップのヒント</p>
@@ -755,7 +753,7 @@
                   <span class="qa-arrow">&rsaquo;</span>
                 </a>
                 <a href="tournaments.html" class="quick-action">
-                  <div class="qa-icon red">&#127942;</div>
+                  <div class="qa-icon red"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#c0392b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9H4.5a2.5 2.5 0 010-5H6M18 9h1.5a2.5 2.5 0 000-5H18M4 22h16M10 22V9m4 13V9m-7 0h10a1 1 0 001-1V4H6v4a1 1 0 001 1z"/></svg></div>
                   <div>
                     <h4>トーナメント</h4>
                     <p>最新のイベント情報</p>
@@ -844,7 +842,7 @@
           if (b.returnDate) dateStr += ' ~ ' + b.returnDate;
         }
         html += '<div class="booking-item">'
-          + '<div class="booking-flag">' + (b.flag || '&#9992;&#65039;') + '</div>'
+          + '<div class="booking-flag">' + (b.flag || '') + '</div>'
           + '<div class="booking-info">'
           + '<div class="booking-casino">' + (b.casino || '予約') + '</div>'
           + '<div class="booking-meta">'
@@ -894,7 +892,7 @@
       if (tierText) tierText.textContent = count + ' / 3回';
     } else {
       historyBody.innerHTML = '<div class="activity-empty">'
-        + '<div class="activity-empty-icon">&#9992;&#65039;</div>'
+        + '<div class="activity-empty-icon"><svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="var(--border)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4z"/></svg></div>'
         + '<h4>まだ予約がありません</h4>'
         + '<p>最初のジャンケット予約を作成して、海外ポーカーの旅を始めましょう</p>'
         + '<a href="booking.html" class="btn-start-booking">予約を作成する'
