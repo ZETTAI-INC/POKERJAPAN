@@ -35,148 +35,295 @@
     .btn-gold { background:var(--gold); color:#121214; }
     .btn-profile-header {
       display:flex; align-items:center; gap:8px;
-      padding:6px 14px 6px 8px; border-radius:8px;
-      background:#1e2023; color:#fff; font-size:13px; font-weight:500;
-      transition:background .15s;
+      padding:5px 14px 5px 5px; border-radius:100px;
+      background:rgba(255,255,255,.08); color:#fff; font-size:13px; font-weight:500;
+      transition:all .2s; border:1px solid rgba(255,255,255,.08);
     }
-    .btn-profile-header:hover { background:#2a2d30; }
-    .btn-profile-avatar {
-      width:28px; height:28px; border-radius:50%;
-      background:var(--accent); color:#fff;
-      display:flex; align-items:center; justify-content:center;
-      font-size:12px; font-weight:700;
+    .btn-profile-header:hover { background:rgba(255,255,255,.14); border-color:rgba(255,255,255,.15); }
+    .btn-profile-avatar-hdr {
+      width:30px; height:30px; border-radius:50%;
+      background:linear-gradient(135deg, var(--accent), var(--green));
+      color:#fff; display:flex; align-items:center; justify-content:center;
+      font-size:13px; font-weight:700;
     }
     .pj-width { max-width:1200px; margin:0 auto; padding:0 24px; width:100%; }
 
-    /* Page hero (dark) */
-    .page-hero {
+    /* ===== Welcome banner (dark hero) ===== */
+    .welcome-banner {
       background:#0b0e11; color:#fff;
-      padding:48px 0; position:relative; overflow:hidden;
+      padding:48px 0 0; position:relative; overflow:hidden;
     }
-    .page-hero::before {
+    .welcome-banner::before {
       content:''; position:absolute; top:-40%; right:-10%;
-      width:500px; height:500px;
-      background:radial-gradient(circle, rgba(32,178,108,.08) 0%, transparent 60%);
+      width:600px; height:600px;
+      background:
+        radial-gradient(circle, rgba(26,107,60,.1) 0%, transparent 50%),
+        radial-gradient(circle at 30% 80%, rgba(247,166,0,.05) 0%, transparent 40%);
       pointer-events:none;
     }
-    .page-hero .breadcrumb { font-size:13px; color:#595d61; margin-bottom:12px; }
-    .page-hero .breadcrumb a { color:#595d61; transition:color .15s; }
-    .page-hero .breadcrumb a:hover { color:#adb1b8; }
-    .page-hero h1 { font-size:40px; font-weight:700; position:relative; }
-    .page-hero .hero-sub { font-size:16px; color:#adb1b8; margin-top:8px; }
+    .welcome-inner { position:relative; z-index:1; display:flex; align-items:center; justify-content:space-between; gap:32px; }
+    .welcome-text {}
+    .welcome-text .breadcrumb { font-size:13px; color:#595d61; margin-bottom:16px; }
+    .welcome-text .breadcrumb a { color:#595d61; transition:color .15s; }
+    .welcome-text .breadcrumb a:hover { color:#adb1b8; }
+    .welcome-text h1 { font-size:32px; font-weight:700; margin-bottom:6px; }
+    .welcome-text h1 .wave { display:inline-block; animation:wave 2s ease-in-out infinite; transform-origin:70% 70%; }
+    @keyframes wave { 0%,60%,100%{transform:rotate(0)} 10%{transform:rotate(14deg)} 20%{transform:rotate(-8deg)} 30%{transform:rotate(14deg)} 40%{transform:rotate(-4deg)} 50%{transform:rotate(10deg)} }
+    .welcome-text .sub { font-size:15px; color:#adb1b8; line-height:1.5; }
+
+    /* Inline stats in welcome */
+    .welcome-stats {
+      display:flex; gap:0; background:rgba(255,255,255,.04);
+      border:1px solid rgba(255,255,255,.06); border-radius:14px;
+      padding:4px; margin-top:28px; margin-bottom:-28px;
+      position:relative; z-index:2;
+    }
+    .ws-item {
+      flex:1; text-align:center; padding:18px 16px; border-radius:10px;
+      transition:background .2s;
+    }
+    .ws-item:hover { background:rgba(255,255,255,.04); }
+    .ws-item .ws-val { font-size:24px; font-weight:700; color:#fff; }
+    .ws-item .ws-val.gold { color:var(--gold); }
+    .ws-item .ws-lbl { font-size:11px; color:#595d61; margin-top:4px; text-transform:uppercase; letter-spacing:.5px; }
+    .ws-divider { width:1px; background:rgba(255,255,255,.08); margin:12px 0; }
 
     /* Profile content */
-    .profile-content { padding:40px 0 80px; }
-    .profile-grid { display:grid; grid-template-columns:280px 1fr; gap:32px; }
+    .profile-content { padding:52px 0 80px; }
+    .profile-grid { display:grid; grid-template-columns:280px 1fr; gap:28px; }
 
-    /* Sidebar */
+    /* ===== Sidebar ===== */
     .profile-sidebar {}
     .profile-card {
-      background:#fff; border-radius:16px; border:1px solid var(--border-light);
-      padding:32px 24px; text-align:center; margin-bottom:20px;
+      background:#fff; border-radius:20px; border:1px solid var(--border-light);
+      padding:32px 24px; text-align:center; margin-bottom:16px;
+      box-shadow:0 1px 3px rgba(0,0,0,.04);
+    }
+    .avatar-ring {
+      width:96px; height:96px; border-radius:50%; margin:0 auto 16px;
+      padding:3px; background:linear-gradient(135deg, var(--accent), var(--green), var(--gold));
+      animation:ringRotate 4s linear infinite;
+    }
+    @keyframes ringRotate {
+      0% { background:linear-gradient(0deg, var(--accent), var(--green), var(--gold)); }
+      33% { background:linear-gradient(120deg, var(--accent), var(--green), var(--gold)); }
+      66% { background:linear-gradient(240deg, var(--accent), var(--green), var(--gold)); }
+      100% { background:linear-gradient(360deg, var(--accent), var(--green), var(--gold)); }
     }
     .profile-avatar {
-      width:80px; height:80px; border-radius:50%;
-      background:var(--accent); color:#fff;
+      width:100%; height:100%; border-radius:50%;
+      background:#0b0e11; color:#fff;
       display:flex; align-items:center; justify-content:center;
-      font-size:32px; font-weight:700; margin:0 auto 16px;
+      font-size:36px; font-weight:700;
+      border:3px solid #fff;
     }
     .profile-name { font-size:18px; font-weight:700; margin-bottom:4px; }
     .profile-email { font-size:13px; color:var(--text-3); margin-bottom:16px; word-break:break-all; }
-    .profile-badge {
-      display:inline-flex; align-items:center; gap:4px;
-      padding:4px 12px; border-radius:20px;
-      background:var(--accent-light); color:var(--accent);
+    .profile-tier {
+      display:inline-flex; align-items:center; gap:6px;
+      padding:6px 14px; border-radius:20px;
       font-size:12px; font-weight:600;
     }
-    .profile-badge::before {
-      content:''; display:inline-block; width:6px; height:6px;
-      border-radius:50%; background:var(--green);
+    .tier-bronze { background:linear-gradient(135deg,#fef3e2,#fde8c8); color:#b8750c; }
+    .tier-icon { font-size:14px; }
+
+    /* Membership progress */
+    .tier-progress { margin-top:16px; }
+    .tier-progress-bar {
+      height:4px; background:var(--border-light); border-radius:4px; overflow:hidden;
     }
+    .tier-progress-fill {
+      height:100%; width:15%; border-radius:4px;
+      background:linear-gradient(90deg, var(--gold), #ffc35c);
+      transition:width 1s ease;
+    }
+    .tier-progress-text { display:flex; justify-content:space-between; font-size:10px; color:var(--text-3); margin-top:4px; }
 
     .sidebar-nav {
       background:#fff; border-radius:16px; border:1px solid var(--border-light);
-      overflow:hidden;
+      overflow:hidden; box-shadow:0 1px 3px rgba(0,0,0,.04);
     }
     .sidebar-nav a {
       display:flex; align-items:center; gap:12px;
       padding:14px 20px; font-size:14px; font-weight:500;
       color:var(--text-2); border-bottom:1px solid var(--border-light);
-      transition:all .15s;
+      transition:all .2s; position:relative;
     }
     .sidebar-nav a:last-child { border-bottom:none; }
-    .sidebar-nav a:hover { background:var(--bg-alt); color:var(--text-1); }
-    .sidebar-nav a.active { background:var(--accent-light); color:var(--accent); font-weight:600; }
-    .sidebar-nav .nav-icon { font-size:18px; width:24px; text-align:center; flex-shrink:0; }
+    .sidebar-nav a:hover { background:var(--bg-alt); color:var(--text-1); padding-left:24px; }
+    .sidebar-nav a.active {
+      background:var(--accent-light); color:var(--accent); font-weight:600;
+      border-left:3px solid var(--accent); padding-left:17px;
+    }
+    .sidebar-nav .nav-icon {
+      width:32px; height:32px; border-radius:8px;
+      display:flex; align-items:center; justify-content:center;
+      font-size:16px; flex-shrink:0; background:var(--bg-alt);
+    }
+    .sidebar-nav a.active .nav-icon { background:rgba(26,107,60,.12); }
+    .sidebar-nav .nav-arrow {
+      margin-left:auto; color:var(--border); font-size:12px;
+      transition:transform .2s, color .2s;
+    }
+    .sidebar-nav a:hover .nav-arrow { transform:translateX(3px); color:var(--text-3); }
 
-    /* Main area */
+    .btn-logout {
+      display:flex; align-items:center; justify-content:center; gap:8px;
+      width:100%; padding:12px; font-size:14px; font-weight:500;
+      font-family:inherit; background:#fff; color:var(--text-3); border:1px solid var(--border-light);
+      border-radius:12px; cursor:pointer; transition:all .2s; margin-top:12px;
+      box-shadow:0 1px 3px rgba(0,0,0,.04);
+    }
+    .btn-logout:hover { background:#fef2f2; border-color:#fecaca; color:var(--red); }
+    .btn-logout svg { transition:color .2s; }
+    .btn-logout:hover svg { color:var(--red); }
+
+    /* ===== Main area ===== */
     .profile-main {}
 
-    /* CTA booking card */
+    /* Booking CTA — premium card */
     .booking-cta {
-      background:linear-gradient(135deg,var(--accent),#0f4025);
-      border-radius:16px; padding:32px; color:#fff;
+      background:linear-gradient(135deg, #0b0e11 0%, #1a2f23 50%, #0f4025 100%);
+      border-radius:20px; padding:36px 36px 32px; color:#fff;
       margin-bottom:24px; position:relative; overflow:hidden;
+      border:1px solid rgba(255,255,255,.06);
     }
-    .booking-cta::after {
-      content:''; position:absolute; top:-30%; right:-5%;
-      width:300px; height:300px;
-      background:radial-gradient(circle, rgba(255,255,255,.06) 0%, transparent 60%);
+    .booking-cta::before {
+      content:''; position:absolute; top:0; left:0; right:0; bottom:0;
+      background:
+        radial-gradient(ellipse at 80% 20%, rgba(247,166,0,.08) 0%, transparent 50%),
+        radial-gradient(ellipse at 20% 80%, rgba(32,178,108,.1) 0%, transparent 50%);
       pointer-events:none;
     }
-    .booking-cta h2 { font-size:22px; font-weight:700; margin-bottom:8px; position:relative; z-index:1; }
-    .booking-cta p { font-size:14px; color:rgba(255,255,255,.75); margin-bottom:20px; line-height:1.6; position:relative; z-index:1; }
-    .btn-booking {
-      display:inline-flex; align-items:center; gap:8px;
-      padding:14px 28px; background:#fff; color:var(--accent);
-      font-size:14px; font-weight:600; border-radius:8px;
-      transition:all .15s; position:relative; z-index:1;
+    /* Grid pattern */
+    .booking-cta::after {
+      content:''; position:absolute; inset:0;
+      background-image:
+        linear-gradient(rgba(255,255,255,.02) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.02) 1px, transparent 1px);
+      background-size:40px 40px;
+      pointer-events:none;
     }
-    .btn-booking:hover { background:#f0f1f3; transform:translateY(-1px); }
+    .cta-inner { position:relative; z-index:1; display:flex; align-items:center; gap:32px; }
+    .cta-text { flex:1; }
+    .cta-tag {
+      display:inline-flex; align-items:center; gap:6px;
+      padding:4px 12px; border-radius:20px; font-size:11px; font-weight:600;
+      background:rgba(247,166,0,.15); color:var(--gold);
+      margin-bottom:12px; text-transform:uppercase; letter-spacing:.5px;
+    }
+    .cta-tag::before {
+      content:''; width:6px; height:6px; border-radius:50%;
+      background:var(--gold); animation:pulse 2s infinite;
+    }
+    @keyframes pulse { 0%,100%{opacity:1;} 50%{opacity:.4;} }
+    .booking-cta h2 { font-size:24px; font-weight:700; margin-bottom:8px; line-height:1.3; }
+    .booking-cta .cta-sub { font-size:14px; color:rgba(255,255,255,.6); line-height:1.6; margin-bottom:24px; }
+    .btn-booking {
+      display:inline-flex; align-items:center; gap:10px;
+      padding:14px 28px; background:var(--gold); color:#121214;
+      font-size:14px; font-weight:700; border-radius:10px;
+      transition:all .2s; box-shadow:0 4px 16px rgba(247,166,0,.25);
+    }
+    .btn-booking:hover { background:#ffc35c; transform:translateY(-2px); box-shadow:0 6px 24px rgba(247,166,0,.35); }
+    .btn-booking:active { transform:translateY(0); }
+    .cta-visual {
+      flex:0 0 auto; display:flex; flex-direction:column; gap:8px;
+      opacity:.9;
+    }
+    .cta-casino-chip {
+      display:flex; align-items:center; gap:10px;
+      padding:10px 14px; border-radius:10px;
+      background:rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.08);
+      font-size:13px; color:#adb1b8; white-space:nowrap;
+      transition:all .2s;
+    }
+    .cta-casino-chip:hover { background:rgba(255,255,255,.1); transform:translateX(4px); }
+    .cta-casino-chip .chip-flag { font-size:18px; }
+    .cta-casino-chip .chip-name { font-weight:600; color:#fff; }
+    .cta-casino-chip .chip-stakes { font-size:11px; color:var(--green); margin-left:auto; }
 
-    /* Stats row */
+    /* Stats grid */
     .stats-row {
       display:grid; grid-template-columns:repeat(3,1fr); gap:16px;
       margin-bottom:24px;
     }
     .stat-card {
-      background:#fff; border-radius:12px; border:1px solid var(--border-light);
-      padding:20px; text-align:center;
+      background:#fff; border-radius:14px; border:1px solid var(--border-light);
+      padding:22px 20px; position:relative; overflow:hidden;
+      box-shadow:0 1px 3px rgba(0,0,0,.04); transition:all .2s;
     }
-    .stat-card .stat-val { font-size:28px; font-weight:700; color:var(--text-1); margin-bottom:4px; }
+    .stat-card:hover { box-shadow:0 4px 16px rgba(0,0,0,.06); transform:translateY(-2px); }
+    .stat-card .stat-icon {
+      width:36px; height:36px; border-radius:10px;
+      display:flex; align-items:center; justify-content:center;
+      font-size:18px; margin-bottom:12px;
+    }
+    .stat-card .stat-icon.si-green { background:var(--accent-light); }
+    .stat-card .stat-icon.si-gold { background:#fef3e2; }
+    .stat-card .stat-icon.si-blue { background:#eef0ff; }
+    .stat-card .stat-val { font-size:28px; font-weight:700; color:var(--text-1); margin-bottom:2px; line-height:1; }
     .stat-card .stat-label { font-size:12px; color:var(--text-3); font-weight:500; }
 
-    /* Info sections */
+    /* Info card */
     .info-card {
       background:#fff; border-radius:16px; border:1px solid var(--border-light);
-      margin-bottom:20px;
+      margin-bottom:20px; box-shadow:0 1px 3px rgba(0,0,0,.04);
+      overflow:hidden;
     }
     .info-card-header {
       display:flex; justify-content:space-between; align-items:center;
       padding:20px 24px; border-bottom:1px solid var(--border-light);
     }
-    .info-card-header h3 { font-size:16px; font-weight:600; }
-    .info-card-header a { font-size:13px; color:var(--accent); font-weight:500; }
-    .info-card-body { padding:20px 24px; }
+    .info-card-header h3 { font-size:16px; font-weight:600; display:flex; align-items:center; gap:8px; }
+    .info-card-header .edit-btn {
+      font-size:13px; color:var(--accent); font-weight:500;
+      display:flex; align-items:center; gap:4px; transition:all .15s;
+    }
+    .info-card-header .edit-btn:hover { color:#155a32; }
+    .info-card-body { padding:0; }
 
     .info-row {
       display:flex; justify-content:space-between; align-items:center;
-      padding:10px 0; border-bottom:1px solid var(--border-light);
+      padding:16px 24px; border-bottom:1px solid var(--border-light);
+      transition:background .15s;
     }
     .info-row:last-child { border-bottom:none; }
-    .info-row .label { font-size:13px; color:var(--text-3); }
+    .info-row:hover { background:var(--bg-alt); }
+    .info-row .label { font-size:13px; color:var(--text-3); display:flex; align-items:center; gap:8px; }
+    .info-row .label-icon { font-size:14px; }
     .info-row .value { font-size:14px; font-weight:500; }
-
-    /* Quick actions */
-    .quick-actions { display:grid; grid-template-columns:repeat(2,1fr); gap:12px; }
-    .quick-action {
-      display:flex; align-items:center; gap:12px;
-      padding:16px 20px; border-radius:12px; border:1px solid var(--border-light);
-      background:#fff; transition:all .15s;
+    .value-badge {
+      display:inline-flex; align-items:center; gap:4px;
+      padding:3px 10px; border-radius:20px; font-size:12px; font-weight:600;
     }
-    .quick-action:hover { border-color:var(--border); box-shadow:0 2px 8px rgba(0,0,0,.04); }
+    .value-badge.active { background:var(--accent-light); color:var(--accent); }
+
+    /* Recent activity / Booking history */
+    .activity-empty {
+      padding:40px 24px; text-align:center;
+    }
+    .activity-empty-icon { font-size:40px; margin-bottom:12px; opacity:.3; }
+    .activity-empty h4 { font-size:15px; font-weight:600; color:var(--text-2); margin-bottom:4px; }
+    .activity-empty p { font-size:13px; color:var(--text-3); margin-bottom:20px; }
+    .btn-start-booking {
+      display:inline-flex; align-items:center; gap:8px;
+      padding:10px 24px; border-radius:8px;
+      background:var(--accent); color:#fff;
+      font-size:13px; font-weight:600; transition:all .15s;
+    }
+    .btn-start-booking:hover { background:#155a32; }
+
+    /* Quick actions — larger, more visual */
+    .quick-actions { display:grid; grid-template-columns:repeat(2,1fr); gap:12px; padding:20px 24px; }
+    .quick-action {
+      display:flex; align-items:center; gap:14px;
+      padding:18px 20px; border-radius:14px; border:1px solid var(--border-light);
+      background:#fff; transition:all .2s; cursor:pointer;
+    }
+    .quick-action:hover { border-color:var(--accent); box-shadow:0 4px 12px rgba(0,0,0,.06); transform:translateY(-2px); }
     .quick-action .qa-icon {
-      width:40px; height:40px; border-radius:10px;
+      width:44px; height:44px; border-radius:12px;
       display:flex; align-items:center; justify-content:center;
       font-size:20px; flex-shrink:0;
     }
@@ -186,14 +333,32 @@
     .quick-action .qa-icon.red { background:#ffeaeb; }
     .quick-action h4 { font-size:14px; font-weight:600; margin-bottom:2px; }
     .quick-action p { font-size:12px; color:var(--text-3); margin:0; }
-
-    /* Logout button */
-    .btn-logout {
-      display:block; width:100%; padding:12px; font-size:14px; font-weight:600;
-      font-family:inherit; background:#fff; color:var(--red); border:1px solid var(--border-light);
-      border-radius:12px; cursor:pointer; transition:all .15s; margin-top:12px;
+    .quick-action .qa-arrow {
+      margin-left:auto; color:var(--border); font-size:14px;
+      transition:all .2s;
     }
-    .btn-logout:hover { background:#fef2f2; border-color:#fecaca; }
+    .quick-action:hover .qa-arrow { color:var(--accent); transform:translateX(3px); }
+
+    /* Toast notification */
+    .profile-toast {
+      position:fixed; top:80px; right:24px; z-index:9999;
+      padding:14px 20px; border-radius:12px;
+      background:#fff; border:1px solid var(--border-light);
+      box-shadow:0 8px 32px rgba(0,0,0,.12);
+      display:flex; align-items:center; gap:12px;
+      font-size:14px; font-weight:500; color:var(--text-1);
+      transform:translateX(120%); transition:transform .4s cubic-bezier(.16,1,.3,1);
+    }
+    .profile-toast.show { transform:translateX(0); }
+    .profile-toast .toast-icon {
+      width:36px; height:36px; border-radius:50%;
+      background:var(--accent-light); color:var(--accent);
+      display:flex; align-items:center; justify-content:center;
+      font-size:18px; flex-shrink:0;
+    }
+    .profile-toast .toast-text {}
+    .profile-toast .toast-text strong { display:block; margin-bottom:1px; }
+    .profile-toast .toast-text span { font-size:12px; color:var(--text-3); font-weight:400; }
 
     /* Mobile hamburger */
     .pj-hamburger {
@@ -229,42 +394,51 @@
     .pj-footer-col a:hover { color:var(--text-1); }
     .pj-footer-bottom { border-top:1px solid var(--border); padding-top:20px; font-size:12px; color:var(--text-3); text-align:center; }
 
-    /* Responsive: Tablet */
+    /* ===== Responsive: Tablet ===== */
     @media (max-width:1024px) {
       .profile-grid { grid-template-columns:1fr; }
-      .profile-sidebar { display:grid; grid-template-columns:1fr 1fr; gap:20px; }
+      .profile-sidebar { display:grid; grid-template-columns:1fr 1fr; gap:16px; }
       .pj-footer-grid { grid-template-columns:repeat(2,1fr); }
+      .cta-visual { display:none; }
     }
 
-    /* Responsive: Mobile */
+    /* ===== Responsive: Mobile ===== */
     @media (max-width:768px) {
       .pj-nav { display:none; }
       .pj-header-btns { display:none; }
       .pj-hamburger { display:flex; }
 
-      .page-hero { padding:28px 0; }
-      .page-hero h1 { font-size:28px; }
-      .page-hero .hero-sub { font-size:14px; }
+      .welcome-banner { padding:28px 0 0; }
+      .welcome-inner { flex-direction:column; gap:16px; }
+      .welcome-text h1 { font-size:22px; }
+      .welcome-text .sub { font-size:13px; }
+      .welcome-stats { flex-direction:row; margin-top:20px; margin-bottom:-20px; }
+      .ws-item { padding:14px 8px; }
+      .ws-item .ws-val { font-size:18px; }
+      .ws-item .ws-lbl { font-size:9px; }
 
-      .profile-content { padding:24px 0 60px; }
+      .profile-content { padding:36px 0 60px; }
       .profile-grid { grid-template-columns:1fr; gap:20px; }
       .profile-sidebar { display:flex; flex-direction:column; gap:16px; }
 
-      .booking-cta { padding:24px 20px; border-radius:12px; }
-      .booking-cta h2 { font-size:18px; }
-      .booking-cta p { font-size:13px; margin-bottom:16px; }
+      .booking-cta { padding:24px 20px; border-radius:16px; }
+      .booking-cta h2 { font-size:20px; }
+      .booking-cta .cta-sub { font-size:13px; margin-bottom:16px; }
       .btn-booking { width:100%; justify-content:center; padding:14px 20px; }
+      .cta-visual { display:none; }
 
       .stats-row { grid-template-columns:repeat(3,1fr); gap:10px; }
-      .stat-card { padding:14px 10px; }
+      .stat-card { padding:16px 12px; }
+      .stat-card .stat-icon { width:30px; height:30px; font-size:14px; margin-bottom:8px; }
       .stat-card .stat-val { font-size:22px; }
       .stat-card .stat-label { font-size:10px; }
 
-      .quick-actions { grid-template-columns:1fr; gap:10px; }
+      .quick-actions { grid-template-columns:1fr; gap:10px; padding:16px; }
       .quick-action { padding:14px 16px; }
 
-      .info-card-header { padding:16px 20px; }
-      .info-card-body { padding:16px 20px; }
+      .info-row { padding:14px 20px; }
+
+      .profile-toast { top:auto; bottom:24px; right:16px; left:16px; }
 
       .pj-footer { padding:32px 0 16px; }
       .pj-footer-grid { grid-template-columns:1fr 1fr; gap:20px; margin-bottom:24px; }
@@ -273,9 +447,11 @@
 
     @media (max-width:400px) {
       .pj-width { padding:0 16px; }
-      .stats-row { grid-template-columns:1fr 1fr 1fr; gap:8px; }
+      .welcome-text h1 { font-size:20px; }
+      .stats-row { gap:8px; }
       .stat-card .stat-val { font-size:20px; }
       .stat-card .stat-label { font-size:9px; }
+      .stat-card .stat-icon { width:28px; height:28px; font-size:13px; margin-bottom:6px; }
       .profile-card { padding:24px 16px; }
     }
   </style>
@@ -295,7 +471,7 @@
       </nav>
       <div class="pj-header-btns">
         <a href="profile.html" class="btn-profile-header">
-          <span class="btn-profile-avatar" id="header-avatar">P</span>
+          <span class="btn-profile-avatar-hdr" id="header-avatar">P</span>
           <span id="header-name">マイページ</span>
         </a>
       </div>
@@ -317,12 +493,46 @@
     </div>
   </div>
 
-  <!-- HERO -->
-  <section class="page-hero">
-    <div class="pj-width" style="position:relative;">
-      <div class="breadcrumb"><a href="../index.html">ホーム</a> &gt; マイページ</div>
-      <h1>マイページ</h1>
-      <div class="hero-sub">アカウント情報の確認やジャンケット予約ができます</div>
+  <!-- Toast -->
+  <div class="profile-toast" id="profile-toast">
+    <div class="toast-icon">&#10003;</div>
+    <div class="toast-text">
+      <strong>ログインしました</strong>
+      <span>POKER JAPANへようこそ</span>
+    </div>
+  </div>
+
+  <!-- Welcome banner -->
+  <section class="welcome-banner">
+    <div class="pj-width">
+      <div class="welcome-inner">
+        <div class="welcome-text">
+          <div class="breadcrumb"><a href="../index.html">ホーム</a> &gt; マイページ</div>
+          <h1><span class="wave">&#128075;</span> おかえりなさい、<span id="welcome-name">Player</span>さん</h1>
+          <div class="sub">アカウント情報の確認やジャンケット予約ができます</div>
+        </div>
+      </div>
+      <div class="welcome-stats">
+        <div class="ws-item">
+          <div class="ws-val">0</div>
+          <div class="ws-lbl">予約件数</div>
+        </div>
+        <div class="ws-divider"></div>
+        <div class="ws-item">
+          <div class="ws-val">0</div>
+          <div class="ws-lbl">訪問カジノ</div>
+        </div>
+        <div class="ws-divider"></div>
+        <div class="ws-item">
+          <div class="ws-val gold">Bronze</div>
+          <div class="ws-lbl">会員ランク</div>
+        </div>
+        <div class="ws-divider"></div>
+        <div class="ws-item">
+          <div class="ws-val">--</div>
+          <div class="ws-lbl">次回渡航</div>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -334,20 +544,46 @@
         <!-- Sidebar -->
         <div class="profile-sidebar">
           <div class="profile-card">
-            <div class="profile-avatar" id="profile-avatar">P</div>
+            <div class="avatar-ring">
+              <div class="profile-avatar" id="profile-avatar">P</div>
+            </div>
             <div class="profile-name" id="profile-name">Player</div>
             <div class="profile-email" id="profile-email">user@pokerjapan.com</div>
-            <div class="profile-badge">アクティブ会員</div>
+            <div class="profile-tier tier-bronze">
+              <span class="tier-icon">&#127941;</span> Bronze会員
+            </div>
+            <div class="tier-progress">
+              <div class="tier-progress-bar"><div class="tier-progress-fill"></div></div>
+              <div class="tier-progress-text"><span>0 / 3回</span><span>Silver</span></div>
+            </div>
           </div>
           <div>
             <div class="sidebar-nav">
-              <a href="profile.html" class="active"><span class="nav-icon">&#128100;</span> プロフィール</a>
-              <a href="booking.html"><span class="nav-icon">&#9992;&#65039;</span> ジャンケット予約</a>
-              <a href="casinos.html"><span class="nav-icon">&#127183;</span> カジノ情報</a>
-              <a href="tournaments.html"><span class="nav-icon">&#127942;</span> トーナメント</a>
-              <a href="#"><span class="nav-icon">&#9881;&#65039;</span> 設定</a>
+              <a href="profile.html" class="active">
+                <span class="nav-icon">&#128100;</span> プロフィール
+                <span class="nav-arrow">&rsaquo;</span>
+              </a>
+              <a href="booking.html">
+                <span class="nav-icon">&#9992;&#65039;</span> ジャンケット予約
+                <span class="nav-arrow">&rsaquo;</span>
+              </a>
+              <a href="casinos.html">
+                <span class="nav-icon">&#127183;</span> カジノ情報
+                <span class="nav-arrow">&rsaquo;</span>
+              </a>
+              <a href="tournaments.html">
+                <span class="nav-icon">&#127942;</span> トーナメント
+                <span class="nav-arrow">&rsaquo;</span>
+              </a>
+              <a href="#">
+                <span class="nav-icon">&#9881;&#65039;</span> 設定
+                <span class="nav-arrow">&rsaquo;</span>
+              </a>
             </div>
-            <button class="btn-logout" onclick="doLogout();">ログアウト</button>
+            <button class="btn-logout" onclick="doLogout();">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4M16 17l5-5-5-5M21 12H9"/></svg>
+              ログアウト
+            </button>
           </div>
         </div>
 
@@ -356,51 +592,108 @@
 
           <!-- Booking CTA -->
           <div class="booking-cta">
-            <h2>ジャンケット予約を申し込む</h2>
-            <p>世界各地のポーカールームへのジャンケット予約を受付中。<br/>渡航先の選定からカジノ手配まで、すべてお任せください。</p>
-            <a href="booking.html" class="btn-booking">
-              予約を始める
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-            </a>
+            <div class="cta-inner">
+              <div class="cta-text">
+                <div class="cta-tag">受付中</div>
+                <h2>ジャンケット予約を申し込む</h2>
+                <div class="cta-sub">世界各地のポーカールームへのジャンケット予約を受付中。渡航先の選定からカジノ手配まで、すべてお任せください。</div>
+                <a href="booking.html" class="btn-booking">
+                  予約を始める
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                </a>
+              </div>
+              <div class="cta-visual">
+                <div class="cta-casino-chip">
+                  <span class="chip-flag">&#127482;&#127480;</span>
+                  <span class="chip-name">Bellagio</span>
+                  <span class="chip-stakes">$1/3~</span>
+                </div>
+                <div class="cta-casino-chip">
+                  <span class="chip-flag">&#127477;&#127469;</span>
+                  <span class="chip-name">Manila COD</span>
+                  <span class="chip-stakes">&#8369;25/50~</span>
+                </div>
+                <div class="cta-casino-chip">
+                  <span class="chip-flag">&#127474;&#127476;</span>
+                  <span class="chip-name">Wynn Macau</span>
+                  <span class="chip-stakes">HK$25/50~</span>
+                </div>
+                <div class="cta-casino-chip">
+                  <span class="chip-flag">&#127468;&#127463;</span>
+                  <span class="chip-name">Hippodrome</span>
+                  <span class="chip-stakes">&pound;1/2~</span>
+                </div>
+              </div>
+            </div>
           </div>
 
           <!-- Stats -->
           <div class="stats-row">
             <div class="stat-card">
+              <div class="stat-icon si-green">&#9992;&#65039;</div>
               <div class="stat-val">0</div>
               <div class="stat-label">予約件数</div>
             </div>
             <div class="stat-card">
+              <div class="stat-icon si-gold">&#127183;</div>
               <div class="stat-val">0</div>
               <div class="stat-label">訪問カジノ数</div>
             </div>
             <div class="stat-card">
+              <div class="stat-icon si-blue">&#128197;</div>
               <div class="stat-val">--</div>
               <div class="stat-label">次回渡航予定</div>
+            </div>
+          </div>
+
+          <!-- Booking history -->
+          <div class="info-card">
+            <div class="info-card-header">
+              <h3>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 8v4l3 3"/><circle cx="12" cy="12" r="10"/></svg>
+                予約履歴
+              </h3>
+            </div>
+            <div class="info-card-body">
+              <div class="activity-empty">
+                <div class="activity-empty-icon">&#9992;&#65039;</div>
+                <h4>まだ予約がありません</h4>
+                <p>最初のジャンケット予約を作成して、海外ポーカーの旅を始めましょう</p>
+                <a href="booking.html" class="btn-start-booking">
+                  予約を作成する
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                </a>
+              </div>
             </div>
           </div>
 
           <!-- Account info -->
           <div class="info-card">
             <div class="info-card-header">
-              <h3>アカウント情報</h3>
-              <a href="#">編集</a>
+              <h3>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                アカウント情報
+              </h3>
+              <a href="#" class="edit-btn">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 3a2.83 2.83 0 114 4L7.5 20.5 2 22l1.5-5.5z"/></svg>
+                編集
+              </a>
             </div>
             <div class="info-card-body">
               <div class="info-row">
-                <span class="label">氏名</span>
+                <span class="label"><span class="label-icon">&#128100;</span> 氏名</span>
                 <span class="value" id="info-name">--</span>
               </div>
               <div class="info-row">
-                <span class="label">メールアドレス</span>
+                <span class="label"><span class="label-icon">&#9993;&#65039;</span> メールアドレス</span>
                 <span class="value" id="info-email">--</span>
               </div>
               <div class="info-row">
-                <span class="label">会員ステータス</span>
-                <span class="value" style="color:var(--green);">アクティブ</span>
+                <span class="label"><span class="label-icon">&#128994;</span> 会員ステータス</span>
+                <span class="value"><span class="value-badge active">アクティブ</span></span>
               </div>
               <div class="info-row">
-                <span class="label">登録日</span>
+                <span class="label"><span class="label-icon">&#128197;</span> 登録日</span>
                 <span class="value" id="info-date">--</span>
               </div>
             </div>
@@ -409,9 +702,12 @@
           <!-- Quick actions -->
           <div class="info-card">
             <div class="info-card-header">
-              <h3>クイックアクション</h3>
+              <h3>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+                クイックアクション
+              </h3>
             </div>
-            <div class="info-card-body">
+            <div class="info-card-body" style="padding:0;">
               <div class="quick-actions">
                 <a href="booking.html" class="quick-action">
                   <div class="qa-icon green">&#9992;&#65039;</div>
@@ -419,6 +715,7 @@
                     <h4>ジャンケット予約</h4>
                     <p>新しい予約を作成する</p>
                   </div>
+                  <span class="qa-arrow">&rsaquo;</span>
                 </a>
                 <a href="casinos.html" class="quick-action">
                   <div class="qa-icon gold">&#127183;</div>
@@ -426,6 +723,7 @@
                     <h4>カジノを探す</h4>
                     <p>世界のポーカールーム</p>
                   </div>
+                  <span class="qa-arrow">&rsaquo;</span>
                 </a>
                 <a href="strategy.html" class="quick-action">
                   <div class="qa-icon blue">&#128218;</div>
@@ -433,6 +731,7 @@
                     <h4>戦略ガイド</h4>
                     <p>レベルアップのヒント</p>
                   </div>
+                  <span class="qa-arrow">&rsaquo;</span>
                 </a>
                 <a href="tournaments.html" class="quick-action">
                   <div class="qa-icon red">&#127942;</div>
@@ -440,6 +739,7 @@
                     <h4>トーナメント</h4>
                     <p>最新のイベント情報</p>
                   </div>
+                  <span class="qa-arrow">&rsaquo;</span>
                 </a>
               </div>
             </div>
@@ -485,7 +785,6 @@
 
   <script>
   (function() {
-    // Check login state
     if (!localStorage.getItem('pj_logged_in')) {
       window.location.href = 'login.html';
       return;
@@ -495,20 +794,32 @@
     var name = localStorage.getItem('pj_user_name') || 'Player';
     var initial = name.charAt(0).toUpperCase();
 
-    // Populate profile info
+    // Populate
     document.getElementById('profile-avatar').textContent = initial;
     document.getElementById('profile-name').textContent = name;
     document.getElementById('profile-email').textContent = email;
     document.getElementById('header-avatar').textContent = initial;
+    document.getElementById('welcome-name').textContent = name;
     document.getElementById('info-name').textContent = name;
     document.getElementById('info-email').textContent = email;
 
-    // Registration date (today)
     var now = new Date();
     document.getElementById('info-date').textContent =
       now.getFullYear() + '/' + String(now.getMonth()+1).padStart(2,'0') + '/' + String(now.getDate()).padStart(2,'0');
 
-    // Logout
+    // Show welcome toast if just logged in
+    if (document.referrer && document.referrer.indexOf('login') !== -1) {
+      var toast = document.getElementById('profile-toast');
+      setTimeout(function(){ toast.classList.add('show'); }, 300);
+      setTimeout(function(){ toast.classList.remove('show'); }, 3500);
+    }
+
+    // Animate tier progress
+    setTimeout(function() {
+      var fill = document.querySelector('.tier-progress-fill');
+      if (fill) fill.style.width = '15%';
+    }, 500);
+
     window.doLogout = function() {
       localStorage.removeItem('pj_logged_in');
       localStorage.removeItem('pj_user_email');
