@@ -25,35 +25,40 @@
     .login-page {
       min-height:100vh; display:flex; flex-direction:column;
       align-items:center; justify-content:center;
-      padding:24px;
+      padding:24px; position:relative;
+    }
+    /* Subtle top-right glow — just one, not three */
+    .login-page::before {
+      content:''; position:fixed; top:-15%; right:-10%; width:500px; height:500px;
+      background:radial-gradient(circle, rgba(26,107,60,.07) 0%, transparent 65%);
+      pointer-events:none;
     }
 
-    .login-top {
-      margin-bottom:40px; text-align:center;
-    }
-    .login-top img { height:26px; margin:0 auto; filter:brightness(0) invert(1); }
+    .login-top { margin-bottom:32px; text-align:center; }
+    .login-top img { height:24px; margin:0 auto; filter:brightness(0) invert(1); opacity:.7; }
 
     .login-card {
-      width:100%; max-width:380px;
-      background:#15171a; border:1px solid #2a2d31;
-      border-radius:12px; padding:32px 28px;
+      width:100%; max-width:400px; position:relative; z-index:1;
+      background:#15171a; border:1px solid #23262a;
+      border-radius:14px; padding:36px 32px;
     }
 
-    .login-heading { font-size:20px; font-weight:600; color:#fff; margin-bottom:24px; }
+    .login-heading { font-size:22px; font-weight:700; color:#fff; margin-bottom:4px; }
+    .login-sub { font-size:13px; color:#595d61; margin-bottom:28px; }
 
-    .form-group { margin-bottom:16px; }
-    .form-label { display:block; font-size:13px; font-weight:500; margin-bottom:5px; color:#81858c; }
+    .form-group { margin-bottom:18px; }
+    .form-label { display:block; font-size:12px; font-weight:600; margin-bottom:6px; color:#6b7075; letter-spacing:.3px; text-transform:uppercase; }
     .form-input {
-      width:100%; padding:10px 12px; font-size:14px; font-family:inherit;
-      border:1px solid #2a2d31; border-radius:6px; background:#0b0e11;
-      color:#fff; outline:none; transition:border-color .15s;
+      width:100%; padding:11px 14px; font-size:14px; font-family:inherit;
+      border:1px solid #2a2d31; border-radius:8px; background:#0d1013;
+      color:#fff; outline:none; transition:border-color .15s, box-shadow .15s;
     }
-    .form-input:focus { border-color:var(--accent); }
-    .form-input::placeholder { color:#4a4d52; }
+    .form-input:focus { border-color:var(--accent); box-shadow:0 0 0 3px rgba(26,107,60,.15); }
+    .form-input::placeholder { color:#3d4043; }
 
     .input-wrap { position:relative; }
     .pass-toggle {
-      position:absolute; right:10px; top:50%; transform:translateY(-50%);
+      position:absolute; right:12px; top:50%; transform:translateY(-50%);
       background:none; border:none; cursor:pointer; color:#4a4d52;
       padding:4px; display:flex; transition:color .15s;
     }
@@ -61,47 +66,52 @@
 
     .form-options {
       display:flex; justify-content:space-between; align-items:center;
-      margin:20px 0 24px; font-size:13px;
+      margin:20px 0 28px; font-size:13px;
     }
-    .form-options label { display:flex; align-items:center; gap:6px; color:#81858c; cursor:pointer; }
-    .form-options label input { accent-color:var(--accent); }
-    .form-options a { color:#81858c; transition:color .15s; }
-    .form-options a:hover { color:#fff; }
+    .form-options label { display:flex; align-items:center; gap:7px; color:#6b7075; cursor:pointer; }
+    .form-options label input { accent-color:var(--accent); width:14px; height:14px; }
+    .form-options a { color:#6b7075; transition:color .15s; }
+    .form-options a:hover { color:#adb1b8; }
 
     .btn-login {
-      width:100%; padding:11px; font-size:14px; font-weight:600; font-family:inherit;
-      background:var(--accent); color:#fff; border:none; border-radius:6px;
-      cursor:pointer; transition:background .15s;
+      width:100%; padding:12px; font-size:14px; font-weight:600; font-family:inherit;
+      background:var(--accent); color:#fff; border:none; border-radius:8px;
+      cursor:pointer; transition:all .15s;
     }
-    .btn-login:hover { background:#155a32; }
-    .btn-login.loading { pointer-events:none; opacity:.7; }
+    .btn-login:hover { background:#1d7a44; box-shadow:0 2px 12px rgba(26,107,60,.25); }
+    .btn-login:active { transform:scale(.99); }
+    .btn-login.loading { pointer-events:none; opacity:.6; }
 
     .login-divider {
-      display:flex; align-items:center; gap:12px;
-      margin:20px 0; font-size:12px; color:#4a4d52;
+      display:flex; align-items:center; gap:14px;
+      margin:24px 0; font-size:11px; color:#3d4043; letter-spacing:.5px; text-transform:uppercase;
     }
     .login-divider::before, .login-divider::after {
-      content:''; flex:1; height:1px; background:#2a2d31;
+      content:''; flex:1; height:1px; background:#23262a;
     }
 
-    .social-row { display:flex; gap:8px; }
+    .social-row { display:flex; gap:10px; }
     .social-btn {
-      flex:1; display:flex; align-items:center; justify-content:center; gap:6px;
-      padding:10px; border:1px solid #2a2d31; border-radius:6px;
-      font-size:13px; font-weight:500; color:#adb1b8; background:transparent;
+      flex:1; display:flex; align-items:center; justify-content:center; gap:8px;
+      padding:11px; border:1px solid #23262a; border-radius:8px;
+      font-size:13px; font-weight:500; color:#8c9097; background:transparent;
       cursor:pointer; transition:all .15s; font-family:inherit;
     }
-    .social-btn:hover { border-color:#4a4d52; color:#fff; }
+    .social-btn:hover { border-color:#3d4043; color:#d1d5db; background:rgba(255,255,255,.02); }
 
     .login-bottom {
-      margin-top:24px; text-align:center; font-size:13px; color:#4a4d52;
+      margin-top:28px; text-align:center; font-size:13px; color:#4a4d52;
     }
-    .login-bottom a { color:#adb1b8; font-weight:500; }
-    .login-bottom a:hover { color:#fff; }
+    .login-bottom a {
+      color:var(--gold); font-weight:600; margin-left:4px;
+      transition:color .15s;
+    }
+    .login-bottom a:hover { color:#ffc35c; }
 
     @media (max-width:480px) {
-      .login-card { padding:24px 20px; }
-      .social-row { flex-direction:column; }
+      .login-card { padding:28px 22px; border-radius:12px; }
+      .login-heading { font-size:20px; }
+      .social-row { flex-direction:column; gap:8px; }
     }
   </style>
 </head>
@@ -114,6 +124,7 @@
 
     <div class="login-card">
       <div class="login-heading">ログイン</div>
+      <div class="login-sub">アカウントにログインしてください</div>
 
       <form id="login-form" onsubmit="return handleLogin(event);">
         <div class="form-group">
@@ -123,7 +134,7 @@
         <div class="form-group">
           <label class="form-label">パスワード</label>
           <div class="input-wrap">
-            <input class="form-input" type="password" id="login-pass" placeholder="パスワード" required autocomplete="current-password" style="padding-right:36px;"/>
+            <input class="form-input" type="password" id="login-pass" placeholder="パスワードを入力" required autocomplete="current-password" style="padding-right:40px;"/>
             <button type="button" class="pass-toggle" onclick="togglePass();">
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" id="eye-icon"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
             </button>
@@ -153,26 +164,17 @@
     </div>
 
     <div class="login-bottom">
-      アカウントをお持ちでない方は <a href="booking.html">新規登録</a>
+      アカウントをお持ちでない方は<a href="booking.html">新規登録</a>
     </div>
   </div>
 
   <script>
   (function() {
-    if (localStorage.getItem('pj_logged_in')) {
-      window.location.href = 'profile.html';
-      return;
-    }
+    if (localStorage.getItem('pj_logged_in')) { window.location.href = 'profile.html'; return; }
     window.togglePass = function() {
-      var inp = document.getElementById('login-pass');
-      var icon = document.getElementById('eye-icon');
-      if (inp.type === 'password') {
-        inp.type = 'text';
-        icon.innerHTML = '<path d="M17.94 17.94A10.07 10.07 0 0112 20c-7 0-11-8-11-8a18.45 18.45 0 015.06-5.94M9.9 4.24A9.12 9.12 0 0112 4c7 0 11 8 11 8a18.5 18.5 0 01-2.16 3.19m-6.72-1.07a3 3 0 11-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/>';
-      } else {
-        inp.type = 'password';
-        icon.innerHTML = '<path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/>';
-      }
+      var inp = document.getElementById('login-pass'), icon = document.getElementById('eye-icon');
+      if (inp.type === 'password') { inp.type = 'text'; icon.innerHTML = '<path d="M17.94 17.94A10.07 10.07 0 0112 20c-7 0-11-8-11-8a18.45 18.45 0 015.06-5.94M9.9 4.24A9.12 9.12 0 0112 4c7 0 11 8 11 8a18.5 18.5 0 01-2.16 3.19m-6.72-1.07a3 3 0 11-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/>'; }
+      else { inp.type = 'password'; icon.innerHTML = '<path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/>'; }
     };
     window.handleLogin = function(e) {
       if (e) e.preventDefault();
