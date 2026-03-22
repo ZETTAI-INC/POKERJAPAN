@@ -166,12 +166,29 @@
       .ctab { padding:14px 16px; font-size:13px; }
 
       .country-section { padding:24px 0 40px; }
-      .venue-grid { grid-template-columns:1fr; gap:14px; }
-      .venue-img, .venue-img-placeholder { height:160px; }
-      .venue-body { padding:16px; }
-      .venue-name { font-size:15px; }
 
-      .country-intro { padding:16px 18px; }
+      /* Venue cards — horizontal scroll per city */
+      .venue-grid {
+        display:flex; gap:12px; overflow-x:auto; -webkit-overflow-scrolling:touch;
+        margin:0 -24px; padding:4px 24px 16px;
+        scroll-snap-type:x mandatory; scrollbar-width:none;
+      }
+      .venue-grid::-webkit-scrollbar { display:none; }
+      .venue-card {
+        min-width:280px; max-width:300px; flex:0 0 auto; scroll-snap-align:start;
+      }
+      .venue-img, .venue-img-placeholder { height:140px; }
+      .venue-body { padding:14px; }
+      .venue-name { font-size:14px; }
+      .venue-loc { font-size:12px; margin-bottom:10px; }
+      .venue-meta-row { font-size:12px; }
+      .venue-meta-label { min-width:56px; }
+      .venue-tags { margin-top:10px; }
+      .vtag { font-size:10px; padding:2px 6px; }
+
+      .city-heading { margin:24px 0 12px; font-size:12px; }
+
+      .country-intro { padding:16px 18px; margin-bottom:24px; }
       .country-intro p { font-size:13px; }
 
       .pj-cta-bar { padding:32px 0; }
@@ -183,9 +200,12 @@
     }
 
     @media (max-width:400px) {
-      .hero-stats { flex-direction:column; gap:12px; }
-      .ctab { padding:12px 12px; font-size:12px; }
+      .pj-width { padding:0 16px; }
+      .hero-stats { gap:16px; }
+      .hero-stat-val { font-size:20px; }
+      .ctab { padding:12px 10px; font-size:12px; }
       .ctab .cflag { font-size:16px; }
+      .venue-card { min-width:260px; }
     }
   </style>
 </head>
@@ -197,7 +217,8 @@
       <a href="../index.html" class="pj-logo"><img src="../reference/images/logo-poker.svg" alt="POKER JAPAN" style="filter:brightness(0) invert(1);"/></a>
       <nav class="pj-nav">
         <a href="news.html">ニュース</a>
-        <a href="casinos.html" class="active">海外カジノ</a>
+        <a href="casinos.html">海外カジノ</a>
+        <a href="asia-rooms.html" class="active">アジアガイド</a>
         <a href="strategy.html">戦略ガイド</a>
         <a href="tournaments.html">トーナメント</a>
         <a href="beginners.html">初心者向け</a>
@@ -214,6 +235,7 @@
   <div class="pj-mobile-menu">
     <a href="news.html">ニュース</a>
     <a href="casinos.html">海外カジノ</a>
+    <a href="asia-rooms.html">アジアガイド</a>
     <a href="strategy.html">戦略ガイド</a>
     <a href="tournaments.html">トーナメント</a>
     <a href="beginners.html">初心者向け</a>
