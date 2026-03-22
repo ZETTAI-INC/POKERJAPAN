@@ -314,6 +314,35 @@
     }
     .btn-start-booking:hover { background:#155a32; }
 
+    /* Booking history cards */
+    .booking-list { padding:0; }
+    .booking-item {
+      display:flex; align-items:center; gap:16px;
+      padding:18px 24px; border-bottom:1px solid var(--border-light);
+      transition:background .15s;
+    }
+    .booking-item:last-child { border-bottom:none; }
+    .booking-item:hover { background:var(--bg-alt); }
+    .booking-flag { font-size:28px; flex-shrink:0; }
+    .booking-info { flex:1; min-width:0; }
+    .booking-casino { font-size:14px; font-weight:600; margin-bottom:2px; }
+    .booking-meta { font-size:12px; color:var(--text-3); display:flex; flex-wrap:wrap; gap:4px 12px; }
+    .booking-right { text-align:right; flex-shrink:0; }
+    .booking-status {
+      display:inline-flex; align-items:center; gap:4px;
+      padding:3px 10px; border-radius:20px; font-size:11px; font-weight:600;
+      margin-bottom:4px;
+    }
+    .booking-status.pending { background:#fef3e2; color:#b8750c; }
+    .booking-status.confirmed { background:var(--accent-light); color:var(--accent); }
+    .booking-ref { font-size:11px; color:var(--text-3); font-family:monospace; }
+    @media (max-width:768px) {
+      .booking-item { padding:14px 16px; gap:12px; }
+      .booking-flag { font-size:22px; }
+      .booking-casino { font-size:13px; }
+      .booking-meta { font-size:11px; }
+    }
+
     /* Quick actions — larger, more visual */
     .quick-actions { display:grid; grid-template-columns:repeat(2,1fr); gap:12px; padding:20px 24px; }
     .quick-action {
@@ -654,16 +683,8 @@
                 予約履歴
               </h3>
             </div>
-            <div class="info-card-body">
-              <div class="activity-empty">
-                <div class="activity-empty-icon">&#9992;&#65039;</div>
-                <h4>まだ予約がありません</h4>
-                <p>最初のジャンケット予約を作成して、海外ポーカーの旅を始めましょう</p>
-                <a href="booking.html" class="btn-start-booking">
-                  予約を作成する
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-                </a>
-              </div>
+            <div class="info-card-body" id="booking-history-body">
+              <!-- Populated by JS: either booking list or empty state -->
             </div>
           </div>
 
@@ -807,18 +828,98 @@
     document.getElementById('info-date').textContent =
       now.getFullYear() + '/' + String(now.getMonth()+1).padStart(2,'0') + '/' + String(now.getDate()).padStart(2,'0');
 
-    // Show welcome toast if just logged in
-    if (document.referrer && document.referrer.indexOf('login') !== -1) {
+    // ===== Booking history =====
+    var bookings = [];
+    try { bookings = JSON.parse(localStorage.getItem('pj_bookings') || '[]'); } catch(e) {}
+    var historyBody = document.getElementById('booking-history-body');
+
+    if (bookings.length > 0) {
+      var html = '<div class="booking-list">';
+      bookings.forEach(function(b) {
+        var statusClass = b.status === 'confirmed' ? 'confirmed' : 'pending';
+        var statusText = b.status === 'confirmed' ? '確認済' : '受付中';
+        var dateStr = '';
+        if (b.depart) {
+          dateStr = b.depart;
+          if (b.returnDate) dateStr += ' ~ ' + b.returnDate;
+        }
+        html += '<div class="booking-item">'
+          + '<div class="booking-flag">' + (b.flag || '&#9992;&#65039;') + '</div>'
+          + '<div class="booking-info">'
+          + '<div class="booking-casino">' + (b.casino || '予約') + '</div>'
+          + '<div class="booking-meta">'
+          + (b.country ? '<span>' + b.country + '</span>' : '')
+          + (dateStr ? '<span>' + dateStr + '</span>' : '')
+          + '</div></div>'
+          + '<div class="booking-right">'
+          + '<div class="booking-status ' + statusClass + '">'
+          + '<span style="width:6px;height:6px;border-radius:50%;background:currentColor;"></span>'
+          + statusText + '</div>'
+          + '<div class="booking-ref">' + (b.ref || '') + '</div>'
+          + '</div></div>';
+      });
+      html += '</div>';
+      historyBody.innerHTML = html;
+
+      // Update stats
+      var statVals = document.querySelectorAll('.stat-card .stat-val');
+      if (statVals[0]) statVals[0].textContent = bookings.length;
+      // Count unique casinos
+      var uniqueCasinos = {};
+      bookings.forEach(function(b) { if (b.casino) uniqueCasinos[b.casino] = true; });
+      if (statVals[1]) statVals[1].textContent = Object.keys(uniqueCasinos).length;
+      // Next trip date
+      var nextTrip = null;
+      var todayStr = now.toISOString().split('T')[0];
+      bookings.forEach(function(b) {
+        if (b.depart && b.depart >= todayStr) {
+          if (!nextTrip || b.depart < nextTrip) nextTrip = b.depart;
+        }
+      });
+      if (statVals[2]) statVals[2].textContent = nextTrip || '--';
+
+      // Update welcome banner stats
+      var wsVals = document.querySelectorAll('.ws-item .ws-val');
+      if (wsVals[0]) wsVals[0].textContent = bookings.length;
+      if (wsVals[1]) wsVals[1].textContent = Object.keys(uniqueCasinos).length;
+
+      // Update tier progress
+      var tierFill = document.querySelector('.tier-progress-fill');
+      var tierText = document.querySelector('.tier-progress-text span');
+      var count = bookings.length;
+      if (tierFill) {
+        var pct = Math.min(count / 3 * 100, 100);
+        setTimeout(function() { tierFill.style.width = pct + '%'; }, 500);
+      }
+      if (tierText) tierText.textContent = count + ' / 3回';
+    } else {
+      historyBody.innerHTML = '<div class="activity-empty">'
+        + '<div class="activity-empty-icon">&#9992;&#65039;</div>'
+        + '<h4>まだ予約がありません</h4>'
+        + '<p>最初のジャンケット予約を作成して、海外ポーカーの旅を始めましょう</p>'
+        + '<a href="booking.html" class="btn-start-booking">予約を作成する'
+        + '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>'
+        + '</a></div>';
+      // Animate tier progress to 15%
+      setTimeout(function() {
+        var fill = document.querySelector('.tier-progress-fill');
+        if (fill) fill.style.width = '15%';
+      }, 500);
+    }
+
+    // Show welcome toast if just came from login or booking
+    var ref = document.referrer || '';
+    if (ref.indexOf('login') !== -1) {
       var toast = document.getElementById('profile-toast');
       setTimeout(function(){ toast.classList.add('show'); }, 300);
       setTimeout(function(){ toast.classList.remove('show'); }, 3500);
+    } else if (ref.indexOf('booking') !== -1 && bookings.length > 0) {
+      var toastEl = document.getElementById('profile-toast');
+      var toastText = toastEl.querySelector('.toast-text');
+      toastText.innerHTML = '<strong>予約リクエストを受け付けました</strong><span>' + bookings[0].ref + ' — ' + (bookings[0].casino || '') + '</span>';
+      setTimeout(function(){ toastEl.classList.add('show'); }, 300);
+      setTimeout(function(){ toastEl.classList.remove('show'); }, 4500);
     }
-
-    // Animate tier progress
-    setTimeout(function() {
-      var fill = document.querySelector('.tier-progress-fill');
-      if (fill) fill.style.width = '15%';
-    }, 500);
 
     window.doLogout = function() {
       localStorage.removeItem('pj_logged_in');
