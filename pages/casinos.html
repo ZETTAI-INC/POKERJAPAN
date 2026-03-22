@@ -291,8 +291,9 @@
         <a href="beginners.html">初心者向け</a>
       </nav>
       <div class="pj-header-btns">
-        <a href="#" class="btn-ghost">ログイン</a>
-        <a href="booking.html" class="btn-gold">無料登録</a>
+        <a href="login.html" class="btn-ghost" id="hdr-login">ログイン</a>
+        <a href="booking.html" class="btn-gold" id="hdr-register">無料登録</a>
+        <a href="profile.html" class="btn-ghost" id="hdr-profile" style="display:none;background:#1e2023;border-radius:8px;color:#fff;">マイページ</a>
       </div>
       <button class="pj-hamburger" onclick="document.querySelector('.pj-mobile-menu').classList.toggle('open');this.classList.toggle('open');" aria-label="メニュー">
         <span></span><span></span><span></span>
@@ -306,8 +307,9 @@
     <a href="tournaments.html" onclick="document.querySelector('.pj-mobile-menu').classList.remove('open');document.querySelector('.pj-hamburger').classList.remove('open');">トーナメント</a>
     <a href="beginners.html" onclick="document.querySelector('.pj-mobile-menu').classList.remove('open');document.querySelector('.pj-hamburger').classList.remove('open');">初心者向け</a>
     <div class="pj-mobile-btns">
-      <a href="#" class="btn-ghost-m">ログイン</a>
+      <a href="login.html" class="btn-ghost-m" id="mob-login">ログイン</a>
       <a href="booking.html" class="btn-gold-m">無料登録</a>
+      <a href="profile.html" class="btn-gold-m" id="mob-profile" style="display:none;">マイページ</a>
     </div>
   </div>
 
@@ -595,6 +597,18 @@
       });
     })();
   </script>
+
+<script>
+(function(){
+  if(localStorage.getItem('pj_logged_in')){
+    var l=document.getElementById('hdr-login');if(l)l.style.display='none';
+    var r=document.getElementById('hdr-register');if(r)r.style.display='none';
+    var p=document.getElementById('hdr-profile');if(p)p.style.display='';
+    var ml=document.getElementById('mob-login');if(ml)ml.style.display='none';
+    var mp=document.getElementById('mob-profile');if(mp)mp.style.display='';
+  }
+})();
+</script>
 
 </body>
 </html>
