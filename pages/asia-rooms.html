@@ -88,7 +88,7 @@
     .venue-grid { display:grid; grid-template-columns:1fr 1fr; gap:20px; }
     .venue-card {
       border:1px solid var(--border-light); border-radius:14px; overflow:hidden;
-      background:#fff; transition:box-shadow .2s, transform .15s;
+      background:#fff; transition:box-shadow .2s, transform .15s; cursor:pointer;
     }
     .venue-card:hover { box-shadow:0 4px 20px rgba(0,0,0,.06); transform:translateY(-2px); }
     .venue-img {
@@ -277,7 +277,7 @@
       <div class="city-heading">仁川（インチョン）</div>
       <div class="venue-grid">
         <!-- Paradise City -->
-        <div class="venue-card">
+        <div class="venue-card" data-venue="paradise-city">
           <img class="venue-img" src="../reference/images/venues/paradise-city.jpg" alt="Paradise City" loading="lazy"/>
           <div class="venue-body">
             <div class="venue-name"><a href="../junkets/paradise-city.html">Paradise City</a></div>
@@ -296,7 +296,7 @@
         </div>
 
         <!-- Inspire -->
-        <div class="venue-card">
+        <div class="venue-card" data-venue="inspire">
           <img class="venue-img" src="../reference/images/venues/inspire.jpg" alt="Inspire Entertainment Resort" loading="lazy"/>
           <div class="venue-body">
             <div class="venue-name">Inspire Entertainment Resort</div>
@@ -318,7 +318,7 @@
       <div class="city-heading">ソウル</div>
       <div class="venue-grid">
         <!-- Walkerhill -->
-        <div class="venue-card">
+        <div class="venue-card" data-venue="walkerhill">
           <img class="venue-img" src="../reference/images/venues/walkerhill.jpg" alt="Paradise Casino Walkerhill" loading="lazy"/>
           <div class="venue-body">
             <div class="venue-name"><a href="../junkets/paradise-city.html">Paradise Casino Walkerhill</a></div>
@@ -337,7 +337,7 @@
         </div>
 
         <!-- Seven Luck Gangnam -->
-        <div class="venue-card">
+        <div class="venue-card" data-venue="sevenluck-gangnam">
           <img class="venue-img" src="../reference/images/venues/sevenluck-gangnam.jpg" alt="Seven Luck Casino Gangnam" loading="lazy"/>
           <div class="venue-body">
             <div class="venue-name">Seven Luck Casino 江南COEX</div>
@@ -355,7 +355,7 @@
         </div>
 
         <!-- Seven Luck Dragon City -->
-        <div class="venue-card">
+        <div class="venue-card" data-venue="sevenluck-dragon">
           <div class="venue-img-placeholder">&#127472;&#127479;</div>
           <div class="venue-body">
             <div class="venue-name">Seven Luck Casino ドラゴンシティ</div>
@@ -375,7 +375,7 @@
       <div class="city-heading">済州島（チェジュ）</div>
       <div class="venue-grid">
         <!-- LES A Casino -->
-        <div class="venue-card">
+        <div class="venue-card" data-venue="lesa-jeju">
           <img class="venue-img" src="../reference/images/venues/lesa-jeju.jpg" alt="LES A Casino" loading="lazy"/>
           <div class="venue-body">
             <div class="venue-name">LES A Casino（旧Landing Casino）</div>
@@ -393,7 +393,7 @@
         </div>
 
         <!-- Paradise Grand Jeju -->
-        <div class="venue-card">
+        <div class="venue-card" data-venue="paradise-jeju">
           <div class="venue-img-placeholder">&#127472;&#127479;</div>
           <div class="venue-body">
             <div class="venue-name">Paradise Grand Casino 済州</div>
@@ -414,7 +414,7 @@
       <div class="city-heading">釜山（プサン）</div>
       <div class="venue-grid">
         <!-- Paradise Casino Busan -->
-        <div class="venue-card">
+        <div class="venue-card" data-venue="paradise-busan">
           <img class="venue-img" src="../reference/images/venues/paradise-busan.jpg" alt="Paradise Casino Busan" loading="lazy"/>
           <div class="venue-body">
             <div class="venue-name">Paradise Casino 釜山</div>
@@ -445,7 +445,7 @@
       <div class="city-heading">マニラ — Entertainment City</div>
       <div class="venue-grid">
         <!-- PokerStars LIVE / Okada -->
-        <div class="venue-card">
+        <div class="venue-card" data-venue="okada-manila">
           <img class="venue-img" src="../reference/images/venues/okada-manila.jpg" alt="Okada Manila" loading="lazy"/>
           <div class="venue-body">
             <div class="venue-name"><a href="../junkets/manila-cod.html">PokerStars LIVE Manila（Okada）</a></div>
@@ -464,7 +464,7 @@
         </div>
 
         <!-- Solaire -->
-        <div class="venue-card">
+        <div class="venue-card" data-venue="solaire">
           <img class="venue-img" src="../reference/images/venues/solaire.jpg" alt="Solaire Resort" loading="lazy"/>
           <div class="venue-body">
             <div class="venue-name">Solaire Resort & Casino</div>
@@ -482,7 +482,7 @@
         </div>
 
         <!-- City of Dreams -->
-        <div class="venue-card">
+        <div class="venue-card" data-venue="cod-manila">
           <img class="venue-img" src="../reference/images/venues/cod-manila.jpg" alt="City of Dreams Manila" loading="lazy"/>
           <div class="venue-body">
             <div class="venue-name">City of Dreams Manila（Soul Poker）</div>
@@ -503,7 +503,7 @@
       <div class="city-heading">マニラ — パサイ / マカパガル</div>
       <div class="venue-grid">
         <!-- Newport World Resorts -->
-        <div class="venue-card">
+        <div class="venue-card" data-venue="newport">
           <div class="venue-img-placeholder">&#127477;&#127469;</div>
           <div class="venue-body">
             <div class="venue-name">Newport World Resorts</div>
@@ -522,7 +522,7 @@
         </div>
 
         <!-- Prime Poker Club -->
-        <div class="venue-card">
+        <div class="venue-card" data-venue="prime-poker">
           <img class="venue-img" src="../reference/images/venues/prime-poker.jpg" alt="Prime Poker Club" loading="lazy"/>
           <div class="venue-body">
             <div class="venue-name">Prime Poker Club（旧GG Poker Room）</div>
@@ -541,7 +541,7 @@
         </div>
 
         <!-- 2Ace Poker -->
-        <div class="venue-card">
+        <div class="venue-card" data-venue="2ace-poker">
           <div class="venue-img-placeholder">&#127477;&#127469;</div>
           <div class="venue-body">
             <div class="venue-name">2Ace Poker Manila</div>
@@ -560,7 +560,7 @@
         </div>
 
         <!-- 9D Poker Club -->
-        <div class="venue-card">
+        <div class="venue-card" data-venue="nine-d">
           <div class="venue-img-placeholder">&#127477;&#127469;</div>
           <div class="venue-body">
             <div class="venue-name">9D Poker Club</div>
@@ -581,7 +581,7 @@
       <div class="city-heading">マニラ — マラテ / オルティガス</div>
       <div class="venue-grid">
         <!-- Metro Card Club -->
-        <div class="venue-card">
+        <div class="venue-card" data-venue="metro-card-club">
           <img class="venue-img" src="../reference/images/venues/metro-card-club.jpg" alt="Metro Card Club" loading="lazy"/>
           <div class="venue-body">
             <div class="venue-name">Metro Card Club</div>
@@ -600,7 +600,7 @@
         </div>
 
         <!-- Red Dragon Poker -->
-        <div class="venue-card">
+        <div class="venue-card" data-venue="red-dragon-manila">
           <div class="venue-img-placeholder">&#127477;&#127469;</div>
           <div class="venue-body">
             <div class="venue-name">Red Dragon Poker Manila</div>
@@ -618,7 +618,7 @@
         </div>
 
         <!-- Poker Brothers -->
-        <div class="venue-card">
+        <div class="venue-card" data-venue="poker-brothers">
           <div class="venue-img-placeholder">&#127477;&#127469;</div>
           <div class="venue-body">
             <div class="venue-name">Poker Brothers</div>
@@ -639,7 +639,7 @@
       <div class="city-heading">セブ / クラーク</div>
       <div class="venue-grid">
         <!-- Poker8 Cebu -->
-        <div class="venue-card">
+        <div class="venue-card" data-venue="poker8-cebu">
           <img class="venue-img" src="../reference/images/venues/poker8-cebu.jpg" alt="Poker8 Cebu" loading="lazy"/>
           <div class="venue-body">
             <div class="venue-name">Poker8 Cebu</div>
@@ -658,7 +658,7 @@
         </div>
 
         <!-- Wild Aces -->
-        <div class="venue-card">
+        <div class="venue-card" data-venue="wild-aces">
           <div class="venue-img-placeholder">&#127477;&#127469;</div>
           <div class="venue-body">
             <div class="venue-name">Wild Aces Poker Sports Club</div>
@@ -688,7 +688,7 @@
       <div class="city-heading">ホーチミンシティ</div>
       <div class="venue-grid">
         <!-- Saigon Poker -->
-        <div class="venue-card">
+        <div class="venue-card" data-venue="saigon-poker">
           <img class="venue-img" src="../reference/images/venues/saigon-poker.jpg" alt="Saigon Poker Club" loading="lazy"/>
           <div class="venue-body">
             <div class="venue-name">Saigon Poker Club</div>
@@ -706,7 +706,7 @@
         </div>
 
         <!-- Pro Poker Club -->
-        <div class="venue-card">
+        <div class="venue-card" data-venue="pro-poker">
           <img class="venue-img" src="../reference/images/venues/pro-poker.jpg" alt="Pro Poker Club" loading="lazy"/>
           <div class="venue-body">
             <div class="venue-name">Pro Poker Club</div>
@@ -725,7 +725,7 @@
         </div>
 
         <!-- Victorious -->
-        <div class="venue-card">
+        <div class="venue-card" data-venue="victorious">
           <div class="venue-img-placeholder">&#127483;&#127475;</div>
           <div class="venue-body">
             <div class="venue-name">Victorious Poker Club</div>
@@ -747,7 +747,7 @@
       <div class="city-heading">ハノイ</div>
       <div class="venue-grid">
         <!-- Royal Poker -->
-        <div class="venue-card">
+        <div class="venue-card" data-venue="royal-poker">
           <img class="venue-img" src="../reference/images/venues/royal-poker.jpg" alt="Royal Poker Club" loading="lazy"/>
           <div class="venue-body">
             <div class="venue-name">Royal Poker Club</div>
@@ -767,7 +767,7 @@
         </div>
 
         <!-- Crown Poker -->
-        <div class="venue-card">
+        <div class="venue-card" data-venue="crown-poker">
           <img class="venue-img" src="../reference/images/venues/crown-poker.jpg" alt="Crown Poker Club" loading="lazy"/>
           <div class="venue-body">
             <div class="venue-name">Crown Poker Club</div>
@@ -787,7 +787,7 @@
         </div>
 
         <!-- Grand Loyal -->
-        <div class="venue-card">
+        <div class="venue-card" data-venue="grand-loyal">
           <div class="venue-img-placeholder">&#127483;&#127475;</div>
           <div class="venue-body">
             <div class="venue-name">Grand Loyal Poker Club</div>
@@ -808,7 +808,7 @@
       <div class="city-heading">ダナン / ホイアン</div>
       <div class="venue-grid">
         <!-- Dream Poker Da Nang -->
-        <div class="venue-card">
+        <div class="venue-card" data-venue="dream-poker-danang">
           <img class="venue-img" src="../reference/images/venues/dream-poker-danang.jpg" alt="Dream Poker Da Nang" loading="lazy"/>
           <div class="venue-body">
             <div class="venue-name">Dream Poker Da Nang</div>
@@ -826,7 +826,7 @@
         </div>
 
         <!-- Dragon Poker Da Nang -->
-        <div class="venue-card">
+        <div class="venue-card" data-venue="dragon-poker">
           <div class="venue-img-placeholder">&#127483;&#127475;</div>
           <div class="venue-body">
             <div class="venue-name">Dragon Poker Club Da Nang</div>
@@ -845,7 +845,7 @@
         </div>
 
         <!-- Hoiana -->
-        <div class="venue-card">
+        <div class="venue-card" data-venue="hoiana">
           <img class="venue-img" src="../reference/images/venues/hoiana.jpg" alt="Hoiana Casino" loading="lazy"/>
           <div class="venue-body">
             <div class="venue-name">Hoiana Casino & Resort</div>
@@ -867,7 +867,7 @@
       <div class="city-heading">フーコック / ホートラム</div>
       <div class="venue-grid">
         <!-- Corona Casino -->
-        <div class="venue-card">
+        <div class="venue-card" data-venue="corona-phuquoc">
           <img class="venue-img" src="../reference/images/venues/corona-phuquoc.jpg" alt="Corona Casino Phu Quoc" loading="lazy"/>
           <div class="venue-body">
             <div class="venue-name">Corona Casino / LUK Poker</div>
@@ -886,7 +886,7 @@
         </div>
 
         <!-- Grand Ho Tram -->
-        <div class="venue-card">
+        <div class="venue-card" data-venue="grand-hotram">
           <img class="venue-img" src="../reference/images/venues/grand-hotram.jpg" alt="The Grand Ho Tram" loading="lazy"/>
           <div class="venue-body">
             <div class="venue-name">The Grand Ho Tram</div>
@@ -963,6 +963,10 @@
         document.getElementById('sec-' + c).classList.add('active');
         window.scrollTo({top: document.querySelector('.country-tabs').offsetTop - 64, behavior:'smooth'});
       });
+    });
+    // Venue card click → detail page
+    document.querySelectorAll('.venue-card[data-venue]').forEach(function(card){
+      card.addEventListener('click', function(){ window.location.href = 'venue-detail.html?id=' + this.getAttribute('data-venue'); });
     });
   })();
   </script>

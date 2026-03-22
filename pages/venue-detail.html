@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="ja" dir="ltr">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1"/>
+  <link rel="icon" type="image/svg+xml" href="../reference/images/favicon-poker.svg"/>
+  <title>ポーカールーム詳細 | POKER JAPAN</title>
+  <link rel="stylesheet" href="../reference/css/global-common.css"/>
+  <link rel="preload" as="font" type="font/woff2" href="../reference/fonts/Inter-latin-e2cd30fdbc318a1d7777d73399f88ba1.woff2" crossorigin="anonymous"/>
+
+  <style>
+    *, *::before, *::after { box-sizing:border-box; margin:0; padding:0; }
+    :root {
+      --bg-page:#fff; --bg-alt:#f7f8fa;
+      --text-1:#121214; --text-2:#595d61; --text-3:#81858c;
+      --accent:#1a6b3c; --accent-light:#e8f5ee;
+      --gold:#f7a600; --red:#ef454a; --green:#20b26c;
+      --border:#e5e7eb; --border-light:#f0f1f3;
+    }
+    body { font-family:"Inter","Noto Sans JP",system-ui,-apple-system,sans-serif; background:var(--bg-page); color:var(--text-1); -webkit-font-smoothing:antialiased; }
+    a { color:inherit; text-decoration:none; }
+    img { max-width:100%; display:block; }
+
+    .pj-header { position:sticky; top:0; z-index:1000; height:64px; background:rgba(18,18,20,.97); backdrop-filter:blur(12px); display:flex; align-items:center; }
+    .pj-header-inner { max-width:1200px; width:100%; margin:0 auto; padding:0 24px; display:flex; align-items:center; justify-content:space-between; }
+    .pj-logo img { height:30px; }
+    .pj-nav { display:flex; gap:28px; }
+    .pj-nav a { font-size:14px; font-weight:500; color:#adb1b8; transition:color .15s; }
+    .pj-nav a:hover, .pj-nav a.active { color:#fff; }
+    .pj-header-btns { display:flex; gap:10px; }
+    .pj-header-btns a { font-size:14px; font-weight:600; padding:7px 18px; border-radius:8px; }
+    .btn-ghost { color:#fff; }
+    .btn-gold { background:var(--gold); color:#121214; }
+    .pj-width { max-width:1200px; margin:0 auto; padding:0 24px; width:100%; }
+
+    .pj-hamburger { display:none; background:none; border:none; cursor:pointer; padding:8px; flex-direction:column; gap:5px; z-index:1100; }
+    .pj-hamburger span { display:block; width:22px; height:2px; background:#fff; border-radius:2px; }
+    .pj-mobile-menu { display:none; position:fixed; top:64px; left:0; right:0; bottom:0; background:rgba(18,18,20,.98); z-index:1050; padding:24px; flex-direction:column; }
+    .pj-mobile-menu.open { display:flex; }
+    .pj-mobile-menu a { display:block; padding:16px 0; font-size:16px; font-weight:500; color:#adb1b8; border-bottom:1px solid #333537; }
+    .pj-mobile-menu .pj-mobile-btns { display:flex; gap:12px; margin-top:24px; }
+    .pj-mobile-menu .pj-mobile-btns a { border:none; padding:12px 0; text-align:center; flex:1; border-radius:8px; font-weight:600; }
+    .pj-mobile-menu .pj-mobile-btns .btn-ghost-m { background:#1e2023; color:#fff; }
+    .pj-mobile-menu .pj-mobile-btns .btn-gold-m { background:var(--gold); color:#121214; }
+
+    /* Hero */
+    .venue-hero { background:#0b0e11; color:#fff; padding:40px 0 48px; position:relative; overflow:hidden; }
+    .venue-hero::before { content:''; position:absolute; top:-40%; right:-15%; width:600px; height:600px; background:radial-gradient(circle, rgba(32,178,108,.08) 0%, transparent 60%); pointer-events:none; }
+    .venue-breadcrumb { font-size:13px; color:#595d61; margin-bottom:20px; position:relative; z-index:1; }
+    .venue-breadcrumb a { color:#81858c; transition:color .15s; }
+    .venue-breadcrumb a:hover { color:#fff; }
+    .hero-inner { display:flex; gap:40px; align-items:flex-start; position:relative; z-index:1; }
+    .hero-text { flex:1; }
+    .hero-flag { font-size:48px; margin-bottom:12px; }
+    .hero-text h1 { font-size:36px; font-weight:700; line-height:1.2; margin-bottom:4px; }
+    .hero-name-ja { font-size:14px; color:#81858c; margin-bottom:12px; }
+    .hero-loc { font-size:15px; color:#adb1b8; margin-bottom:16px; }
+    .hero-desc { font-size:14px; color:#81858c; line-height:1.7; max-width:600px; }
+    .hero-tags { display:flex; flex-wrap:wrap; gap:8px; margin-top:16px; }
+    .hero-tag { font-size:11px; font-weight:600; padding:4px 10px; border-radius:6px; background:rgba(255,255,255,.08); color:#adb1b8; }
+    .hero-tag.jp { background:rgba(247,166,0,.15); color:var(--gold); }
+    .hero-photo { flex:0 0 320px; border-radius:16px; overflow:hidden; }
+    .hero-photo img { width:100%; height:220px; object-fit:cover; }
+    .hero-photo-placeholder { width:100%; height:220px; background:linear-gradient(135deg,#1e2023,#16171a); display:flex; align-items:center; justify-content:center; font-size:72px; border-radius:16px; border:1px solid #333537; }
+
+    /* Sections */
+    .detail-section { padding:48px 0; }
+    .detail-section + .detail-section { border-top:1px solid var(--border-light); }
+    .detail-section-alt { background:var(--bg-alt); }
+    .ds-title { font-size:20px; font-weight:700; margin-bottom:24px; border-left:3px solid var(--accent); padding-left:12px; }
+
+    /* Info grid (4 cards) */
+    .info-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:16px; }
+    .info-card { background:#fff; border-radius:12px; padding:20px; border:1px solid var(--border-light); }
+    .info-card .ic-icon { font-size:24px; margin-bottom:8px; }
+    .info-card .ic-label { font-size:11px; color:var(--text-3); text-transform:uppercase; letter-spacing:.5px; margin-bottom:4px; }
+    .info-card .ic-val { font-size:15px; font-weight:600; }
+
+    /* Access section */
+    .access-grid { display:grid; grid-template-columns:1fr 1fr; gap:24px; }
+    .access-map { border-radius:12px; overflow:hidden; border:1px solid var(--border-light); min-height:280px; }
+    .access-map iframe { width:100%; height:100%; min-height:280px; border:0; }
+    .access-info { display:flex; flex-direction:column; gap:16px; }
+    .access-item { padding:16px; background:#fff; border-radius:10px; border:1px solid var(--border-light); }
+    .access-item .ai-label { font-size:11px; font-weight:600; color:var(--text-3); text-transform:uppercase; letter-spacing:.5px; margin-bottom:6px; }
+    .access-item .ai-val { font-size:14px; font-weight:600; margin-bottom:4px; }
+    .access-item .ai-desc { font-size:13px; color:var(--text-2); line-height:1.5; }
+
+    /* Stake table */
+    .pj-table { width:100%; border-collapse:collapse; }
+    .pj-table thead th { text-align:left; font-size:12px; font-weight:500; color:var(--text-3); padding:10px 16px; border-bottom:1px solid var(--border); text-transform:uppercase; letter-spacing:.5px; }
+    .pj-table tbody tr { border-bottom:1px solid var(--border-light); }
+    .pj-table td { padding:12px 16px; font-size:14px; }
+    .pj-table .stakes { color:var(--accent); font-weight:600; }
+    .pj-table-wrap { overflow-x:auto; }
+    .rake-note { font-size:13px; color:var(--text-3); margin-top:12px; padding:12px 16px; background:var(--bg-alt); border-radius:8px; }
+
+    /* JP support */
+    .jp-badge { display:inline-flex; align-items:center; gap:8px; padding:8px 16px; border-radius:8px; font-size:14px; font-weight:600; margin-bottom:16px; }
+    .jp-badge.excellent { background:#e8f5ee; color:var(--accent); }
+    .jp-badge.good { background:#fef3cd; color:#856404; }
+    .jp-badge.limited { background:#fff3e0; color:#e65100; }
+    .jp-badge.none { background:#f0f1f3; color:var(--text-3); }
+    .jp-details { font-size:14px; color:var(--text-2); line-height:1.7; }
+
+    /* Junket fees */
+    .fee-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:12px; }
+    .fee-item { padding:16px; background:#fff; border-radius:10px; border:1px solid var(--border-light); }
+    .fee-item .fi-label { font-size:12px; color:var(--text-3); font-weight:600; margin-bottom:4px; }
+    .fee-item .fi-val { font-size:14px; font-weight:600; }
+    .fee-desc { font-size:13px; color:var(--text-2); line-height:1.6; margin-bottom:16px; }
+
+    /* Tournament list */
+    .tourney-list { display:flex; flex-direction:column; gap:10px; }
+    .tourney-item { display:flex; align-items:center; gap:16px; padding:14px 16px; background:#fff; border-radius:10px; border:1px solid var(--border-light); }
+    .tourney-name { font-size:14px; font-weight:600; flex:1; }
+    .tourney-freq { font-size:12px; color:var(--text-3); }
+    .tourney-buyin { font-size:13px; color:var(--accent); font-weight:500; }
+
+    /* Hotel */
+    .hotel-header { display:flex; align-items:center; gap:12px; margin-bottom:16px; }
+    .hotel-name { font-size:16px; font-weight:600; }
+    .hotel-rating { font-size:12px; color:var(--gold); font-weight:600; background:rgba(247,166,0,.1); padding:3px 8px; border-radius:4px; }
+    .amenity-list { display:flex; flex-wrap:wrap; gap:8px; }
+    .amenity-tag { font-size:12px; padding:4px 10px; background:var(--bg-alt); border-radius:6px; color:var(--text-2); }
+
+    /* CTA */
+    .venue-cta { background:linear-gradient(135deg, #121214 0%, #1a2e24 100%); padding:48px; border-radius:16px; text-align:center; color:#fff; }
+    .venue-cta h2 { font-size:24px; font-weight:700; margin-bottom:8px; }
+    .venue-cta p { font-size:14px; color:#adb1b8; margin-bottom:24px; }
+    .venue-cta .btn-book { display:inline-block; padding:14px 32px; font-size:14px; font-weight:600; background:var(--gold); color:#121214; border-radius:8px; }
+
+    /* Footer */
+    .pj-footer { border-top:1px solid var(--border); padding:48px 0 24px; background:#fafbfc; }
+    .pj-footer-grid { display:grid; grid-template-columns:1.5fr 1fr 1fr 1fr; gap:40px; margin-bottom:40px; }
+    .pj-footer-brand p { font-size:13px; color:var(--text-3); margin-top:12px; line-height:1.6; }
+    .pj-footer-col h4 { font-size:14px; font-weight:600; margin:0 0 16px; }
+    .pj-footer-col a { display:block; font-size:13px; color:var(--text-3); margin-bottom:10px; }
+    .pj-footer-bottom { border-top:1px solid var(--border); padding-top:20px; font-size:12px; color:var(--text-3); text-align:center; }
+    .last-updated { font-size:11px; color:var(--text-3); text-align:right; margin-top:24px; }
+
+    /* 404 state */
+    .not-found { text-align:center; padding:120px 24px; }
+    .not-found h2 { font-size:24px; margin-bottom:8px; }
+    .not-found p { color:var(--text-3); margin-bottom:24px; }
+    .not-found a { color:var(--accent); font-weight:600; }
+
+    @media (max-width:1024px) {
+      .info-grid { grid-template-columns:repeat(2,1fr); }
+      .access-grid { grid-template-columns:1fr; }
+      .pj-footer-grid { grid-template-columns:repeat(2,1fr); }
+    }
+    @media (max-width:768px) {
+      .pj-nav { display:none; }
+      .pj-header-btns { display:none; }
+      .pj-hamburger { display:flex; }
+      .venue-hero { padding:24px 0 32px; }
+      .hero-inner { flex-direction:column; gap:20px; }
+      .hero-text h1 { font-size:24px; }
+      .hero-photo { flex:none; width:100%; }
+      .hero-photo img { height:180px; }
+      .hero-photo-placeholder { height:140px; font-size:56px; }
+      .detail-section { padding:32px 0; }
+      .ds-title { font-size:18px; }
+      .info-grid { grid-template-columns:1fr 1fr; gap:10px; }
+      .info-card { padding:14px; }
+      .info-card .ic-val { font-size:13px; }
+      .access-grid { grid-template-columns:1fr; }
+      .access-map { min-height:200px; }
+      .access-map iframe { min-height:200px; }
+      .fee-grid { grid-template-columns:1fr; }
+      .venue-cta { padding:28px 20px; border-radius:12px; }
+      .venue-cta h2 { font-size:20px; }
+      /* Table → horizontal card scroll */
+      .pj-table-wrap { overflow:visible; margin:0 -24px; padding:0; }
+      .pj-table { display:block; }
+      .pj-table thead { display:none; }
+      .pj-table tbody { display:flex; gap:12px; overflow-x:auto; -webkit-overflow-scrolling:touch; padding:4px 24px 16px; scroll-snap-type:x mandatory; scrollbar-width:none; }
+      .pj-table tbody::-webkit-scrollbar { display:none; }
+      .pj-table tbody tr { display:flex; flex-direction:column; min-width:220px; flex:0 0 auto; border:1px solid var(--border-light); border-radius:12px; padding:16px; background:#fff; gap:6px; scroll-snap-align:start; box-shadow:0 1px 4px rgba(0,0,0,.04); }
+      .pj-table td { padding:2px 0; font-size:13px; }
+      .pj-table td:first-child { font-weight:600; }
+      .pj-footer { padding:32px 0 16px; }
+      .pj-footer-grid { grid-template-columns:1fr 1fr; gap:20px; margin-bottom:24px; }
+      .pj-footer-brand { grid-column:1/-1; }
+    }
+    @media (max-width:400px) {
+      .info-grid { grid-template-columns:1fr; }
+      .hero-flag { font-size:36px; }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="pj-header">
+    <div class="pj-header-inner">
+      <a href="../index.html" class="pj-logo"><img src="../reference/images/logo-poker.svg" alt="POKER JAPAN" style="filter:brightness(0) invert(1);"/></a>
+      <nav class="pj-nav">
+        <a href="news.html">ニュース</a>
+        <a href="casinos.html">海外カジノ</a>
+        <a href="asia-rooms.html" class="active">アジアガイド</a>
+        <a href="strategy.html">戦略ガイド</a>
+        <a href="tournaments.html">トーナメント</a>
+        <a href="beginners.html">初心者向け</a>
+      </nav>
+      <div class="pj-header-btns">
+        <a href="#" class="btn-ghost">ログイン</a>
+        <a href="booking.html" class="btn-gold">無料登録</a>
+      </div>
+      <button class="pj-hamburger" onclick="document.querySelector('.pj-mobile-menu').classList.toggle('open');this.classList.toggle('open');" aria-label="メニュー"><span></span><span></span><span></span></button>
+    </div>
+  </header>
+  <div class="pj-mobile-menu">
+    <a href="news.html">ニュース</a>
+    <a href="casinos.html">海外カジノ</a>
+    <a href="asia-rooms.html">アジアガイド</a>
+    <a href="strategy.html">戦略ガイド</a>
+    <a href="tournaments.html">トーナメント</a>
+    <a href="beginners.html">初心者向け</a>
+    <div class="pj-mobile-btns">
+      <a href="#" class="btn-ghost-m">ログイン</a>
+      <a href="booking.html" class="btn-gold-m">無料登録</a>
+    </div>
+  </div>
+
+  <div id="venue-content">
+    <!-- Populated by JS -->
+  </div>
+
+  <footer class="pj-footer">
+    <div class="pj-width">
+      <div class="pj-footer-grid">
+        <div class="pj-footer-brand">
+          <img src="../reference/images/logo-poker.svg" alt="POKER JAPAN" style="height:30px;"/>
+          <p>POKER JAPANは、海外ポーカーキャッシュゲームに特化した日本語メディアです。</p>
+        </div>
+        <div class="pj-footer-col"><h4>コンテンツ</h4><a href="news.html">ニュース</a><a href="strategy.html">戦略ガイド</a><a href="tournaments.html">トーナメント</a></div>
+        <div class="pj-footer-col"><h4>カジノ</h4><a href="casinos.html">カジノ一覧</a><a href="asia-rooms.html">アジアガイド</a><a href="booking.html">ジャンケット予約</a></div>
+        <div class="pj-footer-col"><h4>サービス</h4><a href="booking.html">予約</a><a href="beginners.html">初心者ガイド</a></div>
+      </div>
+      <div class="pj-footer-bottom">&copy; 2026 POKER JAPAN. All rights reserved.</div>
+    </div>
+  </footer>
+
+  <script src="../reference/js/venues-data.js"></script>
+  <script>
+  (function(){
+    var params = new URLSearchParams(window.location.search);
+    var id = params.get('id');
+    var v = VENUE_DATA[id];
+    var el = document.getElementById('venue-content');
+
+    if (!v) {
+      el.innerHTML = '<div class="not-found"><h2>会場が見つかりませんでした</h2><p>指定された会場IDは存在しません。</p><a href="asia-rooms.html">&larr; アジアポーカールームガイドに戻る</a></div>';
+      document.title = '会場が見つかりません | POKER JAPAN';
+      return;
+    }
+
+    document.title = v.name + ' | POKER JAPAN';
+
+    var jpLevels = { excellent:'日本語対応◎', good:'日本語対応○', limited:'日本語対応△', none:'日本語対応なし' };
+    var jpLevel = jpLevels[v.japaneseSupport.level] || '';
+
+    var photoHtml = v.photo
+      ? '<div class="hero-photo"><img src="'+v.photo+'" alt="'+v.name+'"/></div>'
+      : '<div class="hero-photo-placeholder">'+v.flag+'</div>';
+
+    var tagsHtml = '';
+    if (v.tags) v.tags.forEach(function(t){
+      var cls = t.indexOf('日本語') > -1 ? ' jp' : '';
+      tagsHtml += '<span class="hero-tag'+cls+'">'+t+'</span>';
+    });
+
+    // Stakes table
+    var stakesRows = '';
+    v.stakes.forEach(function(s){
+      stakesRows += '<tr><td>'+s.game+'</td><td class="stakes">'+s.blind+'</td><td>'+s.buyIn+'</td><td>'+s.notes+'</td></tr>';
+    });
+
+    // Info cards
+    var infoHtml = ''
+      + '<div class="info-card"><div class="ic-icon">&#127918;</div><div class="ic-label">テーブル数</div><div class="ic-val">'+v.tables+'</div></div>'
+      + '<div class="info-card"><div class="ic-icon">&#128336;</div><div class="ic-label">営業時間</div><div class="ic-val">'+v.hours+'</div></div>'
+      + '<div class="info-card"><div class="ic-icon">&#127471;&#127477;</div><div class="ic-label">日本語</div><div class="ic-val">'+jpLevel+'</div></div>'
+      + '<div class="info-card"><div class="ic-icon">&#9824;&#65039;</div><div class="ic-label">ゲームタイプ</div><div class="ic-val">'+v.gameTypes.join(' / ')+'</div></div>';
+
+    // Access
+    var mapUrl = 'https://maps.google.com/maps?q='+encodeURIComponent(v.mapQuery)+'&output=embed&z=14';
+    var accessHtml = '<div class="access-grid">'
+      + '<div class="access-map"><iframe src="'+mapUrl+'" loading="lazy" allowfullscreen referrerpolicy="no-referrer-when-downgrade"></iframe></div>'
+      + '<div class="access-info">'
+      + '<div class="access-item"><div class="ai-label">住所</div><div class="ai-desc">'+v.address+'</div></div>'
+      + '<div class="access-item"><div class="ai-label">最寄り空港</div><div class="ai-val">'+v.airport.name+'</div><div class="ai-desc">'+v.airport.distance+'</div></div>'
+      + '<div class="access-item"><div class="ai-label">アクセス方法</div><div class="ai-desc">'+v.airport.access+'</div></div>'
+      + '</div></div>';
+
+    // Tournaments
+    var tourneyHtml = '';
+    if (v.tournaments.length) {
+      tourneyHtml = '<div class="tourney-list">';
+      v.tournaments.forEach(function(t){
+        tourneyHtml += '<div class="tourney-item"><div class="tourney-name">'+t.name+'</div><div class="tourney-freq">'+t.frequency+'</div><div class="tourney-buyin">'+t.buyIn+'</div></div>';
+      });
+      tourneyHtml += '</div>';
+    } else {
+      tourneyHtml = '<p style="color:var(--text-3);font-size:14px;">定期トーナメント情報はありません。</p>';
+    }
+
+    // Junket fees
+    var feeHtml = '';
+    if (v.junketInfo && (v.junketInfo.description || v.junketInfo.items.length)) {
+      if (v.junketInfo.description) feeHtml += '<div class="fee-desc">'+v.junketInfo.description+'</div>';
+      if (v.junketInfo.items.length) {
+        feeHtml += '<div class="fee-grid">';
+        v.junketInfo.items.forEach(function(f){
+          feeHtml += '<div class="fee-item"><div class="fi-label">'+f.label+'</div><div class="fi-val">'+f.value+'</div></div>';
+        });
+        feeHtml += '</div>';
+      }
+    } else {
+      feeHtml = '<p style="color:var(--text-3);font-size:14px;">ジャンケット情報は現在準備中です。</p>';
+    }
+
+    // Hotel & amenities
+    var hotelHtml = '';
+    if (v.hotel && v.hotel.name) {
+      hotelHtml += '<div class="hotel-header"><div class="hotel-name">'+v.hotel.name+'</div>';
+      if (v.hotel.rating) hotelHtml += '<div class="hotel-rating">'+v.hotel.rating+'</div>';
+      hotelHtml += '</div>';
+      if (v.hotel.amenities && v.hotel.amenities.length) {
+        hotelHtml += '<div class="amenity-list">';
+        v.hotel.amenities.forEach(function(a){ hotelHtml += '<span class="amenity-tag">'+a+'</span>'; });
+        hotelHtml += '</div>';
+      }
+      // Dining
+      if (v.dining && v.dining.length) {
+        hotelHtml += '<div style="margin-top:24px;"><div style="font-size:14px;font-weight:600;margin-bottom:12px;">レストラン</div>';
+        hotelHtml += '<div style="display:flex;flex-wrap:wrap;gap:8px;">';
+        v.dining.forEach(function(d){
+          hotelHtml += '<span class="amenity-tag">'+d.name+' ('+d.type+') '+d.price+'</span>';
+        });
+        hotelHtml += '</div></div>';
+      }
+    } else {
+      hotelHtml = '<p style="color:var(--text-3);font-size:14px;">ホテル情報は現在準備中です。</p>';
+    }
+
+    // Build page
+    el.innerHTML = ''
+      // Hero
+      + '<section class="venue-hero"><div class="pj-width">'
+      + '<div class="venue-breadcrumb"><a href="../index.html">ホーム</a> &gt; <a href="asia-rooms.html">アジアガイド</a> &gt; <a href="asia-rooms.html">'+v.countryName+'</a> &gt; <span>'+v.name+'</span></div>'
+      + '<div class="hero-inner">'
+      + '<div class="hero-text">'
+      + '<div class="hero-flag">'+v.flag+'</div>'
+      + '<h1>'+v.name+'</h1>'
+      + '<div class="hero-name-ja">'+v.nameJa+'</div>'
+      + '<div class="hero-loc">'+v.city+' ・ '+v.countryName+'</div>'
+      + '<div class="hero-desc">'+v.description+'</div>'
+      + '<div class="hero-tags">'+tagsHtml+'</div>'
+      + '</div>'
+      + photoHtml
+      + '</div>'
+      + '</div></section>'
+      // Quick info
+      + '<section class="detail-section detail-section-alt"><div class="pj-width">'
+      + '<div class="info-grid">'+infoHtml+'</div>'
+      + '</div></section>'
+      // Access
+      + '<section class="detail-section"><div class="pj-width">'
+      + '<div class="ds-title">アクセス・最寄り空港</div>'
+      + accessHtml
+      + '</div></section>'
+      // Stakes
+      + '<section class="detail-section detail-section-alt"><div class="pj-width">'
+      + '<div class="ds-title">ステークス・レーキ</div>'
+      + '<div class="pj-table-wrap"><table class="pj-table"><thead><tr><th>ゲーム</th><th>ブラインド</th><th>バイイン</th><th>備考</th></tr></thead><tbody>'+stakesRows+'</tbody></table></div>'
+      + '<div class="rake-note"><strong>レーキ:</strong> '+v.rake+'</div>'
+      + '</div></section>'
+      // JP Support
+      + '<section class="detail-section"><div class="pj-width">'
+      + '<div class="ds-title">日本語対応</div>'
+      + '<div class="jp-badge '+v.japaneseSupport.level+'">'+jpLevel+'</div>'
+      + '<div class="jp-details">'+v.japaneseSupport.details+'</div>'
+      + '</div></section>'
+      // Junket fees
+      + '<section class="detail-section detail-section-alt"><div class="pj-width">'
+      + '<div class="ds-title">ジャンケット・費用</div>'
+      + feeHtml
+      + '</div></section>'
+      // Tournaments
+      + '<section class="detail-section"><div class="pj-width">'
+      + '<div class="ds-title">トーナメント</div>'
+      + tourneyHtml
+      + '</div></section>'
+      // Hotel
+      + '<section class="detail-section detail-section-alt"><div class="pj-width">'
+      + '<div class="ds-title">ホテル・施設</div>'
+      + hotelHtml
+      + '</div></section>'
+      // CTA
+      + '<section class="detail-section"><div class="pj-width">'
+      + '<div class="venue-cta"><h2>'+v.name+' への予約</h2><p>POKER JAPAN経由でジャンケット手配。手数料無料。</p><a href="booking.html" class="btn-book">ジャンケット予約へ</a></div>'
+      + '<div class="last-updated">最終更新: '+v.lastUpdated+'</div>'
+      + '</div></section>';
+  })();
+  </script>
+</body>
+</html>
