@@ -1,0 +1,757 @@
+<!DOCTYPE html>
+<html lang="ja" dir="ltr">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1"/>
+  <link rel="icon" type="image/svg+xml" href="../reference/images/favicon-poker.svg"/>
+  <title>ジャンケット予約 | POKER JAPAN</title>
+  <meta name="description" content="世界各地のポーカールームへのジャンケット予約。国・カジノを選んで、パスポート情報を送信するだけ。"/>
+  <link rel="stylesheet" href="../reference/css/global-common.css"/>
+  <link rel="preload" as="font" type="font/woff2" href="../reference/fonts/Inter-latin-e2cd30fdbc318a1d7777d73399f88ba1.woff2" crossorigin="anonymous"/>
+
+  <style>
+    *, *::before, *::after { box-sizing:border-box; margin:0; padding:0; }
+    :root {
+      --bg-page:#fff; --bg-alt:#f7f8fa;
+      --text-1:#121214; --text-2:#595d61; --text-3:#81858c;
+      --accent:#1a6b3c; --accent-light:#e8f5ee;
+      --gold:#f7a600; --red:#ef454a; --green:#20b26c;
+      --border:#e5e7eb; --border-light:#f0f1f3;
+    }
+    body { font-family:"Inter","Noto Sans JP",system-ui,-apple-system,sans-serif; background:var(--bg-alt); color:var(--text-1); -webkit-font-smoothing:antialiased; }
+    a { color:inherit; text-decoration:none; }
+    img { max-width:100%; display:block; }
+
+    /* Header */
+    .pj-header { position:sticky; top:0; z-index:1000; height:64px; background:rgba(18,18,20,.97); backdrop-filter:blur(12px); display:flex; align-items:center; }
+    .pj-header-inner { max-width:1200px; width:100%; margin:0 auto; padding:0 24px; display:flex; align-items:center; justify-content:space-between; }
+    .pj-logo img { height:30px; }
+    .pj-nav { display:flex; gap:28px; }
+    .pj-nav a { font-size:14px; font-weight:500; color:#adb1b8; transition:color .15s; }
+    .pj-nav a:hover, .pj-nav a.active { color:#fff; }
+    .pj-header-btns { display:flex; gap:10px; }
+    .pj-header-btns a { font-size:14px; font-weight:600; padding:7px 18px; border-radius:8px; }
+    .btn-ghost { color:#fff; }
+    .btn-gold { background:var(--gold); color:#121214; }
+    .pj-width { max-width:1200px; margin:0 auto; padding:0 24px; width:100%; }
+
+    /* ===== BOOKING FLOW ===== */
+    .booking-wrap { max-width:640px; margin:0 auto; padding:40px 24px 80px; }
+
+    /* Progress */
+    .booking-progress { display:flex; align-items:center; gap:0; margin-bottom:40px; }
+    .bp-step { display:flex; align-items:center; gap:8px; flex:1; position:relative; }
+    .bp-step:last-child { flex:none; }
+    .bp-num {
+      width:32px; height:32px; border-radius:50%; display:flex; align-items:center; justify-content:center;
+      font-size:13px; font-weight:600; border:2px solid var(--border);
+      color:var(--text-3); background:#fff; flex-shrink:0; transition:all .2s;
+    }
+    .bp-label { font-size:12px; color:var(--text-3); font-weight:500; white-space:nowrap; }
+    .bp-line { flex:1; height:2px; background:var(--border); margin:0 8px; }
+    .bp-step.active .bp-num { border-color:var(--accent); background:var(--accent); color:#fff; }
+    .bp-step.active .bp-label { color:var(--text-1); font-weight:600; }
+    .bp-step.done .bp-num { border-color:var(--accent); background:var(--accent-light); color:var(--accent); }
+    .bp-step.done .bp-label { color:var(--accent); }
+
+    /* Step panels */
+    .step-panel { display:none; }
+    .step-panel.active { display:block; }
+
+    .step-title { font-size:24px; font-weight:700; margin-bottom:6px; }
+    .step-sub { font-size:14px; color:var(--text-3); margin-bottom:32px; line-height:1.5; }
+
+    /* Form elements */
+    .form-group { margin-bottom:20px; }
+    .form-label { display:block; font-size:13px; font-weight:600; margin-bottom:6px; color:var(--text-2); }
+    .form-label .required { color:var(--red); margin-left:2px; }
+    .form-input {
+      width:100%; padding:12px 14px; font-size:14px; font-family:inherit;
+      border:1px solid var(--border); border-radius:8px; background:#fff;
+      color:var(--text-1); outline:none; transition:border-color .15s;
+    }
+    .form-input:focus { border-color:var(--accent); }
+    .form-input::placeholder { color:var(--text-3); }
+    .form-row { display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+    .form-hint { font-size:11px; color:var(--text-3); margin-top:4px; }
+    .form-error { font-size:12px; color:var(--red); margin-top:4px; display:none; }
+
+    select.form-input {
+      appearance:none;
+      background-image:url("data:image/svg+xml,%3Csvg width='12' height='8' viewBox='0 0 12 8' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1.5L6 6.5L11 1.5' stroke='%2381858c' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+      background-repeat:no-repeat; background-position:right 14px center;
+      padding-right:36px;
+    }
+
+    /* Country cards */
+    .country-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:12px; margin-bottom:24px; }
+    .country-card {
+      padding:20px 16px; border-radius:12px; border:2px solid var(--border-light);
+      background:#fff; cursor:pointer; transition:all .15s; text-align:center;
+    }
+    .country-card:hover { border-color:var(--border); box-shadow:0 2px 8px rgba(0,0,0,.04); }
+    .country-card.selected { border-color:var(--accent); background:var(--accent-light); }
+    .country-flag { font-size:32px; margin-bottom:8px; }
+    .country-name { font-size:14px; font-weight:600; }
+    .country-region { font-size:11px; color:var(--text-3); margin-top:2px; }
+
+    /* Casino cards */
+    .casino-list { display:flex; flex-direction:column; gap:12px; margin-bottom:24px; }
+    .casino-card {
+      display:flex; align-items:center; gap:16px;
+      padding:16px 20px; border-radius:12px; border:2px solid var(--border-light);
+      background:#fff; cursor:pointer; transition:all .15s;
+    }
+    .casino-card:hover { border-color:var(--border); }
+    .casino-card.selected { border-color:var(--accent); background:var(--accent-light); }
+    .casino-card .casino-icon { font-size:28px; flex-shrink:0; }
+    .casino-card .casino-info { flex:1; min-width:0; }
+    .casino-card .casino-name { font-size:15px; font-weight:600; }
+    .casino-card .casino-meta { font-size:12px; color:var(--text-3); margin-top:2px; }
+    .casino-card .casino-stakes { font-size:13px; color:var(--accent); font-weight:500; margin-top:4px; }
+    .casino-card .casino-check {
+      width:20px; height:20px; border-radius:50%; border:2px solid var(--border);
+      flex-shrink:0; transition:all .15s; display:flex; align-items:center; justify-content:center;
+    }
+    .casino-card.selected .casino-check {
+      border-color:var(--accent); background:var(--accent);
+    }
+    .casino-card.selected .casino-check::after {
+      content:''; width:6px; height:6px; border-radius:50%; background:#fff;
+    }
+
+    /* File upload */
+    .file-upload {
+      border:2px dashed var(--border); border-radius:12px; padding:24px;
+      text-align:center; cursor:pointer; transition:border-color .15s; background:#fff;
+    }
+    .file-upload:hover { border-color:var(--accent); }
+    .file-upload.has-file { border-color:var(--accent); border-style:solid; background:var(--accent-light); }
+    .file-upload input[type="file"] { display:none; }
+    .file-upload-icon { font-size:24px; margin-bottom:8px; color:var(--text-3); }
+    .file-upload-text { font-size:13px; color:var(--text-3); }
+    .file-upload-text strong { color:var(--accent); }
+    .file-upload-name { font-size:13px; color:var(--accent); font-weight:600; margin-top:8px; }
+
+    /* Buttons */
+    .btn-row { display:flex; gap:12px; margin-top:32px; }
+    .btn-next {
+      flex:1; padding:14px 24px; font-size:14px; font-weight:600; font-family:inherit;
+      background:var(--accent); color:#fff; border:none; border-radius:8px;
+      cursor:pointer; transition:background .15s;
+    }
+    .btn-next:hover { background:#155a32; }
+    .btn-next:disabled { background:var(--border); color:var(--text-3); cursor:not-allowed; }
+    .btn-back {
+      padding:14px 20px; font-size:14px; font-weight:600; font-family:inherit;
+      background:#fff; color:var(--text-2); border:1px solid var(--border); border-radius:8px;
+      cursor:pointer; transition:all .15s;
+    }
+    .btn-back:hover { background:var(--bg-alt); }
+
+    /* Review section */
+    .review-section { margin-bottom:24px; }
+    .review-heading {
+      font-size:12px; font-weight:600; color:var(--text-3); text-transform:uppercase;
+      letter-spacing:.5px; margin-bottom:10px; padding-bottom:6px; border-bottom:1px solid var(--border-light);
+    }
+    .review-row { display:flex; justify-content:space-between; padding:6px 0; font-size:14px; }
+    .review-row .label { color:var(--text-3); }
+    .review-row .value { font-weight:500; text-align:right; }
+    .review-casino {
+      display:flex; align-items:center; gap:12px; padding:16px;
+      background:var(--accent-light); border-radius:10px; margin-bottom:24px;
+    }
+    .review-casino .flag { font-size:28px; }
+    .review-casino .name { font-size:16px; font-weight:600; }
+    .review-casino .loc { font-size:13px; color:var(--text-3); }
+
+    /* Terms */
+    .terms-check { display:flex; align-items:flex-start; gap:10px; margin:24px 0; }
+    .terms-check input[type="checkbox"] {
+      width:18px; height:18px; margin-top:2px; accent-color:var(--accent); flex-shrink:0;
+    }
+    .terms-check label { font-size:13px; color:var(--text-2); line-height:1.5; cursor:pointer; }
+    .terms-check label a { color:var(--accent); text-decoration:underline; }
+
+    /* Done state */
+    .done-panel { text-align:center; padding:60px 0; }
+    .done-icon { font-size:48px; margin-bottom:16px; }
+    .done-title { font-size:24px; font-weight:700; margin-bottom:8px; }
+    .done-sub { font-size:14px; color:var(--text-3); line-height:1.6; margin-bottom:32px; }
+    .done-ref { font-size:13px; color:var(--text-3); margin-top:16px; }
+    .done-ref strong { color:var(--text-1); }
+    .btn-home {
+      display:inline-block; padding:12px 32px; font-size:14px; font-weight:600;
+      background:var(--accent); color:#fff; border-radius:8px; transition:background .15s;
+    }
+    .btn-home:hover { background:#155a32; }
+
+    /* Mobile hamburger */
+    .pj-hamburger {
+      display:none; background:none; border:none; cursor:pointer; padding:8px;
+      flex-direction:column; gap:5px; z-index:1100;
+    }
+    .pj-hamburger span { display:block; width:22px; height:2px; background:#fff; border-radius:2px; transition:transform .2s,opacity .2s; }
+    .pj-hamburger.open span:nth-child(1) { transform:rotate(45deg) translate(5px,5px); }
+    .pj-hamburger.open span:nth-child(2) { opacity:0; }
+    .pj-hamburger.open span:nth-child(3) { transform:rotate(-45deg) translate(5px,-5px); }
+    .pj-mobile-menu {
+      display:none; position:fixed; top:64px; left:0; right:0; bottom:0;
+      background:rgba(18,18,20,.98); z-index:1050; padding:24px;
+      flex-direction:column; gap:0;
+    }
+    .pj-mobile-menu.open { display:flex; }
+    .pj-mobile-menu a {
+      display:block; padding:16px 0; font-size:16px; font-weight:500;
+      color:#adb1b8; border-bottom:1px solid #333537; transition:color .15s;
+    }
+    .pj-mobile-menu a:hover { color:#fff; }
+    .pj-mobile-menu .pj-mobile-btns { display:flex; gap:12px; margin-top:24px; }
+    .pj-mobile-menu .pj-mobile-btns a { border:none; padding:12px 0; text-align:center; flex:1; border-radius:8px; font-weight:600; }
+    .pj-mobile-menu .pj-mobile-btns .btn-ghost-m { background:#1e2023; color:#fff; }
+    .pj-mobile-menu .pj-mobile-btns .btn-gold-m { background:var(--gold); color:#121214; }
+
+    /* Footer */
+    .pj-footer { border-top:1px solid var(--border); padding:48px 0 24px; background:#fafbfc; }
+    .pj-footer-grid { display:grid; grid-template-columns:1.5fr 1fr 1fr 1fr; gap:40px; margin-bottom:40px; }
+    .pj-footer-brand p { font-size:13px; color:var(--text-3); margin-top:12px; line-height:1.6; }
+    .pj-footer-col h4 { font-size:14px; font-weight:600; margin:0 0 16px; }
+    .pj-footer-col a { display:block; font-size:13px; color:var(--text-3); margin-bottom:10px; transition:color .15s; }
+    .pj-footer-col a:hover { color:var(--text-1); }
+    .pj-footer-bottom { border-top:1px solid var(--border); padding-top:20px; font-size:12px; color:var(--text-3); text-align:center; }
+
+    /* Responsive: Tablet */
+    @media (max-width:1024px) {
+      .pj-footer-grid { grid-template-columns:repeat(2,1fr); }
+    }
+
+    /* Responsive: Mobile */
+    @media (max-width:768px) {
+      .pj-nav { display:none; }
+      .pj-header-btns { display:none; }
+      .pj-hamburger { display:flex; }
+
+      .booking-wrap { padding:24px 16px 60px; }
+
+      .booking-progress { gap:0; }
+      .bp-label { display:none; }
+      .bp-num { width:28px; height:28px; font-size:12px; }
+      .bp-line { margin:0 6px; }
+
+      .step-title { font-size:20px; }
+      .step-sub { font-size:13px; margin-bottom:24px; }
+
+      .country-grid { grid-template-columns:repeat(2,1fr); gap:10px; }
+      .country-card { padding:16px 12px; }
+      .country-flag { font-size:28px; margin-bottom:6px; }
+      .country-name { font-size:13px; }
+
+      .casino-card { padding:14px 16px; gap:12px; }
+
+      .form-row { grid-template-columns:1fr; gap:12px; }
+
+      .btn-row { flex-direction:column-reverse; }
+      .btn-next, .btn-back { width:100%; text-align:center; }
+
+      .pj-footer { padding:32px 0 16px; }
+      .pj-footer-grid { grid-template-columns:1fr 1fr; gap:20px; margin-bottom:24px; }
+      .pj-footer-brand { grid-column:1/-1; }
+    }
+
+    @media (max-width:400px) {
+      .country-grid { grid-template-columns:1fr 1fr; }
+      .country-card { padding:14px 10px; }
+      .country-flag { font-size:24px; }
+      .country-name { font-size:12px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header class="pj-header">
+    <div class="pj-header-inner">
+      <a href="../index.html" class="pj-logo"><img src="../reference/images/logo-poker.svg" alt="POKER JAPAN" style="filter:brightness(0) invert(1);"/></a>
+      <nav class="pj-nav">
+        <a href="news.html">ニュース</a>
+        <a href="casinos.html">海外カジノ</a>
+        <a href="strategy.html">戦略ガイド</a>
+        <a href="tournaments.html">トーナメント</a>
+        <a href="beginners.html">初心者向け</a>
+      </nav>
+      <div class="pj-header-btns">
+        <a href="#" class="btn-ghost">ログイン</a>
+        <a href="#" class="btn-gold">無料登録</a>
+      </div>
+      <button class="pj-hamburger" onclick="document.querySelector('.pj-mobile-menu').classList.toggle('open');this.classList.toggle('open');" aria-label="メニュー">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+  <div class="pj-mobile-menu">
+    <a href="news.html">ニュース</a>
+    <a href="casinos.html">海外カジノ</a>
+    <a href="strategy.html">戦略ガイド</a>
+    <a href="tournaments.html">トーナメント</a>
+    <a href="beginners.html">初心者向け</a>
+    <div class="pj-mobile-btns">
+      <a href="#" class="btn-ghost-m">ログイン</a>
+      <a href="#" class="btn-gold-m">無料登録</a>
+    </div>
+  </div>
+
+  <!-- BOOKING FLOW -->
+  <div class="booking-wrap">
+
+    <!-- Progress bar -->
+    <div class="booking-progress">
+      <div class="bp-step active" data-step="1">
+        <div class="bp-num">1</div>
+        <div class="bp-label">アカウント</div>
+      </div>
+      <div class="bp-line"></div>
+      <div class="bp-step" data-step="2">
+        <div class="bp-num">2</div>
+        <div class="bp-label">渡航先</div>
+      </div>
+      <div class="bp-line"></div>
+      <div class="bp-step" data-step="3">
+        <div class="bp-num">3</div>
+        <div class="bp-label">渡航情報</div>
+      </div>
+      <div class="bp-line"></div>
+      <div class="bp-step" data-step="4">
+        <div class="bp-num">4</div>
+        <div class="bp-label">確認</div>
+      </div>
+    </div>
+
+    <!-- STEP 1: Account -->
+    <div class="step-panel active" id="step-1">
+      <div class="step-title">アカウント作成</div>
+      <div class="step-sub">予約に必要な基本情報を入力してください</div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">姓<span class="required">*</span></label>
+          <input class="form-input" type="text" id="f-last" placeholder="山田" required/>
+        </div>
+        <div class="form-group">
+          <label class="form-label">名<span class="required">*</span></label>
+          <input class="form-input" type="text" id="f-first" placeholder="太郎" required/>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">メールアドレス<span class="required">*</span></label>
+        <input class="form-input" type="email" id="f-email" placeholder="you@example.com" required/>
+        <div class="form-error" id="err-email">有効なメールアドレスを入力してください</div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">電話番号<span class="required">*</span></label>
+        <input class="form-input" type="tel" id="f-phone" placeholder="090-1234-5678"/>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">パスワード<span class="required">*</span></label>
+          <input class="form-input" type="password" id="f-pass" placeholder="8文字以上"/>
+          <div class="form-hint">英数字8文字以上</div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">パスワード確認<span class="required">*</span></label>
+          <input class="form-input" type="password" id="f-pass2" placeholder="再入力"/>
+          <div class="form-error" id="err-pass">パスワードが一致しません</div>
+        </div>
+      </div>
+
+      <div class="btn-row">
+        <button class="btn-next" onclick="goStep(2)">次へ — 渡航先を選ぶ</button>
+      </div>
+    </div>
+
+    <!-- STEP 2: Destination -->
+    <div class="step-panel" id="step-2">
+      <div class="step-title">渡航先を選択</div>
+      <div class="step-sub">ジャンケットを利用する国とカジノを選んでください</div>
+
+      <label class="form-label" style="margin-bottom:12px;">国・地域</label>
+      <div class="country-grid" id="country-grid">
+        <!-- populated by JS -->
+      </div>
+
+      <div id="casino-list-wrap" style="display:none;">
+        <label class="form-label" style="margin-bottom:12px;">カジノを選択</label>
+        <div class="casino-list" id="casino-list">
+          <!-- populated by JS -->
+        </div>
+      </div>
+
+      <div class="btn-row">
+        <button class="btn-back" onclick="goStep(1)">戻る</button>
+        <button class="btn-next" id="btn-step2" onclick="goStep(3)" disabled>次へ — 渡航情報を入力</button>
+      </div>
+    </div>
+
+    <!-- STEP 3: Travel details -->
+    <div class="step-panel" id="step-3">
+      <div class="step-title">渡航情報</div>
+      <div class="step-sub">パスポートと渡航スケジュールを入力してください</div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">渡航予定日<span class="required">*</span></label>
+          <input class="form-input" type="date" id="f-depart"/>
+        </div>
+        <div class="form-group">
+          <label class="form-label">帰国予定日<span class="required">*</span></label>
+          <input class="form-input" type="date" id="f-return"/>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">パスポート氏名（ローマ字）<span class="required">*</span></label>
+        <input class="form-input" type="text" id="f-passport-name" placeholder="YAMADA TARO" style="text-transform:uppercase;"/>
+        <div class="form-hint">パスポートに記載された通りに入力</div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">パスポート番号<span class="required">*</span></label>
+          <input class="form-input" type="text" id="f-passport-num" placeholder="TK1234567"/>
+        </div>
+        <div class="form-group">
+          <label class="form-label">有効期限<span class="required">*</span></label>
+          <input class="form-input" type="date" id="f-passport-exp"/>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">国籍</label>
+          <select class="form-input" id="f-nationality">
+            <option value="JP" selected>日本</option>
+            <option value="US">アメリカ</option>
+            <option value="KR">韓国</option>
+            <option value="CN">中国</option>
+            <option value="OTHER">その他</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">生年月日<span class="required">*</span></label>
+          <input class="form-input" type="date" id="f-dob"/>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">パスポート写真ページ</label>
+        <div class="file-upload" id="file-passport" onclick="document.getElementById('file-input-passport').click();">
+          <input type="file" id="file-input-passport" accept="image/*,.pdf" onchange="handleFile(this,'file-passport')"/>
+          <div class="file-upload-icon">&#128196;</div>
+          <div class="file-upload-text"><strong>クリックしてアップロード</strong><br/>JPG, PNG, PDF (10MB以下)</div>
+          <div class="file-upload-name" id="file-passport-name"></div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">備考・リクエスト</label>
+        <textarea class="form-input" id="f-notes" rows="3" placeholder="宿泊希望、到着フライト情報、特別なリクエストなど"></textarea>
+      </div>
+
+      <div class="btn-row">
+        <button class="btn-back" onclick="goStep(2)">戻る</button>
+        <button class="btn-next" onclick="goStep(4)">確認画面へ</button>
+      </div>
+    </div>
+
+    <!-- STEP 4: Review -->
+    <div class="step-panel" id="step-4">
+      <div class="step-title">予約内容の確認</div>
+      <div class="step-sub">以下の内容で予約リクエストを送信します</div>
+
+      <div class="review-casino" id="review-casino"></div>
+
+      <div class="review-section">
+        <div class="review-heading">アカウント情報</div>
+        <div class="review-row"><span class="label">氏名</span><span class="value" id="rv-name"></span></div>
+        <div class="review-row"><span class="label">メール</span><span class="value" id="rv-email"></span></div>
+        <div class="review-row"><span class="label">電話番号</span><span class="value" id="rv-phone"></span></div>
+      </div>
+      <div class="review-section">
+        <div class="review-heading">渡航情報</div>
+        <div class="review-row"><span class="label">渡航日</span><span class="value" id="rv-depart"></span></div>
+        <div class="review-row"><span class="label">帰国日</span><span class="value" id="rv-return"></span></div>
+      </div>
+      <div class="review-section">
+        <div class="review-heading">パスポート情報</div>
+        <div class="review-row"><span class="label">氏名（ローマ字）</span><span class="value" id="rv-passport-name"></span></div>
+        <div class="review-row"><span class="label">パスポート番号</span><span class="value" id="rv-passport-num"></span></div>
+        <div class="review-row"><span class="label">有効期限</span><span class="value" id="rv-passport-exp"></span></div>
+        <div class="review-row"><span class="label">国籍</span><span class="value" id="rv-nationality"></span></div>
+        <div class="review-row"><span class="label">生年月日</span><span class="value" id="rv-dob"></span></div>
+      </div>
+
+      <div class="terms-check">
+        <input type="checkbox" id="f-terms"/>
+        <label for="f-terms">
+          <a href="#">利用規約</a>および<a href="#">プライバシーポリシー</a>に同意します。
+          個人情報はジャンケット手配の目的にのみ使用されます。
+        </label>
+      </div>
+
+      <div class="btn-row">
+        <button class="btn-back" onclick="goStep(3)">戻る</button>
+        <button class="btn-next" id="btn-submit" onclick="submitBooking()" disabled>予約リクエストを送信</button>
+      </div>
+    </div>
+
+    <!-- DONE -->
+    <div class="step-panel" id="step-done">
+      <div class="done-panel">
+        <div class="done-icon">&#9989;</div>
+        <div class="done-title">予約リクエストを受け付けました</div>
+        <div class="done-sub">担当者が確認の上、24時間以内にメールでご連絡いたします。<br/>渡航準備についてご不明な点があれば、お気軽にお問い合わせください。</div>
+        <a href="../index.html" class="btn-home">トップページに戻る</a>
+        <div class="done-ref">予約番号: <strong id="rv-ref"></strong></div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="pj-footer">
+    <div class="pj-width">
+      <div class="pj-footer-grid">
+        <div class="pj-footer-brand">
+          <img src="../reference/images/logo-poker.svg" alt="POKER JAPAN" style="height:30px;"/>
+          <p>POKER JAPANは、海外ポーカーキャッシュゲームに特化した日本語メディアです。世界各地のポーカールーム情報、戦略記事、トーナメント速報をお届けします。</p>
+        </div>
+        <div class="pj-footer-col">
+          <h4>コンテンツ</h4>
+          <a href="news.html">ニュース</a>
+          <a href="strategy.html">戦略ガイド</a>
+          <a href="tournaments.html">トーナメント</a>
+          <a href="beginners.html">初心者向け</a>
+        </div>
+        <div class="pj-footer-col">
+          <h4>カジノ</h4>
+          <a href="casinos.html">海外カジノ一覧</a>
+          <a href="../junkets/bellagio.html">Bellagio</a>
+          <a href="../junkets/manila-cod.html">Manila</a>
+          <a href="../junkets/wynn-macau.html">Wynn Macau</a>
+        </div>
+        <div class="pj-footer-col">
+          <h4>トーナメント</h4>
+          <a href="tournaments.html">速報</a>
+          <a href="tournaments.html">カレンダー</a>
+          <a href="tournaments.html">日本人成績</a>
+        </div>
+      </div>
+      <div class="pj-footer-bottom">&copy; 2026 POKER JAPAN. All rights reserved.</div>
+    </div>
+  </footer>
+
+  <script>
+  (function() {
+    // Casino data
+    var DATA = [
+      { country:'US', countryName:'アメリカ', flag:'\u{1F1FA}\u{1F1F8}', region:'americas',
+        casinos:[
+          { id:'bellagio', name:'Bellagio Poker Room', loc:'ラスベガス, USA', stakes:'$1/3 \u301C $400/800', games:'NLH / PLO / Mixed', url:'../junkets/bellagio.html' }
+        ]},
+      { country:'PH', countryName:'フィリピン', flag:'\u{1F1F5}\u{1F1ED}', region:'asia',
+        casinos:[
+          { id:'manila', name:'PokerStars LIVE Manila', loc:'マニラ, フィリピン', stakes:'\u20B125/50 \u301C \u20B1500/1000', games:'NLH / PLO', url:'../junkets/manila-cod.html' }
+        ]},
+      { country:'GB', countryName:'イギリス', flag:'\u{1F1EC}\u{1F1E7}', region:'europe',
+        casinos:[
+          { id:'hippodrome', name:'Hippodrome Casino', loc:'ロンドン, UK', stakes:'\u00A31/2 \u301C \u00A325/50', games:'NLH / PLO / Hi-Lo', url:'../junkets/hippodrome.html' }
+        ]},
+      { country:'MO', countryName:'マカオ', flag:'\u{1F1F2}\u{1F1F4}', region:'asia',
+        casinos:[
+          { id:'wynn', name:'Wynn Macau', loc:'マカオ, 中国', stakes:'HK$25/50 \u301C HK$500/1000', games:'NLH / Short Deck', url:'../junkets/wynn-macau.html' }
+        ]},
+      { country:'KR', countryName:'韓国', flag:'\u{1F1F0}\u{1F1F7}', region:'asia',
+        casinos:[
+          { id:'paradise', name:'Paradise City Poker', loc:'仁川, 韓国', stakes:'\u20A910K/20K \u301C \u20A9100K/200K', games:'NLH', url:'../junkets/paradise-city.html' }
+        ]},
+      { country:'AU', countryName:'オーストラリア', flag:'\u{1F1E6}\u{1F1FA}', region:'oceania',
+        casinos:[
+          { id:'star', name:'The Star Sydney', loc:'シドニー, オーストラリア', stakes:'A$2/5 \u301C A$50/100', games:'NLH / PLO', url:'../junkets/star-sydney.html' }
+        ]}
+    ];
+
+    var state = { step:1, country:null, casino:null };
+
+    // Build country cards
+    var grid = document.getElementById('country-grid');
+    DATA.forEach(function(d) {
+      var el = document.createElement('div');
+      el.className = 'country-card';
+      el.setAttribute('data-country', d.country);
+      el.innerHTML = '<div class="country-flag">' + d.flag + '</div>'
+        + '<div class="country-name">' + d.countryName + '</div>'
+        + '<div class="country-region">' + d.casinos.length + ' カジノ</div>';
+      el.addEventListener('click', function() { selectCountry(d.country); });
+      grid.appendChild(el);
+    });
+
+    window.selectCountry = function(code) {
+      state.country = code;
+      state.casino = null;
+      document.querySelectorAll('.country-card').forEach(function(c) {
+        c.classList.toggle('selected', c.getAttribute('data-country') === code);
+      });
+      // Show casinos for this country
+      var countryData = DATA.filter(function(d){ return d.country === code; })[0];
+      var wrap = document.getElementById('casino-list-wrap');
+      var list = document.getElementById('casino-list');
+      list.innerHTML = '';
+      if (countryData) {
+        countryData.casinos.forEach(function(c) {
+          var el = document.createElement('div');
+          el.className = 'casino-card';
+          el.setAttribute('data-casino', c.id);
+          el.innerHTML = '<div class="casino-icon">' + countryData.flag + '</div>'
+            + '<div class="casino-info">'
+            + '<div class="casino-name">' + c.name + '</div>'
+            + '<div class="casino-meta">' + c.loc + ' \u00B7 ' + c.games + '</div>'
+            + '<div class="casino-stakes">' + c.stakes + '</div>'
+            + '</div>'
+            + '<div class="casino-check"></div>';
+          el.addEventListener('click', function() { selectCasino(c.id); });
+          list.appendChild(el);
+        });
+        wrap.style.display = 'block';
+        // Auto-select if only one casino
+        if (countryData.casinos.length === 1) {
+          selectCasino(countryData.casinos[0].id);
+        }
+      }
+      updateStep2Btn();
+    };
+
+    window.selectCasino = function(id) {
+      state.casino = id;
+      document.querySelectorAll('.casino-card').forEach(function(c) {
+        c.classList.toggle('selected', c.getAttribute('data-casino') === id);
+      });
+      updateStep2Btn();
+    };
+
+    function updateStep2Btn() {
+      document.getElementById('btn-step2').disabled = !(state.country && state.casino);
+    }
+
+    // Step navigation
+    window.goStep = function(n) {
+      // Validation
+      if (n === 2 && state.step === 1) {
+        var last = document.getElementById('f-last').value.trim();
+        var first = document.getElementById('f-first').value.trim();
+        var email = document.getElementById('f-email').value.trim();
+        var phone = document.getElementById('f-phone').value.trim();
+        var pass = document.getElementById('f-pass').value;
+        var pass2 = document.getElementById('f-pass2').value;
+        if (!last || !first || !email || !phone || !pass) {
+          alert('\u5FC5\u9808\u9805\u76EE\u3092\u5165\u529B\u3057\u3066\u304F\u3060\u3055\u3044'); // 必須項目を入力してください
+          return;
+        }
+        if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+          document.getElementById('err-email').style.display = 'block';
+          return;
+        }
+        document.getElementById('err-email').style.display = 'none';
+        if (pass.length < 8) {
+          alert('\u30D1\u30B9\u30EF\u30FC\u30C9\u306F8\u6587\u5B57\u4EE5\u4E0A\u3067\u5165\u529B\u3057\u3066\u304F\u3060\u3055\u3044'); // パスワードは8文字以上
+          return;
+        }
+        if (pass !== pass2) {
+          document.getElementById('err-pass').style.display = 'block';
+          return;
+        }
+        document.getElementById('err-pass').style.display = 'none';
+      }
+      if (n === 4) {
+        populateReview();
+      }
+      // Switch panel
+      state.step = n;
+      document.querySelectorAll('.step-panel').forEach(function(p){ p.classList.remove('active'); });
+      document.getElementById('step-' + n).classList.add('active');
+      // Update progress
+      document.querySelectorAll('.bp-step').forEach(function(s) {
+        var sn = parseInt(s.getAttribute('data-step'));
+        s.classList.remove('active','done');
+        if (sn === n) s.classList.add('active');
+        else if (sn < n) s.classList.add('done');
+      });
+      window.scrollTo({top:0, behavior:'smooth'});
+    };
+
+    function populateReview() {
+      // Casino
+      var casinoData = null;
+      var countryData = null;
+      DATA.forEach(function(d) {
+        d.casinos.forEach(function(c) {
+          if (c.id === state.casino) { casinoData = c; countryData = d; }
+        });
+      });
+      if (casinoData && countryData) {
+        document.getElementById('review-casino').innerHTML =
+          '<div class="flag">' + countryData.flag + '</div>'
+          + '<div><div class="name">' + casinoData.name + '</div>'
+          + '<div class="loc">' + casinoData.loc + ' \u00B7 ' + casinoData.stakes + '</div></div>';
+      }
+      // Account
+      document.getElementById('rv-name').textContent =
+        document.getElementById('f-last').value + ' ' + document.getElementById('f-first').value;
+      document.getElementById('rv-email').textContent = document.getElementById('f-email').value;
+      document.getElementById('rv-phone').textContent = document.getElementById('f-phone').value;
+      // Travel
+      document.getElementById('rv-depart').textContent = document.getElementById('f-depart').value;
+      document.getElementById('rv-return').textContent = document.getElementById('f-return').value;
+      // Passport
+      document.getElementById('rv-passport-name').textContent = document.getElementById('f-passport-name').value;
+      document.getElementById('rv-passport-num').textContent = document.getElementById('f-passport-num').value;
+      document.getElementById('rv-passport-exp').textContent = document.getElementById('f-passport-exp').value;
+      var natSel = document.getElementById('f-nationality');
+      document.getElementById('rv-nationality').textContent = natSel.options[natSel.selectedIndex].text;
+      document.getElementById('rv-dob').textContent = document.getElementById('f-dob').value;
+    }
+
+    // Terms checkbox
+    document.getElementById('f-terms').addEventListener('change', function() {
+      document.getElementById('btn-submit').disabled = !this.checked;
+    });
+
+    // Submit
+    window.submitBooking = function() {
+      var ref = 'PJ-' + Date.now().toString(36).toUpperCase();
+      document.getElementById('rv-ref').textContent = ref;
+      document.querySelectorAll('.step-panel').forEach(function(p){ p.classList.remove('active'); });
+      document.getElementById('step-done').classList.add('active');
+      document.querySelectorAll('.bp-step').forEach(function(s){ s.classList.add('done'); s.classList.remove('active'); });
+      window.scrollTo({top:0, behavior:'smooth'});
+    };
+
+    // File upload handler
+    window.handleFile = function(input, wrapperId) {
+      var wrap = document.getElementById(wrapperId);
+      var nameEl = document.getElementById(wrapperId + '-name');
+      if (input.files && input.files[0]) {
+        var f = input.files[0];
+        if (f.size > 10 * 1024 * 1024) {
+          alert('\u30D5\u30A1\u30A4\u30EB\u30B5\u30A4\u30BA\u306F10MB\u4EE5\u4E0B\u306B\u3057\u3066\u304F\u3060\u3055\u3044'); // ファイルサイズは10MB以下
+          input.value = '';
+          return;
+        }
+        wrap.classList.add('has-file');
+        nameEl.textContent = f.name;
+      } else {
+        wrap.classList.remove('has-file');
+        nameEl.textContent = '';
+      }
+    };
+  })();
+  </script>
+</body>
+</html>
