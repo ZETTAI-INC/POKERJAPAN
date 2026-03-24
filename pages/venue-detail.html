@@ -17,10 +17,12 @@
       --gold:#f7a600; --red:#ef454a; --green:#20b26c;
       --border:#e5e7eb; --border-light:#f0f1f3;
     }
+    html { scroll-behavior:smooth; }
     body { font-family:"Inter","Noto Sans JP",system-ui,-apple-system,sans-serif; background:var(--bg-page); color:var(--text-1); -webkit-font-smoothing:antialiased; }
     a { color:inherit; text-decoration:none; }
     img { max-width:100%; display:block; }
 
+    /* Header */
     .pj-header { position:sticky; top:0; z-index:1000; height:64px; background:rgba(18,18,20,.97); backdrop-filter:blur(12px); display:flex; align-items:center; }
     .pj-header-inner { max-width:1200px; width:100%; margin:0 auto; padding:0 24px; display:flex; align-items:center; justify-content:space-between; }
     .pj-logo img { height:30px; }
@@ -43,7 +45,9 @@
     .pj-mobile-menu .pj-mobile-btns .btn-ghost-m { background:#1e2023; color:#fff; }
     .pj-mobile-menu .pj-mobile-btns .btn-gold-m { background:var(--gold); color:#121214; }
 
-    /* Hero */
+    /* ============================
+       HERO
+       ============================ */
     .venue-hero { background:#0b0e11; color:#fff; padding:40px 0 48px; position:relative; overflow:hidden; }
     .venue-hero::before { content:''; position:absolute; top:-40%; right:-15%; width:600px; height:600px; background:radial-gradient(circle, rgba(32,178,108,.08) 0%, transparent 60%); pointer-events:none; }
     .venue-breadcrumb { font-size:13px; color:#595d61; margin-bottom:20px; position:relative; z-index:1; }
@@ -54,29 +58,93 @@
     .hero-flag { font-size:48px; margin-bottom:12px; }
     .hero-text h1 { font-size:36px; font-weight:700; line-height:1.2; margin-bottom:4px; }
     .hero-name-ja { font-size:14px; color:#81858c; margin-bottom:12px; }
-    .hero-loc { font-size:15px; color:#adb1b8; margin-bottom:16px; }
+    .hero-loc { font-size:15px; color:#adb1b8; margin-bottom:14px; }
+    .hero-rec-badge { display:inline-flex; align-items:center; gap:6px; font-size:12px; font-weight:600; padding:5px 12px; border-radius:6px; margin-bottom:16px; }
+    .hero-rec-badge.highly-recommended { background:#e8f5ee; color:#1a6b3c; border:1px solid #c3e6d1; }
+    .hero-rec-badge.recommended { background:#e3f2fd; color:#1565c0; border:1px solid #bbdefb; }
+    .hero-rec-badge.standard { background:#f5f5f5; color:#757575; border:1px solid #e0e0e0; }
+    .hero-rec-badge.niche { background:#f3e5f5; color:#7b1fa2; border:1px solid #e1bee7; }
     .hero-desc { font-size:14px; color:#81858c; line-height:1.7; max-width:600px; }
     .hero-tags { display:flex; flex-wrap:wrap; gap:8px; margin-top:16px; }
     .hero-tag { font-size:11px; font-weight:600; padding:4px 10px; border-radius:6px; background:rgba(255,255,255,.08); color:#adb1b8; }
     .hero-tag.jp { background:rgba(247,166,0,.15); color:var(--gold); }
-    .hero-photo { flex:0 0 320px; border-radius:16px; overflow:hidden; }
-    .hero-photo img { width:100%; height:220px; object-fit:cover; }
-    .hero-photo-placeholder { width:100%; height:220px; background:linear-gradient(135deg,#1e2023,#16171a); display:flex; align-items:center; justify-content:center; font-size:72px; border-radius:16px; border:1px solid #333537; }
+    .hero-photo { flex:0 0 340px; border-radius:16px; overflow:hidden; }
+    .hero-photo img { width:100%; height:240px; object-fit:cover; }
+    .hero-photo-placeholder { width:100%; height:240px; background:linear-gradient(135deg,#1e2023,#16171a); display:flex; align-items:center; justify-content:center; font-size:72px; border-radius:16px; border:1px solid #333537; }
 
-    /* Sections */
-    .detail-section { padding:48px 0; }
+    /* ============================
+       STICKY SECTION NAV
+       ============================ */
+    .section-nav { position:sticky; top:64px; z-index:99; background:#fff; border-bottom:1px solid var(--border); transition:box-shadow .2s; }
+    .section-nav.scrolled { box-shadow:0 2px 8px rgba(0,0,0,.06); }
+    .section-nav-inner { display:flex; gap:0; overflow-x:auto; -webkit-overflow-scrolling:touch; scrollbar-width:none; }
+    .section-nav-inner::-webkit-scrollbar { display:none; }
+    .section-nav-inner a { flex:0 0 auto; padding:14px 20px; font-size:13px; font-weight:500; color:var(--text-3); white-space:nowrap; transition:color .15s, border-color .15s; border-bottom:2px solid transparent; }
+    .section-nav-inner a:hover { color:var(--text-1); }
+    .section-nav-inner a.active { color:var(--accent); border-bottom-color:var(--accent); font-weight:600; }
+
+    /* ============================
+       SECTIONS COMMON
+       ============================ */
+    .detail-section { padding:48px 0; scroll-margin-top:140px; }
     .detail-section + .detail-section { border-top:1px solid var(--border-light); }
     .detail-section-alt { background:var(--bg-alt); }
     .ds-title { font-size:20px; font-weight:700; margin-bottom:24px; border-left:3px solid var(--accent); padding-left:12px; }
 
-    /* Info grid (4 cards) */
-    .info-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:16px; }
-    .info-card { background:#fff; border-radius:12px; padding:20px; border:1px solid var(--border-light); }
-    .info-card .ic-icon { font-size:24px; margin-bottom:8px; }
-    .info-card .ic-label { font-size:11px; color:var(--text-3); text-transform:uppercase; letter-spacing:.5px; margin-bottom:4px; }
-    .info-card .ic-val { font-size:15px; font-weight:600; }
+    /* ============================
+       AT A GLANCE - PROS / CONS
+       ============================ */
+    .pros-cons-grid { display:grid; grid-template-columns:1fr 1fr; gap:20px; margin-bottom:32px; }
+    .pros-card, .cons-card { background:#fff; border-radius:12px; padding:24px; }
+    .pros-card { border:1px solid var(--border-light); border-left:3px solid #20b26c; }
+    .cons-card { border:1px solid var(--border-light); border-left:3px solid #ef454a; }
+    .pc-header { display:flex; align-items:center; gap:8px; margin-bottom:16px; font-size:15px; font-weight:700; }
+    .pc-header .pc-icon { font-size:18px; }
+    .pc-header.good { color:#1a6b3c; }
+    .pc-header.warn { color:#ef454a; }
+    .pc-list { list-style:none; padding:0; margin:0; }
+    .pc-list li { font-size:14px; color:var(--text-2); line-height:1.6; padding:6px 0; display:flex; align-items:flex-start; gap:8px; }
+    .pc-list li::before { content:''; display:inline-block; width:6px; height:6px; border-radius:50%; margin-top:8px; flex-shrink:0; }
+    .pros-card .pc-list li::before { background:#20b26c; }
+    .cons-card .pc-list li::before { background:#ef454a; }
 
-    /* Access section */
+    /* ============================
+       INFO GRID (8 cards)
+       ============================ */
+    .info-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:14px; }
+    .info-card { background:#fff; border-radius:12px; padding:18px; border:1px solid var(--border-light); transition:box-shadow .15s; }
+    .info-card:hover { box-shadow:0 2px 8px rgba(0,0,0,.04); }
+    .info-card .ic-icon { font-size:22px; margin-bottom:6px; }
+    .info-card .ic-label { font-size:11px; color:var(--text-3); text-transform:uppercase; letter-spacing:.5px; margin-bottom:4px; font-weight:500; }
+    .info-card .ic-val { font-size:14px; font-weight:600; line-height:1.4; }
+
+    /* ============================
+       JP TIPS
+       ============================ */
+    .tips-section { background:linear-gradient(135deg, #f0faf4 0%, #f7fdf9 100%); }
+    .tips-header { display:flex; align-items:center; gap:10px; margin-bottom:24px; }
+    .tips-header .tips-icon { font-size:28px; }
+    .tips-header h2 { font-size:20px; font-weight:700; color:var(--accent); }
+    .tips-grid { display:flex; flex-direction:column; gap:12px; }
+    .tip-card { display:flex; align-items:flex-start; gap:14px; padding:18px 20px; background:#fff; border-radius:10px; border:1px solid var(--border-light); border-left:3px solid var(--gold); }
+    .tip-num { flex:0 0 28px; height:28px; background:linear-gradient(135deg, #f7a600, #ffc35c); color:#fff; font-size:13px; font-weight:700; border-radius:50%; display:flex; align-items:center; justify-content:center; }
+    .tip-text { font-size:14px; color:var(--text-2); line-height:1.7; flex:1; }
+
+    /* ============================
+       STAKES TABLE
+       ============================ */
+    .pj-table { width:100%; border-collapse:collapse; }
+    .pj-table thead th { text-align:left; font-size:12px; font-weight:500; color:var(--text-3); padding:10px 16px; border-bottom:1px solid var(--border); text-transform:uppercase; letter-spacing:.5px; }
+    .pj-table tbody tr { border-bottom:1px solid var(--border-light); }
+    .pj-table td { padding:12px 16px; font-size:14px; }
+    .pj-table .stakes { color:var(--accent); font-weight:600; }
+    .pj-table-wrap { overflow-x:auto; }
+    .rake-note { font-size:13px; color:var(--text-3); margin-top:12px; padding:12px 16px; background:var(--bg-alt); border-radius:8px; }
+    .currency-note { font-size:12px; color:var(--text-3); margin-top:8px; padding:8px 12px; background:rgba(26,107,60,.04); border-radius:6px; border:1px dashed rgba(26,107,60,.15); }
+
+    /* ============================
+       ACCESS
+       ============================ */
     .access-grid { display:grid; grid-template-columns:1fr 1fr; gap:24px; }
     .access-map { border-radius:12px; overflow:hidden; border:1px solid var(--border-light); min-height:280px; }
     .access-map iframe { width:100%; height:100%; min-height:280px; border:0; }
@@ -86,16 +154,9 @@
     .access-item .ai-val { font-size:14px; font-weight:600; margin-bottom:4px; }
     .access-item .ai-desc { font-size:13px; color:var(--text-2); line-height:1.5; }
 
-    /* Stake table */
-    .pj-table { width:100%; border-collapse:collapse; }
-    .pj-table thead th { text-align:left; font-size:12px; font-weight:500; color:var(--text-3); padding:10px 16px; border-bottom:1px solid var(--border); text-transform:uppercase; letter-spacing:.5px; }
-    .pj-table tbody tr { border-bottom:1px solid var(--border-light); }
-    .pj-table td { padding:12px 16px; font-size:14px; }
-    .pj-table .stakes { color:var(--accent); font-weight:600; }
-    .pj-table-wrap { overflow-x:auto; }
-    .rake-note { font-size:13px; color:var(--text-3); margin-top:12px; padding:12px 16px; background:var(--bg-alt); border-radius:8px; }
-
-    /* JP support */
+    /* ============================
+       JP SUPPORT
+       ============================ */
     .jp-badge { display:inline-flex; align-items:center; gap:8px; padding:8px 16px; border-radius:8px; font-size:14px; font-weight:600; margin-bottom:16px; }
     .jp-badge.excellent { background:#e8f5ee; color:var(--accent); }
     .jp-badge.good { background:#fef3cd; color:#856404; }
@@ -103,34 +164,62 @@
     .jp-badge.none { background:#f0f1f3; color:var(--text-3); }
     .jp-details { font-size:14px; color:var(--text-2); line-height:1.7; }
 
-    /* Junket fees */
+    /* ============================
+       JUNKET / FEES
+       ============================ */
     .fee-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:12px; }
     .fee-item { padding:16px; background:#fff; border-radius:10px; border:1px solid var(--border-light); }
     .fee-item .fi-label { font-size:12px; color:var(--text-3); font-weight:600; margin-bottom:4px; }
     .fee-item .fi-val { font-size:14px; font-weight:600; }
     .fee-desc { font-size:13px; color:var(--text-2); line-height:1.6; margin-bottom:16px; }
 
-    /* Tournament list */
+    /* ============================
+       TOURNAMENTS
+       ============================ */
     .tourney-list { display:flex; flex-direction:column; gap:10px; }
     .tourney-item { display:flex; align-items:center; gap:16px; padding:14px 16px; background:#fff; border-radius:10px; border:1px solid var(--border-light); }
     .tourney-name { font-size:14px; font-weight:600; flex:1; }
     .tourney-freq { font-size:12px; color:var(--text-3); }
     .tourney-buyin { font-size:13px; color:var(--accent); font-weight:500; }
 
-    /* Hotel */
+    /* ============================
+       HOTEL
+       ============================ */
     .hotel-header { display:flex; align-items:center; gap:12px; margin-bottom:16px; }
     .hotel-name { font-size:16px; font-weight:600; }
     .hotel-rating { font-size:12px; color:var(--gold); font-weight:600; background:rgba(247,166,0,.1); padding:3px 8px; border-radius:4px; }
     .amenity-list { display:flex; flex-wrap:wrap; gap:8px; }
     .amenity-tag { font-size:12px; padding:4px 10px; background:var(--bg-alt); border-radius:6px; color:var(--text-2); }
 
-    /* CTA */
+    /* ============================
+       RELATED VENUES
+       ============================ */
+    .related-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; }
+    .related-card { background:#fff; border-radius:12px; border:1px solid var(--border-light); overflow:hidden; transition:box-shadow .2s, transform .2s; cursor:pointer; text-decoration:none; color:inherit; display:block; }
+    .related-card:hover { box-shadow:0 4px 16px rgba(0,0,0,.08); transform:translateY(-2px); }
+    .related-card-img { width:100%; height:140px; object-fit:cover; background:var(--bg-alt); }
+    .related-card-placeholder { width:100%; height:140px; background:linear-gradient(135deg,#f0f1f3,#e5e7eb); display:flex; align-items:center; justify-content:center; font-size:40px; }
+    .related-card-body { padding:16px; }
+    .related-card-body h3 { font-size:14px; font-weight:600; margin-bottom:4px; line-height:1.3; }
+    .related-card-city { font-size:12px; color:var(--text-3); margin-bottom:8px; }
+    .related-rec-badge { display:inline-flex; font-size:10px; font-weight:600; padding:3px 8px; border-radius:4px; }
+    .related-rec-badge.highly-recommended { background:#e8f5ee; color:#1a6b3c; }
+    .related-rec-badge.recommended { background:#e3f2fd; color:#1565c0; }
+    .related-rec-badge.standard { background:#f5f5f5; color:#757575; }
+    .related-rec-badge.niche { background:#f3e5f5; color:#7b1fa2; }
+
+    /* ============================
+       CTA
+       ============================ */
     .venue-cta { background:linear-gradient(135deg, #121214 0%, #1a2e24 100%); padding:48px; border-radius:16px; text-align:center; color:#fff; }
     .venue-cta h2 { font-size:24px; font-weight:700; margin-bottom:8px; }
     .venue-cta p { font-size:14px; color:#adb1b8; margin-bottom:24px; }
-    .venue-cta .btn-book { display:inline-block; padding:14px 32px; font-size:14px; font-weight:600; background:var(--gold); color:#121214; border-radius:8px; }
+    .venue-cta .btn-book { display:inline-block; padding:14px 32px; font-size:14px; font-weight:600; background:var(--gold); color:#121214; border-radius:8px; transition:opacity .15s; }
+    .venue-cta .btn-book:hover { opacity:.9; }
 
-    /* Footer */
+    /* ============================
+       FOOTER
+       ============================ */
     .pj-footer { border-top:1px solid var(--border); padding:48px 0 24px; background:#fafbfc; }
     .pj-footer-grid { display:grid; grid-template-columns:1.5fr 1fr 1fr 1fr; gap:40px; margin-bottom:40px; }
     .pj-footer-brand p { font-size:13px; color:var(--text-3); margin-top:12px; line-height:1.6; }
@@ -139,16 +228,23 @@
     .pj-footer-bottom { border-top:1px solid var(--border); padding-top:20px; font-size:12px; color:var(--text-3); text-align:center; }
     .last-updated { font-size:11px; color:var(--text-3); text-align:right; margin-top:24px; }
 
-    /* 404 state */
+    /* ============================
+       404 STATE
+       ============================ */
     .not-found { text-align:center; padding:120px 24px; }
     .not-found h2 { font-size:24px; margin-bottom:8px; }
     .not-found p { color:var(--text-3); margin-bottom:24px; }
     .not-found a { color:var(--accent); font-weight:600; }
 
+    /* ============================
+       RESPONSIVE
+       ============================ */
     @media (max-width:1024px) {
       .info-grid { grid-template-columns:repeat(2,1fr); }
       .access-grid { grid-template-columns:1fr; }
+      .related-grid { grid-template-columns:repeat(2,1fr); }
       .pj-footer-grid { grid-template-columns:repeat(2,1fr); }
+      .pros-cons-grid { grid-template-columns:1fr 1fr; }
     }
     @media (max-width:768px) {
       .pj-nav { display:none; }
@@ -162,6 +258,7 @@
       .hero-photo-placeholder { height:140px; font-size:56px; }
       .detail-section { padding:32px 0; }
       .ds-title { font-size:18px; }
+      .pros-cons-grid { grid-template-columns:1fr; gap:12px; }
       .info-grid { grid-template-columns:1fr 1fr; gap:10px; }
       .info-card { padding:14px; }
       .info-card .ic-val { font-size:13px; }
@@ -169,9 +266,10 @@
       .access-map { min-height:200px; }
       .access-map iframe { min-height:200px; }
       .fee-grid { grid-template-columns:1fr; }
+      .related-grid { grid-template-columns:1fr; }
       .venue-cta { padding:28px 20px; border-radius:12px; }
       .venue-cta h2 { font-size:20px; }
-      /* Table → horizontal card scroll */
+      /* Table horizontal card scroll */
       .pj-table-wrap { overflow:visible; margin:0 -24px; padding:0; }
       .pj-table { display:block; }
       .pj-table thead { display:none; }
@@ -180,6 +278,8 @@
       .pj-table tbody tr { display:flex; flex-direction:column; min-width:220px; flex:0 0 auto; border:1px solid var(--border-light); border-radius:12px; padding:16px; background:#fff; gap:6px; scroll-snap-align:start; box-shadow:0 1px 4px rgba(0,0,0,.04); }
       .pj-table td { padding:2px 0; font-size:13px; }
       .pj-table td:first-child { font-weight:600; }
+      .section-nav-inner { gap:0; }
+      .section-nav-inner a { padding:12px 16px; font-size:12px; }
       .pj-footer { padding:32px 0 16px; }
       .pj-footer-grid { grid-template-columns:1fr 1fr; gap:20px; margin-bottom:24px; }
       .pj-footer-brand { grid-column:1/-1; }
@@ -250,6 +350,9 @@
     var v = VENUE_DATA[id];
     var el = document.getElementById('venue-content');
 
+    /* ==================
+       404 STATE
+       ================== */
     if (!v) {
       el.innerHTML = '<div class="not-found"><h2>会場が見つかりませんでした</h2><p>指定された会場IDは存在しません。</p><a href="asia-rooms.html">&larr; アジアポーカールームガイドに戻る</a></div>';
       document.title = '会場が見つかりません | POKER JAPAN';
@@ -258,62 +361,194 @@
 
     document.title = v.name + ' | POKER JAPAN';
 
+    /* ==================
+       HELPERS
+       ================== */
     var jpLevels = { excellent:'日本語対応◎', good:'日本語対応○', limited:'日本語対応△', none:'日本語対応なし' };
     var jpLevel = jpLevels[v.japaneseSupport.level] || '';
 
+    var recLabels = {
+      'highly-recommended': '日本人に特におすすめ',
+      'recommended': 'おすすめ',
+      'standard': '標準',
+      'niche': 'ニッチ'
+    };
+
+    function esc(s) { return s ? String(s) : ''; }
+
+    /* ==================
+       1. HERO
+       ================== */
     var photoHtml = v.photo
-      ? '<div class="hero-photo"><img src="'+v.photo+'" alt="'+v.name+'"/></div>'
+      ? '<div class="hero-photo"><img src="'+v.photo+'" alt="'+esc(v.name)+'"/></div>'
       : '<div class="hero-photo-placeholder">'+v.flag+'</div>';
 
     var tagsHtml = '';
     if (v.tags) v.tags.forEach(function(t){
       var cls = t.indexOf('日本語') > -1 ? ' jp' : '';
-      tagsHtml += '<span class="hero-tag'+cls+'">'+t+'</span>';
+      tagsHtml += '<span class="hero-tag'+cls+'">'+esc(t)+'</span>';
     });
 
-    // Stakes table
+    var recBadgeHtml = '';
+    if (v.recommendation && recLabels[v.recommendation]) {
+      recBadgeHtml = '<div class="hero-rec-badge '+v.recommendation+'">'+recLabels[v.recommendation]+'</div>';
+    }
+
+    var heroSection = ''
+      + '<section class="venue-hero"><div class="pj-width">'
+      + '<div class="venue-breadcrumb"><a href="../index.html">ホーム</a> &gt; <a href="asia-rooms.html">アジアガイド</a> &gt; <a href="asia-rooms.html">'+esc(v.countryName)+'</a> &gt; <span>'+esc(v.name)+'</span></div>'
+      + '<div class="hero-inner">'
+      + '<div class="hero-text">'
+      + '<div class="hero-flag">'+v.flag+'</div>'
+      + '<h1>'+esc(v.name)+'</h1>'
+      + '<div class="hero-name-ja">'+esc(v.nameJa)+'</div>'
+      + '<div class="hero-loc">'+esc(v.city)+' ・ '+esc(v.countryName)+'</div>'
+      + recBadgeHtml
+      + '<div class="hero-desc">'+esc(v.description)+'</div>'
+      + '<div class="hero-tags">'+tagsHtml+'</div>'
+      + '</div>'
+      + photoHtml
+      + '</div>'
+      + '</div></section>';
+
+    /* ==================
+       2. STICKY SECTION NAV
+       ================== */
+    var sectionNavHtml = ''
+      + '<nav class="section-nav" id="section-nav"><div class="pj-width">'
+      + '<div class="section-nav-inner">'
+      + '<a href="#sec-overview" data-sec="sec-overview">概要</a>'
+      + '<a href="#sec-stakes" data-sec="sec-stakes">ステークス</a>'
+      + '<a href="#sec-access" data-sec="sec-access">アクセス</a>'
+      + '<a href="#sec-jp" data-sec="sec-jp">日本語対応</a>'
+      + '<a href="#sec-tournaments" data-sec="sec-tournaments">トーナメント</a>'
+      + '<a href="#sec-hotel" data-sec="sec-hotel">ホテル</a>'
+      + '</div>'
+      + '</div></nav>';
+
+    /* ==================
+       3. AT A GLANCE (pros/cons + info grid)
+       ================== */
+    var prosHtml = '';
+    var consHtml = '';
+    if (v.pros && v.pros.length) {
+      prosHtml = '<ul class="pc-list">';
+      v.pros.forEach(function(p){ prosHtml += '<li>'+esc(p)+'</li>'; });
+      prosHtml += '</ul>';
+    } else {
+      prosHtml = '<p style="font-size:13px;color:var(--text-3);">情報は準備中です。</p>';
+    }
+    if (v.cons && v.cons.length) {
+      consHtml = '<ul class="pc-list">';
+      v.cons.forEach(function(c){ consHtml += '<li>'+esc(c)+'</li>'; });
+      consHtml += '</ul>';
+    } else {
+      consHtml = '<p style="font-size:13px;color:var(--text-3);">情報は準備中です。</p>';
+    }
+
+    var dressCode = (v.dressCode) ? esc(v.dressCode) : '特になし';
+    var smoking = (v.smoking) ? esc(v.smoking) : '情報なし';
+    var wifi = (v.wifi) ? esc(v.wifi) : '情報なし';
+    var currencyVal = '情報なし';
+    if (v.currency) {
+      currencyVal = esc(v.currency.name) + ' (' + esc(v.currency.code) + ')';
+    }
+
+    var infoHtml = ''
+      + '<div class="info-card"><div class="ic-icon">&#127918;</div><div class="ic-label">テーブル数</div><div class="ic-val">'+esc(v.tables)+'</div></div>'
+      + '<div class="info-card"><div class="ic-icon">&#128336;</div><div class="ic-label">営業時間</div><div class="ic-val">'+esc(v.hours)+'</div></div>'
+      + '<div class="info-card"><div class="ic-icon">&#127471;&#127477;</div><div class="ic-label">日本語</div><div class="ic-val">'+jpLevel+'</div></div>'
+      + '<div class="info-card"><div class="ic-icon">&#9824;&#65039;</div><div class="ic-label">ゲームタイプ</div><div class="ic-val">'+v.gameTypes.join(' / ')+'</div></div>'
+      + '<div class="info-card"><div class="ic-icon">&#128084;</div><div class="ic-label">ドレスコード</div><div class="ic-val">'+dressCode+'</div></div>'
+      + '<div class="info-card"><div class="ic-icon">&#128684;</div><div class="ic-label">喫煙</div><div class="ic-val">'+smoking+'</div></div>'
+      + '<div class="info-card"><div class="ic-icon">&#128246;</div><div class="ic-label">WiFi</div><div class="ic-val">'+wifi+'</div></div>'
+      + '<div class="info-card"><div class="ic-icon">&#128177;</div><div class="ic-label">通貨</div><div class="ic-val">'+currencyVal+'</div></div>';
+
+    var overviewSection = ''
+      + '<section class="detail-section detail-section-alt" id="sec-overview"><div class="pj-width">'
+      + '<div class="ds-title">概要</div>'
+      + '<div class="pros-cons-grid">'
+      + '<div class="pros-card"><div class="pc-header good"><span class="pc-icon">&#10003;</span> GOOD POINTS</div>'+prosHtml+'</div>'
+      + '<div class="cons-card"><div class="pc-header warn"><span class="pc-icon">&#9888;</span> WATCH OUT</div>'+consHtml+'</div>'
+      + '</div>'
+      + '<div class="info-grid">'+infoHtml+'</div>'
+      + '</div></section>';
+
+    /* ==================
+       4. JAPANESE PLAYER TIPS
+       ================== */
+    var tipsSection = '';
+    if (v.tipsForJapanese && v.tipsForJapanese.length) {
+      var tipsItems = '';
+      v.tipsForJapanese.forEach(function(tip, i){
+        tipsItems += '<div class="tip-card"><div class="tip-num">'+(i+1)+'</div><div class="tip-text">'+esc(tip)+'</div></div>';
+      });
+      tipsSection = ''
+        + '<section class="detail-section tips-section"><div class="pj-width">'
+        + '<div class="tips-header"><span class="tips-icon">&#128161;</span><h2>日本人プレイヤー向けTips</h2></div>'
+        + '<div class="tips-grid">'+tipsItems+'</div>'
+        + '</div></section>';
+    }
+
+    /* ==================
+       5. STAKES & RAKE
+       ================== */
     var stakesRows = '';
     v.stakes.forEach(function(s){
-      stakesRows += '<tr><td>'+s.game+'</td><td class="stakes">'+s.blind+'</td><td>'+s.buyIn+'</td><td>'+s.notes+'</td></tr>';
+      stakesRows += '<tr><td>'+esc(s.game)+'</td><td class="stakes">'+esc(s.blind)+'</td><td>'+esc(s.buyIn)+'</td><td>'+esc(s.notes)+'</td></tr>';
     });
 
-    // Info cards
-    var infoHtml = ''
-      + '<div class="info-card"><div class="ic-icon">&#127918;</div><div class="ic-label">テーブル数</div><div class="ic-val">'+v.tables+'</div></div>'
-      + '<div class="info-card"><div class="ic-icon">&#128336;</div><div class="ic-label">営業時間</div><div class="ic-val">'+v.hours+'</div></div>'
-      + '<div class="info-card"><div class="ic-icon">&#127471;&#127477;</div><div class="ic-label">日本語</div><div class="ic-val">'+jpLevel+'</div></div>'
-      + '<div class="info-card"><div class="ic-icon">&#9824;&#65039;</div><div class="ic-label">ゲームタイプ</div><div class="ic-val">'+v.gameTypes.join(' / ')+'</div></div>';
+    var currencyNoteHtml = '';
+    if (v.currency && v.currency.approxJPY) {
+      currencyNoteHtml = '<div class="currency-note">&#128177; 参考レート: '+esc(v.currency.approxJPY)+'</div>';
+    }
 
-    // Access
+    var stakesSection = ''
+      + '<section class="detail-section" id="sec-stakes"><div class="pj-width">'
+      + '<div class="ds-title">ステークス・レーキ</div>'
+      + '<div class="pj-table-wrap"><table class="pj-table"><thead><tr><th>ゲーム</th><th>ブラインド</th><th>バイイン</th><th>備考</th></tr></thead><tbody>'+stakesRows+'</tbody></table></div>'
+      + '<div class="rake-note"><strong>レーキ:</strong> '+esc(v.rake)+'</div>'
+      + currencyNoteHtml
+      + '</div></section>';
+
+    /* ==================
+       6. ACCESS
+       ================== */
     var mapUrl = 'https://maps.google.com/maps?q='+encodeURIComponent(v.mapQuery)+'&output=embed&z=14';
     var accessHtml = '<div class="access-grid">'
       + '<div class="access-map"><iframe src="'+mapUrl+'" loading="lazy" allowfullscreen referrerpolicy="no-referrer-when-downgrade"></iframe></div>'
       + '<div class="access-info">'
-      + '<div class="access-item"><div class="ai-label">住所</div><div class="ai-desc">'+v.address+'</div></div>'
-      + '<div class="access-item"><div class="ai-label">最寄り空港</div><div class="ai-val">'+v.airport.name+'</div><div class="ai-desc">'+v.airport.distance+'</div></div>'
-      + '<div class="access-item"><div class="ai-label">アクセス方法</div><div class="ai-desc">'+v.airport.access+'</div></div>'
+      + '<div class="access-item"><div class="ai-label">住所</div><div class="ai-desc">'+esc(v.address)+'</div></div>'
+      + '<div class="access-item"><div class="ai-label">最寄り空港</div><div class="ai-val">'+esc(v.airport.name)+'</div><div class="ai-desc">'+esc(v.airport.distance)+'</div></div>'
+      + '<div class="access-item"><div class="ai-label">アクセス方法</div><div class="ai-desc">'+esc(v.airport.access)+'</div></div>'
       + '</div></div>';
 
-    // Tournaments
-    var tourneyHtml = '';
-    if (v.tournaments.length) {
-      tourneyHtml = '<div class="tourney-list">';
-      v.tournaments.forEach(function(t){
-        tourneyHtml += '<div class="tourney-item"><div class="tourney-name">'+t.name+'</div><div class="tourney-freq">'+t.frequency+'</div><div class="tourney-buyin">'+t.buyIn+'</div></div>';
-      });
-      tourneyHtml += '</div>';
-    } else {
-      tourneyHtml = '<p style="color:var(--text-3);font-size:14px;">定期トーナメント情報はありません。</p>';
-    }
+    var accessSection = ''
+      + '<section class="detail-section detail-section-alt" id="sec-access"><div class="pj-width">'
+      + '<div class="ds-title">アクセス・最寄り空港</div>'
+      + accessHtml
+      + '</div></section>';
 
-    // Junket fees
+    /* ==================
+       7. JP SUPPORT
+       ================== */
+    var jpSection = ''
+      + '<section class="detail-section" id="sec-jp"><div class="pj-width">'
+      + '<div class="ds-title">日本語対応</div>'
+      + '<div class="jp-badge '+v.japaneseSupport.level+'">'+jpLevel+'</div>'
+      + '<div class="jp-details">'+esc(v.japaneseSupport.details)+'</div>'
+      + '</div></section>';
+
+    /* ==================
+       8. JUNKET / FEES
+       ================== */
     var feeHtml = '';
-    if (v.junketInfo && (v.junketInfo.description || v.junketInfo.items.length)) {
-      if (v.junketInfo.description) feeHtml += '<div class="fee-desc">'+v.junketInfo.description+'</div>';
-      if (v.junketInfo.items.length) {
+    if (v.junketInfo && (v.junketInfo.description || (v.junketInfo.items && v.junketInfo.items.length))) {
+      if (v.junketInfo.description) feeHtml += '<div class="fee-desc">'+esc(v.junketInfo.description)+'</div>';
+      if (v.junketInfo.items && v.junketInfo.items.length) {
         feeHtml += '<div class="fee-grid">';
         v.junketInfo.items.forEach(function(f){
-          feeHtml += '<div class="fee-item"><div class="fi-label">'+f.label+'</div><div class="fi-val">'+f.value+'</div></div>';
+          feeHtml += '<div class="fee-item"><div class="fi-label">'+esc(f.label)+'</div><div class="fi-val">'+esc(f.value)+'</div></div>';
         });
         feeHtml += '</div>';
       }
@@ -321,23 +556,50 @@
       feeHtml = '<p style="color:var(--text-3);font-size:14px;">ジャンケット情報は現在準備中です。</p>';
     }
 
-    // Hotel & amenities
+    var junketSection = ''
+      + '<section class="detail-section detail-section-alt"><div class="pj-width">'
+      + '<div class="ds-title">ジャンケット・費用</div>'
+      + feeHtml
+      + '</div></section>';
+
+    /* ==================
+       9. TOURNAMENTS
+       ================== */
+    var tourneyHtml = '';
+    if (v.tournaments && v.tournaments.length) {
+      tourneyHtml = '<div class="tourney-list">';
+      v.tournaments.forEach(function(t){
+        tourneyHtml += '<div class="tourney-item"><div class="tourney-name">'+esc(t.name)+'</div><div class="tourney-freq">'+esc(t.frequency)+'</div><div class="tourney-buyin">'+esc(t.buyIn)+'</div></div>';
+      });
+      tourneyHtml += '</div>';
+    } else {
+      tourneyHtml = '<p style="color:var(--text-3);font-size:14px;">定期トーナメント情報はありません。</p>';
+    }
+
+    var tournamentsSection = ''
+      + '<section class="detail-section" id="sec-tournaments"><div class="pj-width">'
+      + '<div class="ds-title">トーナメント</div>'
+      + tourneyHtml
+      + '</div></section>';
+
+    /* ==================
+       10. HOTEL
+       ================== */
     var hotelHtml = '';
     if (v.hotel && v.hotel.name) {
-      hotelHtml += '<div class="hotel-header"><div class="hotel-name">'+v.hotel.name+'</div>';
-      if (v.hotel.rating) hotelHtml += '<div class="hotel-rating">'+v.hotel.rating+'</div>';
+      hotelHtml += '<div class="hotel-header"><div class="hotel-name">'+esc(v.hotel.name)+'</div>';
+      if (v.hotel.rating) hotelHtml += '<div class="hotel-rating">'+esc(v.hotel.rating)+'</div>';
       hotelHtml += '</div>';
       if (v.hotel.amenities && v.hotel.amenities.length) {
         hotelHtml += '<div class="amenity-list">';
-        v.hotel.amenities.forEach(function(a){ hotelHtml += '<span class="amenity-tag">'+a+'</span>'; });
+        v.hotel.amenities.forEach(function(a){ hotelHtml += '<span class="amenity-tag">'+esc(a)+'</span>'; });
         hotelHtml += '</div>';
       }
-      // Dining
       if (v.dining && v.dining.length) {
         hotelHtml += '<div style="margin-top:24px;"><div style="font-size:14px;font-weight:600;margin-bottom:12px;">レストラン</div>';
         hotelHtml += '<div style="display:flex;flex-wrap:wrap;gap:8px;">';
         v.dining.forEach(function(d){
-          hotelHtml += '<span class="amenity-tag">'+d.name+' ('+d.type+') '+d.price+'</span>';
+          hotelHtml += '<span class="amenity-tag">'+esc(d.name)+' ('+esc(d.type)+') '+esc(d.price)+'</span>';
         });
         hotelHtml += '</div></div>';
       }
@@ -345,64 +607,126 @@
       hotelHtml = '<p style="color:var(--text-3);font-size:14px;">ホテル情報は現在準備中です。</p>';
     }
 
-    // Build page
-    el.innerHTML = ''
-      // Hero
-      + '<section class="venue-hero"><div class="pj-width">'
-      + '<div class="venue-breadcrumb"><a href="../index.html">ホーム</a> &gt; <a href="asia-rooms.html">アジアガイド</a> &gt; <a href="asia-rooms.html">'+v.countryName+'</a> &gt; <span>'+v.name+'</span></div>'
-      + '<div class="hero-inner">'
-      + '<div class="hero-text">'
-      + '<div class="hero-flag">'+v.flag+'</div>'
-      + '<h1>'+v.name+'</h1>'
-      + '<div class="hero-name-ja">'+v.nameJa+'</div>'
-      + '<div class="hero-loc">'+v.city+' ・ '+v.countryName+'</div>'
-      + '<div class="hero-desc">'+v.description+'</div>'
-      + '<div class="hero-tags">'+tagsHtml+'</div>'
-      + '</div>'
-      + photoHtml
-      + '</div>'
-      + '</div></section>'
-      // Quick info
-      + '<section class="detail-section detail-section-alt"><div class="pj-width">'
-      + '<div class="info-grid">'+infoHtml+'</div>'
-      + '</div></section>'
-      // Access
-      + '<section class="detail-section"><div class="pj-width">'
-      + '<div class="ds-title">アクセス・最寄り空港</div>'
-      + accessHtml
-      + '</div></section>'
-      // Stakes
-      + '<section class="detail-section detail-section-alt"><div class="pj-width">'
-      + '<div class="ds-title">ステークス・レーキ</div>'
-      + '<div class="pj-table-wrap"><table class="pj-table"><thead><tr><th>ゲーム</th><th>ブラインド</th><th>バイイン</th><th>備考</th></tr></thead><tbody>'+stakesRows+'</tbody></table></div>'
-      + '<div class="rake-note"><strong>レーキ:</strong> '+v.rake+'</div>'
-      + '</div></section>'
-      // JP Support
-      + '<section class="detail-section"><div class="pj-width">'
-      + '<div class="ds-title">日本語対応</div>'
-      + '<div class="jp-badge '+v.japaneseSupport.level+'">'+jpLevel+'</div>'
-      + '<div class="jp-details">'+v.japaneseSupport.details+'</div>'
-      + '</div></section>'
-      // Junket fees
-      + '<section class="detail-section detail-section-alt"><div class="pj-width">'
-      + '<div class="ds-title">ジャンケット・費用</div>'
-      + feeHtml
-      + '</div></section>'
-      // Tournaments
-      + '<section class="detail-section"><div class="pj-width">'
-      + '<div class="ds-title">トーナメント</div>'
-      + tourneyHtml
-      + '</div></section>'
-      // Hotel
-      + '<section class="detail-section detail-section-alt"><div class="pj-width">'
+    var hotelSection = ''
+      + '<section class="detail-section detail-section-alt" id="sec-hotel"><div class="pj-width">'
       + '<div class="ds-title">ホテル・施設</div>'
       + hotelHtml
-      + '</div></section>'
-      // CTA
-      + '<section class="detail-section"><div class="pj-width">'
-      + '<div class="venue-cta"><h2>'+v.name+' への予約</h2><p>POKER JAPAN経由でジャンケット手配。手数料無料。</p><a href="booking.html" class="btn-book">ジャンケット予約へ</a></div>'
-      + '<div class="last-updated">最終更新: '+v.lastUpdated+'</div>'
       + '</div></section>';
+
+    /* ==================
+       11. RELATED VENUES
+       ================== */
+    var relatedSection = '';
+    if (v.nearbyVenues && v.nearbyVenues.length) {
+      var relatedCards = '';
+      v.nearbyVenues.forEach(function(nid){
+        var nv = VENUE_DATA[nid];
+        if (!nv) return;
+        var nvImg = nv.photo
+          ? '<img class="related-card-img" src="'+nv.photo+'" alt="'+esc(nv.name)+'"/>'
+          : '<div class="related-card-placeholder">'+nv.flag+'</div>';
+        var nvRec = '';
+        if (nv.recommendation && recLabels[nv.recommendation]) {
+          nvRec = '<span class="related-rec-badge '+nv.recommendation+'">'+recLabels[nv.recommendation]+'</span>';
+        }
+        relatedCards += ''
+          + '<a class="related-card" href="venue-detail.html?id='+nid+'">'
+          + nvImg
+          + '<div class="related-card-body">'
+          + '<h3>'+esc(nv.name)+'</h3>'
+          + '<div class="related-card-city">'+esc(nv.city)+' ・ '+esc(nv.countryName)+'</div>'
+          + nvRec
+          + '</div>'
+          + '</a>';
+      });
+      if (relatedCards) {
+        relatedSection = ''
+          + '<section class="detail-section"><div class="pj-width">'
+          + '<div class="ds-title">近くの会場</div>'
+          + '<div class="related-grid">'+relatedCards+'</div>'
+          + '</div></section>';
+      }
+    }
+
+    /* ==================
+       12. CTA
+       ================== */
+    var ctaSection = ''
+      + '<section class="detail-section detail-section-alt"><div class="pj-width">'
+      + '<div class="venue-cta"><h2>'+esc(v.name)+' への予約</h2><p>POKER JAPAN経由でジャンケット手配。手数料無料。</p><a href="booking.html" class="btn-book">ジャンケット予約へ</a></div>'
+      + '<div class="last-updated">最終更新: '+esc(v.lastUpdated)+'</div>'
+      + '</div></section>';
+
+    /* ==================
+       ASSEMBLE PAGE
+       ================== */
+    el.innerHTML = ''
+      + heroSection
+      + sectionNavHtml
+      + overviewSection
+      + tipsSection
+      + stakesSection
+      + accessSection
+      + jpSection
+      + junketSection
+      + tournamentsSection
+      + hotelSection
+      + relatedSection
+      + ctaSection;
+
+    /* ==================
+       STICKY NAV - ACTIVE STATE TRACKING
+       ================== */
+    var navEl = document.getElementById('section-nav');
+    var navLinks = navEl ? navEl.querySelectorAll('a[data-sec]') : [];
+    var sectionIds = [];
+    navLinks.forEach(function(a){ sectionIds.push(a.getAttribute('data-sec')); });
+
+    function updateActiveNav() {
+      var scrollY = window.scrollY + 160;
+      var currentId = '';
+      sectionIds.forEach(function(sid){
+        var sec = document.getElementById(sid);
+        if (sec && sec.offsetTop <= scrollY) {
+          currentId = sid;
+        }
+      });
+      navLinks.forEach(function(a){
+        if (a.getAttribute('data-sec') === currentId) {
+          a.classList.add('active');
+        } else {
+          a.classList.remove('active');
+        }
+      });
+      // Shadow on scroll
+      if (navEl) {
+        if (window.scrollY > 200) {
+          navEl.classList.add('scrolled');
+        } else {
+          navEl.classList.remove('scrolled');
+        }
+      }
+    }
+
+    var scrollTimeout;
+    window.addEventListener('scroll', function(){
+      if (scrollTimeout) cancelAnimationFrame(scrollTimeout);
+      scrollTimeout = requestAnimationFrame(updateActiveNav);
+    }, { passive:true });
+    updateActiveNav();
+
+    // Smooth scroll for nav links (handled by CSS scroll-behavior, but ensure offset)
+    navLinks.forEach(function(a){
+      a.addEventListener('click', function(e){
+        e.preventDefault();
+        var target = document.getElementById(this.getAttribute('data-sec'));
+        if (target) {
+          var top = target.offsetTop - 140;
+          window.scrollTo({ top:top, behavior:'smooth' });
+        }
+      });
+    });
+
   })();
   </script>
 </body>
