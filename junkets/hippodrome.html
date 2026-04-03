@@ -510,17 +510,6 @@
     </div>
   </footer>
 
-<script>
-(function(){
-  if(localStorage.getItem('pj_logged_in')){
-    var l=document.getElementById('hdr-login');if(l)l.style.display='none';
-    var r=document.getElementById('hdr-register');if(r)r.style.display='none';
-    var p=document.getElementById('hdr-profile');if(p)p.style.display='';
-    var ml=document.getElementById('mob-login');if(ml)ml.style.display='none';
-    var mp=document.getElementById('mob-profile');if(mp)mp.style.display='';
-  }
-})();
-</script>
-
+<script type="module" src="/src/junkets/common.ts"></script>
 </body>
 </html>

@@ -639,53 +639,6 @@
     </div>
   </footer>
 
-  <!-- Tab Filter JS -->
-  <script>
-    (function() {
-      var tabs = document.querySelectorAll('.tab-item[data-filter]');
-      var items = document.querySelectorAll('.news-item[data-category]');
-      var sidebarFilters = document.querySelectorAll('[data-sidebar-filter]');
-
-      function filterNews(category, activeEl) {
-        tabs.forEach(function(t) { t.classList.remove('active'); });
-        if (activeEl) activeEl.classList.add('active');
-
-        items.forEach(function(item) {
-          if (category === 'all' || item.getAttribute('data-category') === category) {
-            item.style.display = '';
-          } else {
-            item.style.display = 'none';
-          }
-        });
-      }
-
-      tabs.forEach(function(tab) {
-        tab.addEventListener('click', function() {
-          filterNews(this.getAttribute('data-filter'), this);
-        });
-      });
-
-      sidebarFilters.forEach(function(el) {
-        el.addEventListener('click', function() {
-          var cat = this.getAttribute('data-sidebar-filter');
-          var matchingTab = document.querySelector('.tab-item[data-filter="' + cat + '"]');
-          filterNews(cat, matchingTab);
-        });
-      });
-    })();
-  </script>
-
-<script>
-(function(){
-  if(localStorage.getItem('pj_logged_in')){
-    var l=document.getElementById('hdr-login');if(l)l.style.display='none';
-    var r=document.getElementById('hdr-register');if(r)r.style.display='none';
-    var p=document.getElementById('hdr-profile');if(p)p.style.display='';
-    var ml=document.getElementById('mob-login');if(ml)ml.style.display='none';
-    var mp=document.getElementById('mob-profile');if(mp)mp.style.display='';
-  }
-})();
-</script>
-
+  <script type="module" src="/src/pages/news.ts"></script>
 </body>
 </html>

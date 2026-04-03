@@ -582,48 +582,6 @@
     </div>
   </footer>
 
-  <!-- Filter Script -->
-  <script>
-    (function() {
-      var tabs = document.querySelectorAll('.tab-item[data-level]');
-      var items = document.querySelectorAll('.article-item[data-level]');
-      var sections = document.querySelectorAll('.cat-section[data-category]');
-
-      tabs.forEach(function(tab) {
-        tab.addEventListener('click', function() {
-          var level = this.getAttribute('data-level');
-
-          tabs.forEach(function(t) { t.classList.remove('active'); });
-          this.classList.add('active');
-
-          if (level === 'all') {
-            items.forEach(function(c) { c.style.display = ''; });
-            sections.forEach(function(s) { s.style.display = ''; });
-          } else {
-            items.forEach(function(c) {
-              c.style.display = c.getAttribute('data-level') === level ? '' : 'none';
-            });
-            sections.forEach(function(s) {
-              var visible = s.querySelectorAll('.article-item[data-level="' + level + '"]');
-              s.style.display = visible.length === 0 ? 'none' : '';
-            });
-          }
-        });
-      });
-    })();
-  </script>
-
-<script>
-(function(){
-  if(localStorage.getItem('pj_logged_in')){
-    var l=document.getElementById('hdr-login');if(l)l.style.display='none';
-    var r=document.getElementById('hdr-register');if(r)r.style.display='none';
-    var p=document.getElementById('hdr-profile');if(p)p.style.display='';
-    var ml=document.getElementById('mob-login');if(ml)ml.style.display='none';
-    var mp=document.getElementById('mob-profile');if(mp)mp.style.display='';
-  }
-})();
-</script>
-
+  <script type="module" src="/src/pages/strategy.ts"></script>
 </body>
 </html>

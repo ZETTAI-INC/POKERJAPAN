@@ -950,25 +950,6 @@
     </div>
   </footer>
 
-  <script>
-  (function(){
-    var tabs = document.querySelectorAll('.ctab');
-    var sections = document.querySelectorAll('.country-section');
-    tabs.forEach(function(tab){
-      tab.addEventListener('click', function(){
-        var c = this.getAttribute('data-country');
-        tabs.forEach(function(t){ t.classList.remove('active'); });
-        this.classList.add('active');
-        sections.forEach(function(s){ s.classList.remove('active'); });
-        document.getElementById('sec-' + c).classList.add('active');
-        window.scrollTo({top: document.querySelector('.country-tabs').offsetTop - 64, behavior:'smooth'});
-      });
-    });
-    // Venue card click → detail page
-    document.querySelectorAll('.venue-card[data-venue]').forEach(function(card){
-      card.addEventListener('click', function(){ window.location.href = 'venue-detail.html?id=' + this.getAttribute('data-venue'); });
-    });
-  })();
-  </script>
+  <script type="module" src="/src/pages/asia-rooms.ts"></script>
 </body>
 </html>
